@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source /opt/ros/kinetic/setup.bash
+source ~/vxlab_ws/devel/setup.bash
+source ~/rosenv.bash
+
+#rosrun voice_recognition ledindicator.py &
+#rosrun voice_recognition red_ears.py &
+
+rosrun voice_recognition red_speech2text.py
