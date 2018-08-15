@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+#Do I add this in? I think I have to for copyright...
+
 # Copyright (c) 2013-2015, Rethink Robotics
 # All rights reserved.
 #
@@ -26,33 +28,6 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-
-'''
-#debug
-
-import rospy
-
-from std_msgs.msg import String
-from std_msgs.msg import Float32MultiArray
-
-def distanceCallback(data):
-    rospy.loginfo(rospy.get_caller_id() + " Distance, %s", data.data)
-def angleCallback(data):
-    rospy.loginfo(rospy.get_caller_id() + " Angle, %s", data.data)
-
-def main():
-    rospy.init_node('par_follow_rotate', anonymous=True)
-
-    # subscribes to publisher generated from lidar_detect_crowd.py
-    rospy.Subscriber("/input/lidar/distances", Float32MultiArray, distanceCallback)
-    rospy.Subscriber("/input/lidar/angles", Float32MultiArray, angleCallback)
-
-    # spin() simply keeps python from exiting until this node is stopped
-    rospy.spin()
-
-if __name__ == '__main__':
-    main()
-'''
 
 import argparse
 import random
@@ -108,59 +83,45 @@ class DetectIndividual(object):
 		#self._head.set_pan(data)
         self._head.set_pan(data, speed=0.3, timeout=3)
 
-#is this not ran at all?
-#I guess no auto callback inheritence?
-#I'll go comment it out for now
-'''
-def callback(data):
-    print "\ninside callback"
-    radian = math.radians(data.data);
-    radianFormatted = float("{0:.3f}".format(radian))
-    wobbler = DetectIndividual()
-    wobbler.set_head(radianFormatted-3.14)
-    print radian-3.14
-'''
-
 #this runs for sure
 def angle_callback(data):
     global start_time
-    global timer
-    print "\ninside angle crowd callback"
+    angleData = data.data
     avgAnglesEdited = data.data
     #print str(["{0:3.1f}".format(item) for item in avgAnglesEdited]).replace("'", "")
     wobbler = DetectIndividual()
-    elapsed_time = time.time() - start_time
-    print elapsed_time
-    timer +=1
-    if (timer%4==0):
-        for item in avgAnglesEdited:
-            radian = math.radians(item);
-            radianFormatted = float("{0:.3f}".format(radian))
-            wobbler.set_head(radianFormatted-3.14)
-            print timer
-            #time.sleep(2)
-    else:
-        global globvar  
-        globvar=0
-        counter=0
-        for item in avgAnglesEdited:
-            globvar= globvar+item
-            counter=counter+1
-        if (counter>0):
-            average =globvar/counter;
-            radian = math.radians(average);
-            radianFormatted = float("{0:.3f}".format(radian))
-            wobbler.set_head(radianFormatted-3.14)
-            print average
-            print radianFormatted
-            print radianFormatted-3.14
-            print counter
+    #elapsed_time = time.time() - start_time
+    #print elapsed_time
+    global globvar  
+    try:
+        closestAngle = angleData[closestDistID]
+        radian = math.radians(closestAngle);
+        radianFormatted = float("{0:.3f}".format(radian))
+        wobbler.set_head(radianFormatted-3.14)
+        '''
+        print average
+        print radianFormatted
+        print radianFormatted-3.14
+        print counter
+        '''
+        print data.data
+        print "Does this make sense? " + str(closestAngle) + "\n"
+    except:
+        print "Error!"
 
 #prototype code of discovering closest target
 #get obj number
 def dist_callback(data):
-    print "\ninside angle crowd callback"
-    global objCounter = 0
+    global closestDistID 
+    ctr = 0
+    distData = data.data
+    minDist = min(distData)
+    for dist in distData:
+        if (dist == minDist):
+            closestDistID = ctr
+            break
+        ctr += 1
+            
 
 def main():
     arg_fmt = argparse.RawDescriptionHelpFormatter
@@ -172,9 +133,11 @@ def main():
     print("Initializing node... ")
     rospy.init_node("crowdvsIndividualMode_detection", anonymous=True)
     wobbler =DetectIndividual();
-    rospy.Subscriber("/input/lidar/angles",Float32MultiArray,angle_callback)
+    # subscribes to publisher generated from lidar_detect_crowd.py
     rospy.Subscriber("/input/lidar/distances",Float32MultiArray,dist_callback)
+    rospy.Subscriber("/input/lidar/angles",Float32MultiArray,angle_callback)
     time.sleep(1)
+    # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
 
 if __name__ == '__main__':
