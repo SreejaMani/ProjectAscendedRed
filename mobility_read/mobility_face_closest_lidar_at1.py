@@ -30,7 +30,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 import argparse
-import random
 import math
 import time
 import rospy
@@ -41,86 +40,119 @@ from std_msgs.msg import Float32MultiArray
 from geometry_msgs.msg import Twist
 
 DEADZONE = 20 #deadzone angle from centre of Red
-ROTATION_SPEED = math.pi/8 #takes about 16 seconds to do one rotation
+ROTATION_SPEED = math.pi/8 #pi/8 (takes about 16 seconds to do one rotation)
 
-#psudo-thread to continuously publish to safebase
-def timer_callback(event):
-	print twist_output.angular.z
-	pub.publish(twist_output)
-
-#this runs for sure
+#Callback for angle publisher, grabs angle of "objects" detected by lidar
 def angle_callback(data):
-	global twist_output
+	#global start_time
+	#this might get handy here
+	#elapsed_time = time.time() - start_time
+	#print elapsed_time
 	angleData = data.data
 	try:
-		if len(angleData) != 0:
-			closestAngle = angleData[closestDistID]
-			print rotate_your_owl(closestAngle)
-			twist_output = rotate_your_owl(closestAngle) 
-			#radian = math.radians(closestAngle);
+		closestAngle = angleData[closestDistID]
+		radian = math.radians(closestAngle)
+		print data.data
+		print "Closest angle: " + str(closestAngle) + "\n"
+		#motionTimed(rotate_your_owl(closestAngle), calcTimeAway(closestAngle));
+		moveLoop(rotate_your_owl(closestAngle), closestAngle)
 	except:
-		pass
+		print "No angle"
 
 #prototype code of discovering closest target
 #get obj number
 def dist_callback(data):
 	global closestDistID 
 	ctr = 0
+	distData = data.data
 	try:
-		distData = data.data
-		if len(distData) != 0:
-			minDist = min(distData)
-			for dist in distData:
-				if (dist == minDist):
-					closestDistID = ctr
-					break
-				ctr += 1
+		minDist = min(distData)
+		for dist in distData:
+			if (dist == minDist):
+				closestDistID = ctr
+				break
+			ctr += 1
 	except:
-		pass
+		print "Nothing close by!"
 
-#returns twist info depending on angle
-def rotate_your_owl(angle):
+def rotate_your_owl(targetAngle):
 	#defines no roation
+	global zero_twist
 	zero_twist = Twist()
-	zero_twist.angular.z = 0.0
+	zero_twist.angular.z = 0
 	#defines clockwise rotation
+	global clockwise_twist
 	clockwise_twist = Twist()
 	clockwise_twist.angular.z = ROTATION_SPEED
 	#defines anticlockwise rotation
+	global anticlockwise_twist
 	anticlockwise_twist = Twist()
 	anticlockwise_twist.angular.z = -ROTATION_SPEED
 
-	#if detects person to Red's right
-	if angle < 180 - DEADZONE and angle > 90:
-		print "ret anti"
+	#turns anticlockwise if detects person to Red's right
+	if targetAngle < 180 - DEADZONE and targetAngle > 90:
 		return anticlockwise_twist
-	#if detects person to Red's left
-	elif angle > 180 + DEADZONE < 270:
-		print "ret clock"
+	#turns clockwise if detects person to Red's left
+	elif targetAngle > 180 + DEADZONE < 270:
 		return clockwise_twist
-	#else (if within deadzone)
-	print "ret zero"
+	#if within deadzone, don't turn
 	return zero_twist
 
-#main thread
+#calculate time it takes for Red to turn
+def calcTimeAway(targetAngle):
+	deltaAngle = targetAngle - 180
+	duration = 0
+	try:
+		duration = degreesToRad(abs(deltaAngle)) / (ROTATION_SPEED / math.pi)
+		"""
+		print "degrees = " + str(abs(duration))
+		print "degreesToRad = " + str(degreesToRad(abs(duration)))
+		print "ROTATION_SPEED = " + str(ROTATION_SPEED)
+		"""
+	except:
+		pass
+	return duration
+
+#convert degrees to radians
+def degreesToRad(degrees):
+	return degrees * math.pi / 180
+
+"""
+#do a twist motion for certain duration
+def motionTimed(twist, duration):
+	pub.publish(twist)
+	rospy.sleep(duration)
+	#time.sleep(duration)
+"""
+
+def moveLoop(twist, angle):
+	t0 = rospy.Time.now().to_sec()
+	t1 = rospy.Time.now().to_sec()
+	duration = calcTimeAway(angle)
+	
+	while(t1 - t0 < duration):
+		print "Twistin! ", round((t1-t0), 2),  " out of ", round(duration, 2)
+		t1 = rospy.Time.now().to_sec()
+		pub.publish(twist)
+
 def main():
-	#init
-	#update publisher
-	global pub
-	pub = rospy.Publisher('/safebase/cmd_vel', Twist, queue_size=1)
+	arg_fmt = argparse.RawDescriptionHelpFormatter
+	parser = argparse.ArgumentParser(formatter_class=arg_fmt, description=main.__doc__)
+	parser.parse_args(rospy.myargv()[1:])
+
+	# Test the input lidar code before the head wobbler
+	print("Initializing node... ")
+	rospy.init_node("mobility_face_closest_wlidar", anonymous=True)
 
 	# subscribes to publisher generated from lidar_detect_crowd.py
 	rospy.Subscriber("/input/lidar/distances",Float32MultiArray,dist_callback)
 	rospy.Subscriber("/input/lidar/angles",Float32MultiArray,angle_callback)
 
-	print("Initializing node... ")
-	rospy.init_node("face_closest_person", anonymous=True)
-
-	global twist_output
-	twist_output = Twist()
-
-	rospy.Timer(rospy.Duration(0.1), timer_callback)
-
+	# publishers to give safebase some movement input
+	global pub
+	pub = rospy.Publisher('/safebase/cmd_vel', Twist, queue_size=1)
+		#????time.sleep(1)
+	
 	# spin() simply keeps python from exiting until this node is stopped
 	rospy.spin()
 

@@ -86,47 +86,5 @@ def motion_demo():
   vel.angular.z = 0
   simple_motion(vel, dist/speed)
 
-  # North-East
-  vel.linear.x = 0.707 * speed
-  vel.linear.y = -0.707 * speed
-  vel.angular.z = 0
-  simple_motion(vel, dist/speed)
-  
-  # East
-  vel.linear.x = 0
-  vel.linear.y = -speed
-  vel.angular.z = 0
-  simple_motion(vel, dist/speed)
-  
-  # South-East
-  vel.linear.x = -0.707 * speed
-  vel.linear.y = -0.707 * speed
-  vel.angular.z = 0
-  simple_motion(vel, dist/speed)
-
-  # South
-  vel.linear.x = -speed
-  vel.linear.y = 0
-  vel.angular.z = 0
-  simple_motion(vel, dist/speed)
-
-  # South-West
-  vel.linear.x = -0.707 * speed
-  vel.linear.y = 0.707 * speed
-  vel.angular.z = 0
-  simple_motion(vel, dist/speed)
-
-  # West
-  vel.linear.x = 0
-  vel.linear.y = speed
-  vel.angular.z = 0
-  simple_motion(vel, dist/speed)
-
-  # North-West
-  vel.linear.x = 0.707 * speed
-  vel.linear.y = 0.707 * speed
-  vel.angular.z = 0
-  simple_motion(vel, dist/speed)
-
 if __name__ == '__main__':
   motion_demo()
