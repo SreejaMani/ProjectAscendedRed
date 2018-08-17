@@ -45,31 +45,33 @@ ROTATION_SPEED = math.pi/8 #takes about 16 seconds to do one rotation
 
 #psudo-thread to continuously publish to safebase
 def timer_callback(event):
-	print twist_output.angular.z
 	pub.publish(twist_output)
 
-#this runs for sure
+#callback for lidar detect group angle information
 def angle_callback(data):
 	global twist_output
-	angleData = data.data
+	angleData = data.data #obtain data
 	try:
+		#if callback isn't empty
 		if len(angleData) != 0:
+			#obtain  angle of closest object
 			closestAngle = angleData[closestDistID]
-			print rotate_your_owl(closestAngle)
+			#update twist output
 			twist_output = rotate_your_owl(closestAngle) 
 			#radian = math.radians(closestAngle);
 	except:
 		pass
 
-#prototype code of discovering closest target
-#get obj number
+#callback for lidar detect group distance information
 def dist_callback(data):
 	global closestDistID 
 	ctr = 0
+	distData = data.data #obtain data
 	try:
-		distData = data.data
+		#if callback isn't empty
 		if len(distData) != 0:
 			minDist = min(distData)
+			#obtain ID of closest object
 			for dist in distData:
 				if (dist == minDist):
 					closestDistID = ctr
@@ -92,14 +94,11 @@ def rotate_your_owl(angle):
 
 	#if detects person to Red's right
 	if angle < 180 - DEADZONE and angle > 90:
-		print "ret anti"
 		return anticlockwise_twist
 	#if detects person to Red's left
 	elif angle > 180 + DEADZONE < 270:
-		print "ret clock"
 		return clockwise_twist
 	#else (if within deadzone)
-	print "ret zero"
 	return zero_twist
 
 #main thread
