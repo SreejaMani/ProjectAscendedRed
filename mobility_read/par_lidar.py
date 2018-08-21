@@ -35,61 +35,63 @@ import math
 import time
 import rospy
 
+from sensor_msgs.msg import LaserScan
+from std_msgs.msg import Float32
+from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Int32
-from geometry_msgs.msg import Twist
+ 
+publishRate = 20 #publish rate
+publishCounter = 0 #counter to track publish rate
 
-DEADZONE = 15 #deadzone angle to left and right of centre
-ROTATION_SPEED = math.pi/8 #takes about 16 seconds to do one rotation
-
-#psudo-thread to continuously publish to safebase
-def timer_callback(event):
-	pub.publish(twist_output)
-
-#callback for lidar detect group angle information
+# callback for lidar raw info
+# data.ranges and data.intensities
+# index is from 0..3599, where
+# - 0 is rear
+# - 900 is (base's) right
+# - 1800 is front
+# - 2700 is (base's) left
 def callback(data):
-	global twist_output
-	twist_output = rotate_your_owl(int(data.data))
+	global publishCounter
+	if publishCounter == publishRate:
+		minAngle = int(scan(data, 950, 2650)/10)
+		rospy.loginfo("Closest angle = %d", minAngle)
+		pub.publish(minAngle)
+		publishCounter = 0
+	publishCounter += 1
 
-#returns twist info depending on angle
-def rotate_your_owl(angle):
-	#defines no roation
-	zero_twist = Twist()
-	zero_twist.angular.z = 0.0
-	#defines clockwise rotation
-	clockwise_twist = Twist()
-	clockwise_twist.angular.z = ROTATION_SPEED
-	#defines anticlockwise rotation
-	anticlockwise_twist = Twist()
-	anticlockwise_twist.angular.z = -ROTATION_SPEED
+# scans the values from min to max
+def scan(data, min, max):
+	minDist = 500 #tracks smallest distance encountered
+		      #also defines smallest distance to track
+	minAngle = -1 #tracks angle of the smallest distance
 
-	#if detects person to Red's right
-	if angle < 180 - DEADZONE and angle > 90:
-		return anticlockwise_twist
-	#if detects person to Red's left
-	elif angle > 180 + DEADZONE < 270:
-		return clockwise_twist
-	#else (if within deadzone)
-	return zero_twist
+	#while scanning within range of method
+	i = min
+	while i < max:
+		#exclude the disruptions caused by the 4 bars around the lidar
+		#note: only accounts for two bars infront, not the two behind
+		if (i in range(1340, 1370)) or (i in range(2240, 2270)):
+			i += 1
+			continue
+		#if the distance encountered is the smaller than recorded
+		if (data.ranges[i] < minDist):
+			#update minDist to new smallest distance
+			minDist = data.ranges[i]
+			#update minAngle to angle of the above distance
+			minAngle = i
+		i += 1
+	return minAngle 
 
-#main thread
+# main thread
 def main():
-	#init
-	#update publisher
-	global pub
-	pub = rospy.Publisher('/safebase/cmd_vel', Twist, queue_size=1)
-
-	# subscribes to publisher generated from lidar_detect_crowd.py
-
 	print("Initializing node... ")
-	rospy.init_node("face_closest_person", anonymous=True)
-	rospy.Subscriber("/par/closest_lidar/",Int32,callback)
+	global pub
+	pub = rospy.Publisher('par/closest_lidar', Int32, queue_size=4)
+	rospy.init_node("par_lidar", anonymous=True)
+	#subscribe to lidar and call callback method
+	rospy.Subscriber('/laser_birdcage_r2000/scan',LaserScan, callback)
 
-	global twist_output
-	twist_output = Twist()
-
-	rospy.Timer(rospy.Duration(0.1), timer_callback)
-
-	# spin() simply keeps python from exiting until this node is stopped
+	#spin() simply keeps python from exiting until this node is stopped
 	rospy.spin()
 
 if __name__ == '__main__':
