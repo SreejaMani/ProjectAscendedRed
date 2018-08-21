@@ -36,14 +36,10 @@ import time
 import rospy
 
 import baxter_interface
+from std_msgs.msg import Int32
 
 from baxter_interface import CHECK_VERSION
-from std_msgs.msg import Float32
-from std_msgs.msg import Float32MultiArray
 
-globvar = 0
-timer =0
-start_time = time.time()
 class DetectIndividual(object):
 	def __init__(self):
 		"""
@@ -83,57 +79,23 @@ class DetectIndividual(object):
 		self._head.set_pan(data, speed=0.3, timeout=3)
 
 #this runs for sure
-def angle_callback(data):
-	global start_time
-	angleData = data.data
-	avgAnglesEdited = data.data
-	#print str(["{0:3.1f}".format(item) for item in avgAnglesEdited]).replace("'", "")
+def callback(data):
 	wobbler = DetectIndividual()
-	#elapsed_time = time.time() - start_time
-	#print elapsed_time
-	global globvar  
 	try:
-		closestAngle = angleData[closestDistID]
-		radian = math.radians(closestAngle);
+		radian = math.radians(int(data.data));
 		radianFormatted = float("{0:.3f}".format(radian))
 		wobbler.set_head(radianFormatted-3.14)
-		'''
-		print average
-		print radianFormatted
-		print radianFormatted-3.14
-		print counter
-		'''
-		print data.data
-		print "Does this make sense? " + str(closestAngle) + "\n"
 	except:
 		print "Error!"
 
-#prototype code of discovering closest target
-#get obj number
-def dist_callback(data):
-	global closestDistID 
-	ctr = 0
-	distData = data.data
-	minDist = min(distData)
-	for dist in distData:
-		if (dist == minDist):
-			closestDistID = ctr
-			break
-		ctr += 1
-
 def main():
-	arg_fmt = argparse.RawDescriptionHelpFormatter
-	parser = argparse.ArgumentParser(formatter_class=arg_fmt, description=main.__doc__)
-	parser.parse_args(rospy.myargv()[1:])
-
 	# Test the input lidar code before the head wobbler
 	print("Initializing node... ")
-	rospy.init_node("crowdvsIndividualMode_detection", anonymous=True)
+	rospy.init_node("look_closest_person", anonymous=True)
 	wobbler =DetectIndividual();
 	# subscribes to publisher generated from lidar_detect_crowd.py
-	rospy.Subscriber("/input/lidar/distances",Float32MultiArray,dist_callback)
-	rospy.Subscriber("/input/lidar/angles",Float32MultiArray,angle_callback)
-	time.sleep(1)
+	rospy.Subscriber("/par/closest_lidar/",Int32,callback)
+
 	# spin() simply keeps python from exiting until this node is stopped
 	rospy.spin()
 
