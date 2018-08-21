@@ -40,7 +40,7 @@ from std_msgs.msg import Float32MultiArray
 
 from geometry_msgs.msg import Twist
 
-DEADZONE = 20 #deadzone angle from centre of Red
+DEADZONE = 20 #deadzone angle to left and right of centre
 ROTATION_SPEED = math.pi/8 #takes about 16 seconds to do one rotation
 
 #psudo-thread to continuously publish to safebase
