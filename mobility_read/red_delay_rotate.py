@@ -33,6 +33,7 @@ import argparse
 import random
 import math
 import rospy
+import time
 
 from std_msgs.msg import Int32
 from geometry_msgs.msg import Twist
@@ -40,9 +41,10 @@ from geometry_msgs.msg import Twist
 DEADZONE = 15 #deadzone angle to left and right of centre
 ROTATION_SPEED = math.pi/8 #takes about 16 seconds to do one rotation
 DELAY_ANGLE = 8
+DELAY_TIME = 2.0
 lastAngle = 0
 
-stallTime = rospy.Time()
+stallTime = time.time()
 
 #psudo-thread to continuously publish to safebase
 def timer_callback(event):
@@ -57,6 +59,12 @@ def callback(data):
 def rotate_your_owl(angle):
 	#use the global lastAngle
 	global lastAngle
+	global stallTime
+	
+	currTime = time.time()
+	deltaTime = currTime - stallTime
+	print deltaTime
+
 	#defines no roation
 	zero_twist = Twist()
 	zero_twist.angular.z = 0.0
@@ -81,17 +89,29 @@ def rotate_your_owl(angle):
 	"""
 
 	#if detects person to Red's right
-	if angle < 180 - DEADZONE and angle > 90:
-		return anticlockwise_twist
+	if angle < 180 - DEADZONE:
+		if deltaTime > DELAY_TIME:
+			print "I like to move it move it"
+			return anticlockwise_twist
+		else:
+			return zero_twist
 	#if detects person to Red's left
-	elif angle > 180 + DEADZONE < 270:
-		return clockwise_twist
+	elif angle > 180 + DEADZONE:
+		if deltaTime > DELAY_TIME:
+			print "I like to move it move it"
+			return clockwise_twist
+		else:
+			return zero_twist
 	#else (if within deadzone)
+	stallTime = time.time()
 	return zero_twist
 
 #main thread
 def main():
 	#init
+	global twist_output
+	twist_output = Twist()
+
 	#update publisher
 	global pub
 	pub = rospy.Publisher('/safebase/cmd_vel', Twist, queue_size=1)
@@ -101,9 +121,6 @@ def main():
 	print("Initializing node... ")
 	rospy.init_node("face_closest_person", anonymous=True)
 	rospy.Subscriber("/par/closest_lidar/",Int32,callback)
-
-	global twist_output
-	twist_output = Twist()
 
 	rospy.Timer(rospy.Duration(0.1), timer_callback)
 

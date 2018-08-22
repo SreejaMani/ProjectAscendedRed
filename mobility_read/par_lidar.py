@@ -40,7 +40,7 @@ from std_msgs.msg import Float32
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Int32
  
-publishRate = 20 #publish rate
+publishRate = 24 #publish rate
 publishCounter = 0 #counter to track publish rate
 
 # callback for lidar raw info
@@ -86,7 +86,7 @@ def scan(data, min, max):
 def main():
 	print("Initializing node... ")
 	global pub
-	pub = rospy.Publisher('par/closest_lidar', Int32, queue_size=4)
+	pub = rospy.Publisher('/par/closest_lidar', Int32, queue_size=4)
 	rospy.init_node("par_lidar", anonymous=True)
 	#subscribe to lidar and call callback method
 	rospy.Subscriber('/laser_birdcage_r2000/scan',LaserScan, callback)
