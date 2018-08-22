@@ -1,1 +1,4 @@
-aplay -D hw:2,0 $1
+echo 'ALSA devices'
+aplay -l
+echo 'Playback to card 3 device 0 (this may change whenever USB devices are re-initialised)'
+aplay -c 2 -D hw:3,0 $1
