@@ -39,8 +39,6 @@ from geometry_msgs.msg import Twist
 
 DEADZONE = 15 #deadzone angle to left and right of centre
 ROTATION_SPEED = math.pi/12 #sets speed of rotation
-DELAY_ANGLE = 8
-lastAngle = 0
 
 stallTime = rospy.Time()
 
@@ -66,19 +64,6 @@ def rotate_your_owl(angle):
 	#defines anticlockwise rotation
 	anticlockwise_twist = Twist()
 	anticlockwise_twist.angular.z = -ROTATION_SPEED
-
-	"""
-	#calculate angle difference of last scan
-	deltaAngle = abs(lastAngle - angle)
-	print deltaAngle
-	#if difference is greater than DELAY_ANGLE
-	if (deltaAngle > DELAY_ANGLE):
-		#don't turn
-		lastAngle = angle
-		return zero_twist
-	#update lastAngle global
-	lastAngle = angle
-	"""
 
 	#if detects person to Red's right
 	if angle < 180 - DEADZONE and angle > 90:

@@ -39,9 +39,9 @@ from std_msgs.msg import Int32
 from geometry_msgs.msg import Twist
 
 DEADZONE = 15 #deadzone angle to left and right of centre
-ROTATION_SPEED = math.pi/8 #takes about 16 seconds to do one rotation
+ROTATION_SPEED = math.pi/12 #takes about 16 seconds to do one rotation
 DELAY_ANGLE = 8
-DELAY_TIME = 2.0
+DELAY_TIME = 1.5
 lastAngle = 0
 
 stallTime = time.time()
