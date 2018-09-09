@@ -19,7 +19,6 @@ def listener(data):
 
     print 'Data:', data
     if abs(nearby_object - data.data) > 30:
-        # while running:
         happy_cmd_listener.publish(run_cmd)
         print 'published...\n'
     nearby_object = data.data
@@ -31,11 +30,10 @@ def main():
     print 'emotional red active...\n'
     happy_cmd_listener = rospy.Publisher('/robot/digital_io/torso_right_button_ok/state', DigitalIOState, latch=False, queue_size=1)
     rospy.Subscriber("/par/closest_lidar/",Int32,listener)
+
     rospy.init_node('happy_baxter_trigger')
     rospy.spin()
 
 
 if __name__ == '__main__':
     main()
-
-    #listener()

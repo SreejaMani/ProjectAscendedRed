@@ -92,7 +92,7 @@ def main():
 	# Test the input lidar code before the head wobbler
 	print("Initializing node... ")
 	rospy.init_node("look_closest_person", anonymous=True)
-	wobbler =DetectIndividual();
+	wobbler = DetectIndividual();
 	# subscribes to publisher generated from lidar_detect_crowd.py
 	rospy.Subscriber("/par/closest_lidar/",Int32,callback)
 
