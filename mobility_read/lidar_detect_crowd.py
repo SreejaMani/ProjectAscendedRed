@@ -6,12 +6,12 @@ import math
 
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import Float32MultiArray
-from std_msgs.msg import UInt8
+from std_msgs.msg import UInt32
 
 # global variables declaration
 pubDistance = rospy.Publisher('/input/lidar/distances', Float32MultiArray, queue_size=1)
 pubAngle = rospy.Publisher('/input/lidar/angles', Float32MultiArray, queue_size=1)
-numObjects = rospy.Publisher('/input/lidar/numobjects', UInt8, queue_size=1)
+numObjects = rospy.Publisher('/input/lidar/numobjects', UInt32, queue_size=1)
 
 maxNum = 10000           # used to compare distances, this number must be more than the max number the data.ranges returns
                          # (not confirmed, but currently seems to be 1048, although there seems to be numbers missing from around 300 - 1048)
@@ -202,7 +202,7 @@ def callback(data):
 
         # define the type of message to send
         msgToSend = Float32MultiArray()
-        objMsg = UInt8()
+        objMsg = UInt32()
 
         # publish the angles
         msgToSend.data = avgAnglesEdited
@@ -213,7 +213,7 @@ def callback(data):
         pubDistance.publish(msgToSend)
 
         # publish the number of objects
-        objMsg.data = objMsg
+        objMsg.data = objectCounter
         numObjects.publish(objMsg)
 
         # restart the counter to 0
