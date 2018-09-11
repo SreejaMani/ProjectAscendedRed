@@ -198,7 +198,9 @@ def callback(data):
         print "Object Found : ",
         print objectCounter
         
-        print
+        for index, item in enumerate(avgDistancesEdited) {
+            if item
+        }
 
         # define the type of message to send
         msgToSend = Float32MultiArray()

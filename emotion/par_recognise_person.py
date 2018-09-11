@@ -9,6 +9,7 @@ from nas_launch.msg import video, request
 
 from std_msgs.msg import UInt32
 from std_msgs.msg import Float32
+from std_msgs.msg import Float32MultiArray
 
 def listener(data):
 
@@ -55,22 +56,26 @@ def listener(data):
     #     print 'published...\n'
     # nearby_object_pos = data.data
 
-def main():
+#
+# def nearbyObjects(data):
+#
 
-    global emotion_listener, nearby_object_pos, num_objects
+def main():
+    global num_objects
     nearby_object_pos = 0
     num_objects = 0
     print 'Emotions active...\n'
 
     emotion_listener = rospy.Publisher('/robot/digital_io/torso_right_button_ok/state', DigitalIOState, latch=False, queue_size=1)
-    red = rospy.Publisher('/robot/sonar/head_sonar/lights/set_red_level', Float32, latch=True, queue_size=1)
-    green = rospy.Publisher('/robot/sonar/head_sonar/lights/set_green_level', Float32, latch=True, queue_size=1)
-    movie = rospy.Publisher('/video_request', request, latch=False, queue_size=3)
+
+    # rospy.Subscriber("/input/lidar/distances",Float32MultiArray,nearbyObjects)
     rospy.Subscriber("/input/lidar/numobjects",UInt32,listener)
     rospy.init_node('happy_baxter_trigger')
     rospy.spin()
 
 
 if __name__ == '__main__':
-
+    red = rospy.Publisher('/robot/sonar/head_sonar/lights/set_red_level', Float32, latch=True, queue_size=1)
+    green = rospy.Publisher('/robot/sonar/head_sonar/lights/set_green_level', Float32, latch=True, queue_size=1)
+    movie = rospy.Publisher('/video_request', request, latch=False, queue_size=3)
     main()
