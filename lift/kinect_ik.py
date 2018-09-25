@@ -7,7 +7,10 @@ import struct
 import threading
 import Queue
 import rospy
+import roslib
 from std_msgs.msg import String
+import tf
+from tf import TransformListener
 
 # for Euler
 from tf.transformations import *
@@ -137,7 +140,7 @@ def solve_move_trac(limb,ps):
 		print '***** NO SOLUTION ******',soln
 	else:
 		print 'soln',soln
-	make_move_trac(soln, limb, 0.2)
+		make_move_trac(soln, limb, 0.2)
 
 # msg: 7-vector of positions corresponding to joints
 # limb: 'left'|'right'
@@ -187,41 +190,37 @@ def pose2(pos):
             )
     return pose_right
 
+def userPose(pos):
+    q_rot = quaternion_from_euler(0.0, math.pi/2, 0.0)
+    '''
+    Create goal Pose and call ik move
+    '''
+    pose_right = Pose(
+            position=Point(
+                x=pos.x(),
+                y=pos.y(),
+                z=pos.z(),
+                ),
+            #orientation=Quaternion(
+            #    x=0,
+            #    y=1,
+            #    z=0,
+            #    w=0
+            #    ),
+            orientation=normalize(Quaternion(
+		x=q_rot[0],
+		y=q_rot[1],
+		z=q_rot[2],
+		w=q_rot[3]
+            ))
+            )
+    return pose_right
+
 #NOTE: right hand
 #index finger point left
-init_pos = Vectors.V4D(0.8,
-        -0.4,
-        0.2, 0)
-
-# turn PoseStamped of a marker into target gripper pose
-# assuming marker is 'level'
-# was "hack_pose"
-def target_from_marker(ps):
-    quaternion = (
-	ps.pose.orientation.x,
-	ps.pose.orientation.y,
-	ps.pose.orientation.z,
-	ps.pose.orientation.w)
-    # Leroy's guess
-    #q_rot = quaternion_from_euler(0.0, math.pi, math.pi/2)
-    q_rot = quaternion_from_euler(0.0, math.pi, math.pi/2)
-    q_new = quaternion_multiply(quaternion, q_rot)
-    pose_rot = PoseStamped(
-	header=ps.header,
-	pose=Pose(
-            position=Point(
-                x=ps.pose.position.x,
-                y=ps.pose.position.y,
-                z=ps.pose.position.z
-                ),
-            orientation=normalize(Quaternion(
-		x=q_new[0],
-		y=q_new[1],
-		z=q_new[2],
-		w=q_new[3]
-            ))
-    ))
-    return pose_rot
+init_pos = Vectors.V4D(0.6, #depth (z?) (inline depth 0.2) (limit 1.0)
+        -0.60, #left-right (x?) (inline 0.28) (limit 1.0)
+        0.40, 0) #height (y?) (inline height 0.40)
 
 # Quaternion -> Quaternion
 def normalize(quat):
@@ -243,27 +242,48 @@ def main():
 		pose=pose2(init_pos),
 	)
 
-	#tfBuffer = tf2_ros.Buffer()
-	#listener = tf2_ros.TransformListener(tfBuffer)
-
-	rate = rospy.Rate(10.0)
 	solve_move_trac(mylimb, myps)
 
-	"""
-	while not rospy.is_shutdown():
-		try:
-			print "hello world"
-			#TODO: use this to create pose
-			trans = tfBuffer.lookup_transform('camera_link', 'cob_body_tracker/user_1/torso', rospy.Time())
-			buffTFLSE = tfBuffer.lookup_transform('cob_body_tracker/user_1/left_shoulder', 'cob_body_tracker/user_1/left_elbow', rospy.Time())
-		#except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
-		except:
-			rate.sleep()
-			continue
+	rate = rospy.Rate(1000.0)
+	#main loop
+        while not rospy.is_shutdown():
+                try:
+			#defines the pose of the child from the parent
+                        buffUserLeft = tf_buffer.lookup_transform('cob_body_tracker/user_2/left_shoulder', 'cob_body_tracker/user_2/left_hand', rospy.Time())
+			#get translations
+                        x = buffUserLeft.transform.translation.x
+                        y = buffUserLeft.transform.translation.y
+                        z = buffUserLeft.transform.translation.z
 
-                #print math.degrees(-(pitch - 180))
+			#translate the translations
+			tranRightX = -z * 1.0 + 0.2
+			tranRightY =  x * 1.1 - 0.28
+			tranRightZ =  y * 0.0 + 0.40 #locked for now
+
+		#catch and continue after refresh rate
+                except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+                        rate.sleep()
+                        continue
+
+                #print buffUserLeft
+		print "test x ", tranRightX
+		print "test y ", tranRightY
+		print "test z ", tranRightZ
+		print ""
+
+		user_pos = Vectors.V4D(tranRightX, #depth (z?) (inline depth 0.2) (limit 1.0)
+			tranRightY, #left-right (x?) (inline 0.28) (limit 1.0)
+			tranRightZ, 0) #height (y?) (inline height 0.40)
+
+		leftArmPose = PoseStamped(
+			header=Header(stamp=rospy.Time.now(), frame_id='base'),
+			pose=userPose(user_pos),
+		)
+
+		solve_move_trac(mylimb, leftArmPose)
+
+		#Refresh rate
                 rate.sleep()
-	"""
 
 if __name__ == '__main__':
         main()
