@@ -76,7 +76,7 @@ class DetectIndividual(object):
 		
 	def set_head(self,data):
 		#self._head.set_pan(data)
-		self._head.set_pan(data, speed=0.3, timeout=3)
+		self._head.set_pan(data, speed=0.2, timeout=3)
 
 #this runs for sure
 def callback(data):
