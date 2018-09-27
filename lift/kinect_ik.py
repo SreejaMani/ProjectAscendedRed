@@ -235,17 +235,35 @@ def normalize(quat):
                               quat.w / quatNorm)
 	return normQuat
 
+def systemArgHandler():
+	if len(sys.argv) == 2:
+		tempID = sys.argv[1]
+		if tempID.isdigit():
+			print '\033[92m' + "User ID is set to " + tempID
+			return tempID
+		else:
+			print '\033[93m' + "User ID must be an integer"
+			print '\033[93m' + "User ID is set to default (1)"
+			return 1
+	else:
+		print "User ID is set to default (1)"
+		return 1
+
 def main():
+	userID = systemArgHandler()
+
 	global mylimb
 
 	rospy.init_node('lift_ik_prototype', anonymous=True)
 
+	"""
 	myps = PoseStamped(
 		header=Header(stamp=rospy.Time.now(), frame_id='base'),
 		pose=pose2(init_pos),
 	)
 
 	solve_move_trac(mylimb, myps)
+	"""
 
 	rate = rospy.Rate(100.0)
 	#main loop
@@ -259,9 +277,9 @@ def main():
                         z = buffUserLeft.transform.translation.z
 
 			#translate the translations
-			tranRightX = -z * 1.0 + 0.2
-			tranRightY =  x * 1.1 - 0.28
-			tranRightZ = -y * 0.9 + 0.40 #locked for now
+			tranRightX = -z * 1.2 + 0.2
+			tranRightY =  x * 1.2 - 0.28
+			tranRightZ = -y * 0.9 + 0.40
 
 		#catch and continue after refresh rate
                 except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
@@ -279,7 +297,7 @@ def main():
 			tranRightZ, 0) #height (y?) (inline height 0.40)
 
 		leftArmPose = PoseStamped(
-			header=Header(stamp=rospy.Time.now(), frame_id='base'),
+			header=Header(stamp=rospy.Time.now(), frame_id='base'), #NOTE: try right_arm_mount
 			pose=userPose(user_pos),
 		)
 
