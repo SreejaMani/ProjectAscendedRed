@@ -23,6 +23,9 @@ def dospeech(data):
     text = data.data
     if "Red" in text or "Baxter" in text:
         debug("ears: Found keyphrase RED")
+	if "hello" in text and "hi" in text:
+	    debug("ears: Hello")
+	    pub.publish(text)
         if "follow" in text and ("me" in text):
             debug("ears: follow me")
             pub.publish("follow me")
