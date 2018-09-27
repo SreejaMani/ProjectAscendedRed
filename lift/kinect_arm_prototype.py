@@ -4,7 +4,22 @@ import roslib
 import math
 import tf
 import tf2_ros
+import sys
 from tf import TransformListener
+
+def systemArgHandler():
+	if len(sys.argv) == 2:
+		tempID = sys.argv[1]
+		if tempID.isdigit():
+			print '\033[92m' + "User ID is set to " + tempID
+			return tempID
+		else:
+			print '\033[93m' + "User ID must be an integer"
+			print '\033[93m' + "User ID is set to default (1)"
+			return 1
+	else:
+		print "User ID is set to default (1)"
+		return 1
 
 def main():
 	#init node
@@ -16,21 +31,19 @@ def main():
 
 	#define refresh rate
         rate = rospy.Rate(10.0)
+
+	#define userID
+	userID = systemArgHandler()
 	
 	#main loop
         while not rospy.is_shutdown():
                 try:
 			#defines the pose of the child from the parent
-                        buffUserLeft = tf_buffer.lookup_transform('cob_body_tracker/user_2/left_shoulder', 'cob_body_tracker/user_2/left_hand', rospy.Time())
+                        buffUserLeft = tf_buffer.lookup_transform('cob_body_tracker/user_'+str(userID)+'/left_elbow', 'cob_body_tracker/user_'+str(userID)+'/left_hand', rospy.Time())
 			#get translations
                         x = buffUserLeft.transform.translation.x
                         y = buffUserLeft.transform.translation.y
                         z = buffUserLeft.transform.translation.z
-
-			#translate the translations
-			tranRightX = -z * 1.0 + 0.2
-			tranRightY =  x * 1.1 - 0.28
-			tranRightZ =  y * 0.0 + 0.40 #locked for now
 
 		#catch and continue after refresh rate
                 except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
@@ -38,9 +51,8 @@ def main():
                         continue
 
                 #print buffUserLeft
-		print "test x ", tranRightX
-		print "test y ", tranRightY
-		print "test z ", tranRightZ
+		#print math.degrees((math.atan2(y,x) + math.pi/2) % (math.pi * 2))
+		print math.degrees(math.atan2(x,z))
 		print ""
 
 		#Refresh rate

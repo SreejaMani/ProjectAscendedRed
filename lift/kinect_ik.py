@@ -42,7 +42,7 @@ import baxter_interface
 
 from baxter_interface import CHECK_VERSION
 
-from threading import Timer
+from threading import Thread
 import sys
 
 tf_buffer = tf2_ros.Buffer(rospy.Duration(1200.0)) #tf buffer length
@@ -98,42 +98,45 @@ def translate_frame(ps,frame):
     return pose_transformed
 
 def trac_ik_solve(limb, ps):
-	arm = baxter_interface.Limb(limb)
-	state = arm.joint_angles()
-	print 'solve current:',arm.joint_angles()
-	jointnames = ['s0','s1','e0','e1','w0','w1','w2']
-        command = []
-	for i in range(0, len(jointnames)):
-	    key = limb+"_"+jointnames[i]
-	    command.append(state[key])
-	print 'candidate seed',command
-        local_base_frame = limb+"_arm_mount"
-        ik_solver = IK(local_base_frame,
-                       limb+"_wrist",
-                       #limb+"_gripper",
-                       urdf_string=urdf_str)
-        #seed_state = [0.0] * ik_solver.number_of_joints
-        seed_state = command
-        # canonical pose in local_base_frame
-        #hdr = Header(stamp=rospy.Time.now(), frame_id=from_frame)
-        #ps = PoseStamped(
-        #        header=hdr,
-        #        pose=pose,
-        #        )
-	#gripper_ps = translate_in_frame(ps,'right_wrist',0,0,0)
-	#gripper_ps = translate_pose_in_own_frame(ps,'gripper_target',0.015,-0.02,-0.2)
-	#gripper_ps = translate_pose_in_own_frame(ps,'gripper_target',0,0,0.05)
-        p = translate_frame(ps,local_base_frame)
-        #print 'translated frame',p
-        soln = ik_solver.get_ik(seed_state,
-                        p.pose.position.x,p.pose.position.y,p.pose.position.z,  # X, Y, Z
-                        p.pose.orientation.x, p.pose.orientation.y, p.pose.orientation.z, p.pose.orientation.w,  # QX, QY, QZ, QW
-                        0.01,0.01,0.01,
-                        0.1,0.1,0.1,
+	try:
+		arm = baxter_interface.Limb(limb)
+		state = arm.joint_angles()
+		print 'solve current:',arm.joint_angles()
+		jointnames = ['s0','s1','e0','e1','w0','w1','w2']
+		command = []
+		for i in range(0, len(jointnames)):
+		    key = limb+"_"+jointnames[i]
+		    command.append(state[key])
+		print 'candidate seed',command
+		local_base_frame = limb+"_arm_mount"
+		ik_solver = IK(local_base_frame,
+			       limb+"_wrist",
+			       #limb+"_gripper",
+			       urdf_string=urdf_str)
+		#seed_state = [0.0] * ik_solver.number_of_joints
+		seed_state = command
+		# canonical pose in local_base_frame
+		#hdr = Header(stamp=rospy.Time.now(), frame_id=from_frame)
+		#ps = PoseStamped(
+		#        header=hdr,
+		#        pose=pose,
+		#        )
+		#gripper_ps = translate_in_frame(ps,'right_wrist',0,0,0)
+		#gripper_ps = translate_pose_in_own_frame(ps,'gripper_target',0.015,-0.02,-0.2)
+		#gripper_ps = translate_pose_in_own_frame(ps,'gripper_target',0,0,0.05)
+		p = translate_frame(ps,local_base_frame)
+		#print 'translated frame',p
+		soln = ik_solver.get_ik(seed_state,
+				p.pose.position.x,p.pose.position.y,p.pose.position.z,  # X, Y, Z
+				p.pose.orientation.x, p.pose.orientation.y, p.pose.orientation.z, p.pose.orientation.w,  # QX, QY, QZ, QW
+				0.01,0.01,0.01,
+				0.1,0.1,0.1,
 
-        )
-        print 'trac soln',soln
-        return soln
+		)
+		print 'trac soln',soln
+		return soln
+	except:
+		return None
 
 def solve_move_trac(limb,ps):
 	print '*********************'
@@ -148,24 +151,24 @@ def solve_move_trac(limb,ps):
 # msg: 7-vector of positions corresponding to joints
 # limb: 'left'|'right'
 def make_move_trac(msg, limb, speed):
-	print 'make_move_trac',msg
+	#print 'make_move_trac',msg
 	SPEED_SCALE = 1
 	speed = speed * SPEED_SCALE
 	arm = baxter_interface.Limb(limb)
-	print 'arm',arm
+	#print 'arm',arm
 	lj = arm.joint_names()
 	command = {}
 	# for i in range(0, len(msg.joints[0].name)):
 	jointnames = ['s0','s1','e0','e1','w0','w1','w2']
 	for i in range(0, len(jointnames)):
 		command[limb+"_"+jointnames[i]] = msg[i]
-		print 'current:',arm.joint_angles()
-	print 'make_move: speed',speed
+		#print 'current:',arm.joint_angles()
+	#print 'make_move: speed',speed
 	arm.set_joint_position_speed(speed)
-	print 'make_move_trac: posns',command
+	#print 'make_move_trac: posns',command
 	arm.set_joint_positions(command)
 	#arm.move_to_joint_positions(command, 0.5, 0.01)
-	print 'make_move: done'
+	#print 'make_move: done'
 
 def pose2(pos):
     q_rot = quaternion_from_euler(0.0, math.pi/2, 0.0)
@@ -193,8 +196,8 @@ def pose2(pos):
             )
     return pose_right
 
-def userPose(pos):
-    q_rot = quaternion_from_euler(0.0, math.pi/2, 0.0)
+def userPose(pos, rot):
+    q_rot = quaternion_from_euler(0.0, rot.y(), 0.0)
     '''
     Create goal Pose and call ik move
     '''
@@ -261,16 +264,15 @@ def main():
 		header=Header(stamp=rospy.Time.now(), frame_id='base'),
 		pose=pose2(init_pos),
 	)
-
 	solve_move_trac(mylimb, myps)
 	"""
 
-	rate = rospy.Rate(100.0)
+	rate = rospy.Rate(5000.0)
 	#main loop
         while not rospy.is_shutdown():
                 try:
 			#defines the pose of the child from the parent
-                        buffUserLeft = tf_buffer.lookup_transform('cob_body_tracker/user_2/left_shoulder', 'cob_body_tracker/user_2/left_hand', rospy.Time())
+                        buffUserLeft = tf_buffer.lookup_transform('cob_body_tracker/user_'+str(userID)+'/left_shoulder', 'cob_body_tracker/user_'+str(userID)+'/left_hand', rospy.Time())
 			#get translations
                         x = buffUserLeft.transform.translation.x
                         y = buffUserLeft.transform.translation.y
@@ -278,27 +280,33 @@ def main():
 
 			#translate the translations
 			tranRightX = -z * 1.2 + 0.2
-			tranRightY =  x * 1.2 - 0.28
-			tranRightZ = -y * 0.9 + 0.40
+			tranRightY =  x * 1.5 - 0.28
+			tranRightZ = -y * 1.1 + 0.40
+			#tranRightX = -z * 1.2
+			#tranRightY =  x * 1.2
+			#tranRightZ = -y * 0.9
 
 		#catch and continue after refresh rate
                 except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
                         rate.sleep()
                         continue
 
-                #print buffUserLeft
-		print "test x ", tranRightX
-		print "test y ", tranRightY
-		print "test z ", tranRightZ
-		print ""
-
 		user_pos = Vectors.V4D(tranRightX, #depth (z?) (inline depth 0.2) (limit 1.0)
 			tranRightY, #left-right (x?) (inline 0.28) (limit 1.0)
 			tranRightZ, 0) #height (y?) (inline height 0.40)
 
+		#user_rot = Vectors.V4D(math.pi/2,
+		#	((math.atan2(y,x) + math.pi/2) % (math.pi * 2)) - 10*math.pi/180,
+		#	0, 0)
+		user_rot = Vectors.V4D(0,
+			math.pi/2,
+			0, 0)
+
 		leftArmPose = PoseStamped(
-			header=Header(stamp=rospy.Time.now(), frame_id='base'), #NOTE: try right_arm_mount
-			pose=userPose(user_pos),
+			header=Header(stamp=rospy.Time.now(), frame_id='base'),
+			#header=Header(stamp=rospy.Time.now(), frame_id=mylimb+'_arm_mount'),
+			#header=Header(stamp=rospy.Time.now(), frame_id=mylimb+'_lower_shoulder'),
+			pose=userPose(user_pos, user_rot),
 		)
 
 		solve_move_trac(mylimb, leftArmPose)
