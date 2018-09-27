@@ -42,6 +42,9 @@ import baxter_interface
 
 from baxter_interface import CHECK_VERSION
 
+from threading import Timer
+import sys
+
 tf_buffer = tf2_ros.Buffer(rospy.Duration(1200.0)) #tf buffer length
 tf_listener = tf2_ros.TransformListener(tf_buffer)
 
@@ -140,7 +143,7 @@ def solve_move_trac(limb,ps):
 		print '***** NO SOLUTION ******',soln
 	else:
 		print 'soln',soln
-		make_move_trac(soln, limb, 0.2)
+		make_move_trac(soln, limb, 0.8)
 
 # msg: 7-vector of positions corresponding to joints
 # limb: 'left'|'right'
@@ -160,8 +163,8 @@ def make_move_trac(msg, limb, speed):
 	print 'make_move: speed',speed
 	arm.set_joint_position_speed(speed)
 	print 'make_move_trac: posns',command
-	#arm.set_joint_positions(command)
-	arm.move_to_joint_positions(command)
+	arm.set_joint_positions(command)
+	#arm.move_to_joint_positions(command, 0.5, 0.01)
 	print 'make_move: done'
 
 def pose2(pos):
@@ -244,7 +247,7 @@ def main():
 
 	solve_move_trac(mylimb, myps)
 
-	rate = rospy.Rate(1000.0)
+	rate = rospy.Rate(100.0)
 	#main loop
         while not rospy.is_shutdown():
                 try:
@@ -258,7 +261,7 @@ def main():
 			#translate the translations
 			tranRightX = -z * 1.0 + 0.2
 			tranRightY =  x * 1.1 - 0.28
-			tranRightZ =  y * 0.0 + 0.40 #locked for now
+			tranRightZ = -y * 0.9 + 0.40 #locked for now
 
 		#catch and continue after refresh rate
                 except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
