@@ -535,9 +535,11 @@ def speech_callback(data):
     #debug(str(data.data))
     print data.data
     if data.data=="wave":
+
          baxter_wave = Gesture()
          baxter_wave.wave()
     if data.data=="big wave":
+	 debug("waving...")
          baxter_wave = Gesture()
          baxter_wave.bigwave()
     if data.data=="waiting":

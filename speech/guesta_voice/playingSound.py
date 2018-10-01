@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+from gtts import gTTS
 import rospy
 from std_msgs.msg import String
 import os
@@ -14,58 +14,62 @@ def debug(str):
 
 #the function which does the audio playing when command is receive from the subscriber /input/speech/commands
 def speech(data):
-    debug("Speaking: "+str(data.data))
-    text = data.data
-    
-    if "big" in text and "wave" in text:
-        debug("Speaking: Hello")
-        os.system("./play-audio Hello2.wav")
+    debug("Speaking: "+ str(data.data))
+    text2speech = data.data
+   
+    if "hello" in text2speech and "hi":
+        debug("Speaking: Welcome")
+	tts = gTTS(text = 'Welcome to the vxlab', lang= 'en')
+	tts.save("temp.mp3")
+        os.system("mpg321 temp.mp3")
+    elif "big" in text2speech and "wave" in text2speech:
+        debug("Speaking: Hello there")
+	tts = gTTS(text = "sure, I'll do that", lang= 'en')
+	tts.save("temp.mp3")
+        os.system("mpg321 temp.mp3")
 
-    elif "hand" in text and "shake" in text:
+    elif "hand" in text2speech and "shake" in text2speech:
         debug("Speaking: Hand Shake")
 	os.system("./play-audio Hi.wav")
 
-    elif "hello" in text:
-        debug("Speaking: Welcome")
-	os.system("./play-audio Welcome2.wav")
 
-    elif "wave" in text:
+    elif "wave" in text2speech:
         debug("Speaking: Hi")
         os.system("./play-audio Hello3.wav")
 
-    elif "dab" in text:
+    elif "dab" in text2speech:
         debug("Speaking: Dab")
         os.system("./play-audio Do_you_really_want_a_dab.wav")
 
-    elif "fist" in text and "bump" in text:
+    elif "fist" in text2speech and "bump" in text2speech:
         debug("Speaking: fist Bump")
 	os.system("./play-audio Okay.wav")
 
-    elif "understand" in text:
+    elif "understand" in text2speech:
         debug("Speaking: Understand")
         os.system("./play-audio Understood.wav")
 
-    elif "come" in text or "here" in text:
+    elif "come" in text2speech or "here" in text2speech:
         debug("Speaking: Challenged Accpeted")
         os.system("./play-audio Challenge_accepted.wav")
 
-    elif "high" in text and "five" in text:
+    elif "high" in text2speech and "five" in text2speech:
         debug("Speaking: High Five")
         os.system("./play-audio High_Five.wav")
 
-    elif "stop" in text:
+    elif "stop" in text2speech:
         debug("Speaking: See_you_next_time")
         os.system("./play-audio See_you_next_time.wav")
 
-    elif "understand" in text:
+    elif "understand" in text2speech:
         debug("Speaking: Understood")
         os.system("./play-audio Understood.wav")
 
-    elif "waiting" in text:
+    elif "waiting" in text2speech:
         debug("Speaking: Dont understand")
         os.system("./play-audio Sorry_can_you_repeat_that.wav")
     
-    elif "neutral" in text:
+    elif "neutral" in text2speech:
         debug("Speaking: Going neutral position")
         os.system("./play-audio Neutral.wav")
 
