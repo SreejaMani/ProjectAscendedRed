@@ -90,7 +90,7 @@ def speech(data):
 
     else: 
         debug("Speaking: Red not in keyword")
-        os.system("./play-audio Huh.wav")
+	pubtts.publish("Oops! Didn't catch that. What did you say?")
         
 try:
     rospy.init_node('par_audio_replay', anonymous=True)
