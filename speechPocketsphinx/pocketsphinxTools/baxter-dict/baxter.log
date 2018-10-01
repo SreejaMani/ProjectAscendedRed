@@ -1,0 +1,1172 @@
+INFO: pocketsphinx.c(152): Parsed model-specific feature parameters from en-us-baxter/feat.params
+Current configuration:
+[NAME]			[DEFLT]		[VALUE]
+-agc			none		none
+-agcthresh		2.0		2.000000e+00
+-allphone				
+-allphone_ci		yes		yes
+-alpha			0.97		9.700000e-01
+-ascale			20.0		2.000000e+01
+-aw			1		1
+-backtrace		no		no
+-beam			1e-48		1.000000e-48
+-bestpath		yes		yes
+-bestpathlw		9.5		9.500000e+00
+-ceplen			13		13
+-cmn			live		current
+-cmninit		40,3,-1		40,3,-1
+-compallsen		no		no
+-dict					baxter.dict
+-dictcase		no		no
+-dither			no		no
+-doublebw		no		no
+-ds			1		1
+-fdict					
+-feat			1s_c_d_dd	1s_c_d_dd
+-featparams				
+-fillprob		1e-8		1.000000e-08
+-frate			100		100
+-fsg					
+-fsgusealtpron		yes		yes
+-fsgusefiller		yes		yes
+-fwdflat		yes		yes
+-fwdflatbeam		1e-64		1.000000e-64
+-fwdflatefwid		4		4
+-fwdflatlw		8.5		8.500000e+00
+-fwdflatsfwin		25		25
+-fwdflatwbeam		7e-29		7.000000e-29
+-fwdtree		yes		yes
+-hmm					en-us-baxter
+-input_endian		little		little
+-jsgf					
+-keyphrase				
+-kws					
+-kws_delay		10		10
+-kws_plp		1e-1		1.000000e-01
+-kws_threshold		1e-30		1.000000e-30
+-latsize		5000		5000
+-lda					
+-ldadim			0		0
+-lifter			0		22
+-lm					baxter.lm.bin
+-lmctl					
+-lmname					
+-logbase		1.0001		1.000100e+00
+-logfn					baxter.log
+-logspec		no		no
+-lowerf			133.33334	1.300000e+02
+-lpbeam			1e-40		1.000000e-40
+-lponlybeam		7e-29		7.000000e-29
+-lw			6.5		6.500000e+00
+-maxhmmpf		30000		30000
+-maxwpf			-1		-1
+-mdef					
+-mean					
+-mfclogdir				
+-min_endfr		0		0
+-mixw					
+-mixwfloor		0.0000001	1.000000e-07
+-mllr					
+-mmap			yes		yes
+-ncep			13		13
+-nfft			512		512
+-nfilt			40		25
+-nwpen			1.0		1.000000e+00
+-pbeam			1e-48		1.000000e-48
+-pip			1.0		1.000000e+00
+-pl_beam		1e-10		1.000000e-10
+-pl_pbeam		1e-10		1.000000e-10
+-pl_pip			1.0		1.000000e+00
+-pl_weight		3.0		3.000000e+00
+-pl_window		5		5
+-rawlogdir				
+-remove_dc		no		no
+-remove_noise		yes		yes
+-remove_silence		yes		yes
+-round_filters		yes		yes
+-samprate		16000		1.600000e+04
+-seed			-1		-1
+-sendump				
+-senlogdir				
+-senmgau				
+-silprob		0.005		5.000000e-03
+-smoothspec		no		no
+-svspec					0-12/13-25/26-38
+-tmat					
+-tmatfloor		0.0001		1.000000e-04
+-topn			4		4
+-topn_beam		0		0
+-toprule				
+-transform		legacy		dct
+-unit_area		yes		yes
+-upperf			6855.4976	6.800000e+03
+-uw			1.0		1.000000e+00
+-vad_postspeech		50		50
+-vad_prespeech		20		20
+-vad_startspeech	10		10
+-vad_threshold		3.0		3.000000e+00
+-var					
+-varfloor		0.0001		1.000000e-04
+-varnorm		no		no
+-verbose		no		no
+-warp_params				
+-warp_type		inverse_linear	inverse_linear
+-wbeam			7e-29		7.000000e-29
+-wip			0.65		6.500000e-01
+-wlen			0.025625	2.562500e-02
+
+INFO: feat.c(715): Initializing feature stream to type: '1s_c_d_dd', ceplen=13, CMN='batch', VARNORM='no', AGC='none'
+INFO: acmod.c(162): Using subvector specification 0-12/13-25/26-38
+INFO: mdef.c(518): Reading model definition: en-us-baxter/mdef
+INFO: bin_mdef.c(181): Allocating 142108 * 8 bytes (1110 KiB) for CD tree
+INFO: tmat.c(149): Reading HMM transition probability matrices: en-us-baxter/transition_matrices
+INFO: acmod.c(113): Attempting to use PTM computation module
+INFO: ms_gauden.c(127): Reading mixture gaussian parameter: en-us-baxter/means
+INFO: ms_gauden.c(242): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(127): Reading mixture gaussian parameter: en-us-baxter/variances
+INFO: ms_gauden.c(242): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(304): 222 variance values floored
+INFO: ptm_mgau.c(475): Loading senones from dump file en-us-baxter/sendump
+INFO: ptm_mgau.c(499): BEGIN FILE FORMAT DESCRIPTION
+INFO: ptm_mgau.c(562): Rows: 128, Columns: 5126
+INFO: ptm_mgau.c(594): Using memory-mapped I/O for senones
+INFO: ptm_mgau.c(837): Maximum top-N: 4
+INFO: phone_loop_search.c(114): State beam -225 Phone exit beam -225 Insertion penalty 0
+INFO: dict.c(320): Allocating 4144 * 32 bytes (129 KiB) for word entries
+INFO: dict.c(333): Reading main dictionary: baxter.dict
+ERROR: "dict.c", line 107: Missing base word for: a(2)
+ERROR: "dict.c", line 205: Line 2: Failed to add the word 'a(2)' (duplicate?); ignored
+INFO: dict.c(213): Dictionary size 42, allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(336): 42 words read
+INFO: dict.c(358): Reading filler dictionary: en-us-baxter/noisedict
+INFO: dict.c(213): Dictionary size 47, allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(361): 5 words read
+INFO: dict2pid.c(396): Building PID tables for dictionary
+INFO: dict2pid.c(406): Allocating 42^3 * 2 bytes (144 KiB) for word-initial triphones
+INFO: dict2pid.c(132): Allocated 42672 bytes (41 KiB) for word-final triphones
+INFO: dict2pid.c(196): Allocated 42672 bytes (41 KiB) for single-phone word triphones
+INFO: ngram_model_trie.c(354): Trying to read LM in trie binary format
+INFO: ngram_search_fwdtree.c(74): Initializing search tree
+INFO: ngram_search_fwdtree.c(101): 33 unique initial diphones
+INFO: ngram_search_fwdtree.c(186): Creating search channels
+INFO: ngram_search_fwdtree.c(323): Max nonroot chan increased to 183
+INFO: ngram_search_fwdtree.c(333): Created 33 root, 55 non-root channels, 7 single-phone words
+INFO: ngram_search_fwdflat.c(157): fwdflat: min_ef_width = 4, max_sf_win = 25
+INFO: continuous.c(307): pocketsphinx_continuous COMPILED ON: Aug 31 2018, AT: 22:01:41
+
+INFO: continuous.c(252): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 40.00  3.00 -1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00 >
+INFO: cmn_live.c(138): Update to   < 49.14  6.50 17.32  3.06 -14.81 -2.76 -17.93  5.95 -15.74 -8.31  5.20  6.55  1.16 >
+INFO: ngram_search_fwdtree.c(1550):     1875 words recognized (9/fr)
+INFO: ngram_search_fwdtree.c(1552):    82311 senones evaluated (385/fr)
+INFO: ngram_search_fwdtree.c(1556):    53632 channels searched (250/fr), 6684 1st, 39486 last
+INFO: ngram_search_fwdtree.c(1559):     2763 words for which last channels evaluated (12/fr)
+INFO: ngram_search_fwdtree.c(1561):     1945 candidate words for entering last phone (9/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.28 CPU 0.133 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 4.85 wall 2.266 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 33 words
+INFO: ngram_search_fwdflat.c(948):     1713 words recognized (8/fr)
+INFO: ngram_search_fwdflat.c(950):    93745 senones evaluated (438/fr)
+INFO: ngram_search_fwdflat.c(952):    81746 channels searched (381/fr)
+INFO: ngram_search_fwdflat.c(954):     4957 words searched (23/fr)
+INFO: ngram_search_fwdflat.c(957):     3117 word transitions (14/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.09 CPU 0.041 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.09 wall 0.042 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.180
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 377 nodes, 1320 links
+INFO: ps_lattice.c(1374): Bestpath score: -8614
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:180:212) = -462529
+INFO: ps_lattice.c(1435): Joint P(O,S) = -520155 P(S|O) = -57626
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.001 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.001 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 49.14  6.50 17.32  3.06 -14.81 -2.76 -17.93  5.95 -15.74 -8.31  5.20  6.55  1.16 >
+INFO: cmn_live.c(138): Update to   < 49.49  7.07 15.74  4.13 -13.45 -4.49 -16.93  6.39 -16.25 -7.60  4.23  6.86  0.66 >
+INFO: ngram_search_fwdtree.c(1550):     1338 words recognized (6/fr)
+INFO: ngram_search_fwdtree.c(1552):    68867 senones evaluated (317/fr)
+INFO: ngram_search_fwdtree.c(1556):    40145 channels searched (185/fr), 6776 1st, 27107 last
+INFO: ngram_search_fwdtree.c(1559):     2188 words for which last channels evaluated (10/fr)
+INFO: ngram_search_fwdtree.c(1561):     1418 candidate words for entering last phone (6/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.30 CPU 0.139 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 6.51 wall 3.002 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 27 words
+INFO: ngram_search_fwdflat.c(948):     1249 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):    70237 senones evaluated (324/fr)
+INFO: ngram_search_fwdflat.c(952):    52309 channels searched (241/fr)
+INFO: ngram_search_fwdflat.c(954):     3726 words searched (17/fr)
+INFO: ngram_search_fwdflat.c(957):     2225 word transitions (10/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.07 CPU 0.033 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.07 wall 0.033 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.183
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 308 nodes, 567 links
+INFO: ps_lattice.c(1374): Bestpath score: -7152
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:183:215) = -418201
+INFO: ps_lattice.c(1435): Joint P(O,S) = -494935 P(S|O) = -76734
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 49.49  7.07 15.74  4.13 -13.45 -4.49 -16.93  6.39 -16.25 -7.60  4.23  6.86  0.66 >
+INFO: cmn_live.c(138): Update to   < 49.10  6.60 14.02  3.20 -14.06 -4.39 -15.35  3.93 -15.02 -6.87  3.77  5.74  1.28 >
+INFO: ngram_search_fwdtree.c(1550):      858 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    37415 senones evaluated (290/fr)
+INFO: ngram_search_fwdtree.c(1556):    20841 channels searched (161/fr), 3476 1st, 13963 last
+INFO: ngram_search_fwdtree.c(1559):     1234 words for which last channels evaluated (9/fr)
+INFO: ngram_search_fwdtree.c(1561):      650 candidate words for entering last phone (5/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.18 CPU 0.137 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 2.96 wall 2.296 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 22 words
+INFO: ngram_search_fwdflat.c(948):      870 words recognized (7/fr)
+INFO: ngram_search_fwdflat.c(950):    37628 senones evaluated (292/fr)
+INFO: ngram_search_fwdflat.c(952):    32384 channels searched (251/fr)
+INFO: ngram_search_fwdflat.c(954):     2152 words searched (16/fr)
+INFO: ngram_search_fwdflat.c(957):     1164 word transitions (9/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.04 CPU 0.032 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.04 wall 0.032 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.85
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 179 nodes, 351 links
+INFO: ps_lattice.c(1374): Bestpath score: -4444
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:85:127) = -269363
+INFO: ps_lattice.c(1435): Joint P(O,S) = -297084 P(S|O) = -27721
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 49.10  6.60 14.02  3.20 -14.06 -4.39 -15.35  3.93 -15.02 -6.87  3.77  5.74  1.28 >
+INFO: cmn_live.c(138): Update to   < 49.32  6.55 12.54  2.82 -13.97 -4.16 -14.26  2.38 -14.23 -6.78  3.41  4.85  1.77 >
+INFO: ngram_search_fwdtree.c(1550):      889 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    35289 senones evaluated (297/fr)
+INFO: ngram_search_fwdtree.c(1556):    20311 channels searched (170/fr), 3251 1st, 14018 last
+INFO: ngram_search_fwdtree.c(1559):     1213 words for which last channels evaluated (10/fr)
+INFO: ngram_search_fwdtree.c(1561):      541 candidate words for entering last phone (4/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.16 CPU 0.137 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 3.16 wall 2.657 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 17 words
+INFO: ngram_search_fwdflat.c(948):      864 words recognized (7/fr)
+INFO: ngram_search_fwdflat.c(950):    33236 senones evaluated (279/fr)
+INFO: ngram_search_fwdflat.c(952):    26647 channels searched (223/fr)
+INFO: ngram_search_fwdflat.c(954):     1874 words searched (15/fr)
+INFO: ngram_search_fwdflat.c(957):      885 word transitions (7/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.04 CPU 0.030 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.04 wall 0.030 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.79
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 170 nodes, 419 links
+INFO: ps_lattice.c(1374): Bestpath score: -4681
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:79:117) = -253234
+INFO: ps_lattice.c(1435): Joint P(O,S) = -309987 P(S|O) = -56753
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(88): Update from < 49.32  6.55 12.54  2.82 -13.97 -4.16 -14.26  2.38 -14.23 -6.78  3.41  4.85  1.77 >
+INFO: cmn_live.c(105): Update to   < 49.86  6.66 12.03  2.18 -14.59 -4.26 -13.70  0.43 -13.09 -6.50  2.93  4.47  1.90 >
+INFO: cmn_live.c(120): Update from < 49.86  6.66 12.03  2.18 -14.59 -4.26 -13.70  0.43 -13.09 -6.50  2.93  4.47  1.90 >
+INFO: cmn_live.c(138): Update to   < 48.33  6.50 11.92  2.09 -14.22 -4.02 -12.83  0.40 -12.61 -6.24  2.56  4.18  1.81 >
+INFO: ngram_search_fwdtree.c(1550):     1055 words recognized (8/fr)
+INFO: ngram_search_fwdtree.c(1552):    43168 senones evaluated (332/fr)
+INFO: ngram_search_fwdtree.c(1556):    26059 channels searched (200/fr), 3436 1st, 19080 last
+INFO: ngram_search_fwdtree.c(1559):     1474 words for which last channels evaluated (11/fr)
+INFO: ngram_search_fwdtree.c(1561):      687 candidate words for entering last phone (5/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.17 CPU 0.132 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 3.29 wall 2.529 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 27 words
+INFO: ngram_search_fwdflat.c(948):      984 words recognized (8/fr)
+INFO: ngram_search_fwdflat.c(950):    53225 senones evaluated (409/fr)
+INFO: ngram_search_fwdflat.c(952):    42541 channels searched (327/fr)
+INFO: ngram_search_fwdflat.c(954):     2688 words searched (20/fr)
+INFO: ngram_search_fwdflat.c(957):     1582 word transitions (12/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.035 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.036 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.86
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 190 nodes, 483 links
+INFO: ps_lattice.c(1374): Bestpath score: -5021
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:86:128) = -290156
+INFO: ps_lattice.c(1435): Joint P(O,S) = -333743 P(S|O) = -43587
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 48.33  6.50 11.92  2.09 -14.22 -4.02 -12.83  0.40 -12.61 -6.24  2.56  4.18  1.81 >
+INFO: cmn_live.c(138): Update to   < 48.71  5.70 11.73  1.80 -14.49 -5.09 -12.10 -1.01 -12.06 -6.34  2.07  3.37  2.30 >
+INFO: ngram_search_fwdtree.c(1550):      514 words recognized (4/fr)
+INFO: ngram_search_fwdtree.c(1552):    24669 senones evaluated (190/fr)
+INFO: ngram_search_fwdtree.c(1556):    12317 channels searched (94/fr), 2884 1st, 6921 last
+INFO: ngram_search_fwdtree.c(1559):      767 words for which last channels evaluated (5/fr)
+INFO: ngram_search_fwdtree.c(1561):      420 candidate words for entering last phone (3/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.17 CPU 0.132 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 3.63 wall 2.790 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 11 words
+INFO: ngram_search_fwdflat.c(948):      498 words recognized (4/fr)
+INFO: ngram_search_fwdflat.c(950):    15564 senones evaluated (120/fr)
+INFO: ngram_search_fwdflat.c(952):    11039 channels searched (84/fr)
+INFO: ngram_search_fwdflat.c(954):      999 words searched (7/fr)
+INFO: ngram_search_fwdflat.c(957):      462 word transitions (3/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.03 CPU 0.025 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.03 wall 0.025 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.88
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 131 nodes, 66 links
+INFO: ps_lattice.c(1374): Bestpath score: -3142
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:88:128) = -197514
+INFO: ps_lattice.c(1435): Joint P(O,S) = -214793 P(S|O) = -17279
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(88): Update from < 48.71  5.70 11.73  1.80 -14.49 -5.09 -12.10 -1.01 -12.06 -6.34  2.07  3.37  2.30 >
+INFO: cmn_live.c(105): Update to   < 49.29  5.58 11.53  0.80 -13.81 -5.71 -11.53 -1.06 -11.52 -6.72  3.46  1.94  1.42 >
+INFO: cmn_live.c(120): Update from < 49.29  5.58 11.53  0.80 -13.81 -5.71 -11.53 -1.06 -11.52 -6.72  3.46  1.94  1.42 >
+INFO: cmn_live.c(138): Update to   < 47.78  5.13 11.25  0.86 -13.25 -5.35 -11.03 -1.00 -11.01 -6.52  3.20  1.83  1.36 >
+INFO: ngram_search_fwdtree.c(1550):     1079 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    53212 senones evaluated (326/fr)
+INFO: ngram_search_fwdtree.c(1556):    31474 channels searched (193/fr), 4823 1st, 21752 last
+INFO: ngram_search_fwdtree.c(1559):     1680 words for which last channels evaluated (10/fr)
+INFO: ngram_search_fwdtree.c(1561):     1005 candidate words for entering last phone (6/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.27 CPU 0.167 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 10.29 wall 6.310 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 26 words
+INFO: ngram_search_fwdflat.c(948):      974 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):    53396 senones evaluated (328/fr)
+INFO: ngram_search_fwdflat.c(952):    42581 channels searched (261/fr)
+INFO: ngram_search_fwdflat.c(954):     2750 words searched (16/fr)
+INFO: ngram_search_fwdflat.c(957):     1562 word transitions (9/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.033 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.033 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.123
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 249 nodes, 580 links
+INFO: ps_lattice.c(1374): Bestpath score: -5358
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:123:161) = -304909
+INFO: ps_lattice.c(1435): Joint P(O,S) = -320478 P(S|O) = -15569
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 47.78  5.13 11.25  0.86 -13.25 -5.35 -11.03 -1.00 -11.01 -6.52  3.20  1.83  1.36 >
+INFO: cmn_live.c(138): Update to   < 49.58  5.73  9.27  2.15 -11.98 -7.38 -12.34 -1.30 -10.49 -7.69  4.02 -0.43  1.88 >
+INFO: ngram_search_fwdtree.c(1550):     1959 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    98045 senones evaluated (362/fr)
+INFO: ngram_search_fwdtree.c(1556):    57720 channels searched (212/fr), 7969 1st, 40909 last
+INFO: ngram_search_fwdtree.c(1559):     2989 words for which last channels evaluated (11/fr)
+INFO: ngram_search_fwdtree.c(1561):     2258 candidate words for entering last phone (8/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.34 CPU 0.126 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 5.30 wall 1.957 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 32 words
+INFO: ngram_search_fwdflat.c(948):     1726 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):   103516 senones evaluated (382/fr)
+INFO: ngram_search_fwdflat.c(952):    76097 channels searched (280/fr)
+INFO: ngram_search_fwdflat.c(954):     4869 words searched (17/fr)
+INFO: ngram_search_fwdflat.c(957):     2924 word transitions (10/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.10 CPU 0.035 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.10 wall 0.035 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.228
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 399 nodes, 408 links
+INFO: ps_lattice.c(1374): Bestpath score: -8353
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:228:269) = -443009
+INFO: ps_lattice.c(1435): Joint P(O,S) = -474687 P(S|O) = -31678
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: pocketsphinx.c(152): Parsed model-specific feature parameters from en-us-baxter/feat.params
+Current configuration:
+[NAME]			[DEFLT]		[VALUE]
+-agc			none		none
+-agcthresh		2.0		2.000000e+00
+-allphone				
+-allphone_ci		yes		yes
+-alpha			0.97		9.700000e-01
+-ascale			20.0		2.000000e+01
+-aw			1		1
+-backtrace		no		no
+-beam			1e-48		1.000000e-48
+-bestpath		yes		yes
+-bestpathlw		9.5		9.500000e+00
+-ceplen			13		13
+-cmn			live		current
+-cmninit		40,3,-1		40,3,-1
+-compallsen		no		no
+-dict					baxter.dict
+-dictcase		no		no
+-dither			no		no
+-doublebw		no		no
+-ds			1		1
+-fdict					
+-feat			1s_c_d_dd	1s_c_d_dd
+-featparams				
+-fillprob		1e-8		1.000000e-08
+-frate			100		100
+-fsg					
+-fsgusealtpron		yes		yes
+-fsgusefiller		yes		yes
+-fwdflat		yes		yes
+-fwdflatbeam		1e-64		1.000000e-64
+-fwdflatefwid		4		4
+-fwdflatlw		8.5		8.500000e+00
+-fwdflatsfwin		25		25
+-fwdflatwbeam		7e-29		7.000000e-29
+-fwdtree		yes		yes
+-hmm					en-us-baxter
+-input_endian		little		little
+-jsgf					
+-keyphrase				
+-kws					
+-kws_delay		10		10
+-kws_plp		1e-1		1.000000e-01
+-kws_threshold		1e-30		1.000000e-30
+-latsize		5000		5000
+-lda					
+-ldadim			0		0
+-lifter			0		22
+-lm					baxter.lm.bin
+-lmctl					
+-lmname					
+-logbase		1.0001		1.000100e+00
+-logfn					baxter.log
+-logspec		no		no
+-lowerf			133.33334	1.300000e+02
+-lpbeam			1e-40		1.000000e-40
+-lponlybeam		7e-29		7.000000e-29
+-lw			6.5		6.500000e+00
+-maxhmmpf		30000		30000
+-maxwpf			-1		-1
+-mdef					
+-mean					
+-mfclogdir				
+-min_endfr		0		0
+-mixw					
+-mixwfloor		0.0000001	1.000000e-07
+-mllr					
+-mmap			yes		yes
+-ncep			13		13
+-nfft			512		512
+-nfilt			40		25
+-nwpen			1.0		1.000000e+00
+-pbeam			1e-48		1.000000e-48
+-pip			1.0		1.000000e+00
+-pl_beam		1e-10		1.000000e-10
+-pl_pbeam		1e-10		1.000000e-10
+-pl_pip			1.0		1.000000e+00
+-pl_weight		3.0		3.000000e+00
+-pl_window		5		5
+-rawlogdir				
+-remove_dc		no		no
+-remove_noise		yes		yes
+-remove_silence		yes		yes
+-round_filters		yes		yes
+-samprate		16000		1.600000e+04
+-seed			-1		-1
+-sendump				
+-senlogdir				
+-senmgau				
+-silprob		0.005		5.000000e-03
+-smoothspec		no		no
+-svspec					0-12/13-25/26-38
+-tmat					
+-tmatfloor		0.0001		1.000000e-04
+-topn			4		4
+-topn_beam		0		0
+-toprule				
+-transform		legacy		dct
+-unit_area		yes		yes
+-upperf			6855.4976	6.800000e+03
+-uw			1.0		1.000000e+00
+-vad_postspeech		50		50
+-vad_prespeech		20		20
+-vad_startspeech	10		10
+-vad_threshold		3.0		3.000000e+00
+-var					
+-varfloor		0.0001		1.000000e-04
+-varnorm		no		no
+-verbose		no		no
+-warp_params				
+-warp_type		inverse_linear	inverse_linear
+-wbeam			7e-29		7.000000e-29
+-wip			0.65		6.500000e-01
+-wlen			0.025625	2.562500e-02
+
+INFO: feat.c(715): Initializing feature stream to type: '1s_c_d_dd', ceplen=13, CMN='batch', VARNORM='no', AGC='none'
+INFO: acmod.c(162): Using subvector specification 0-12/13-25/26-38
+INFO: mdef.c(518): Reading model definition: en-us-baxter/mdef
+INFO: bin_mdef.c(181): Allocating 142108 * 8 bytes (1110 KiB) for CD tree
+INFO: tmat.c(149): Reading HMM transition probability matrices: en-us-baxter/transition_matrices
+INFO: acmod.c(113): Attempting to use PTM computation module
+INFO: ms_gauden.c(127): Reading mixture gaussian parameter: en-us-baxter/means
+INFO: ms_gauden.c(242): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(127): Reading mixture gaussian parameter: en-us-baxter/variances
+INFO: ms_gauden.c(242): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(304): 222 variance values floored
+INFO: ptm_mgau.c(475): Loading senones from dump file en-us-baxter/sendump
+INFO: ptm_mgau.c(499): BEGIN FILE FORMAT DESCRIPTION
+INFO: ptm_mgau.c(562): Rows: 128, Columns: 5126
+INFO: ptm_mgau.c(594): Using memory-mapped I/O for senones
+INFO: ptm_mgau.c(837): Maximum top-N: 4
+INFO: phone_loop_search.c(114): State beam -225 Phone exit beam -225 Insertion penalty 0
+INFO: dict.c(320): Allocating 4142 * 32 bytes (129 KiB) for word entries
+INFO: dict.c(333): Reading main dictionary: baxter.dict
+ERROR: "dict.c", line 107: Missing base word for: a(2)
+ERROR: "dict.c", line 205: Line 2: Failed to add the word 'a(2)' (duplicate?); ignored
+INFO: dict.c(213): Dictionary size 40, allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(336): 40 words read
+INFO: dict.c(358): Reading filler dictionary: en-us-baxter/noisedict
+INFO: dict.c(213): Dictionary size 45, allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(361): 5 words read
+INFO: dict2pid.c(396): Building PID tables for dictionary
+INFO: dict2pid.c(406): Allocating 42^3 * 2 bytes (144 KiB) for word-initial triphones
+INFO: dict2pid.c(132): Allocated 42672 bytes (41 KiB) for word-final triphones
+INFO: dict2pid.c(196): Allocated 42672 bytes (41 KiB) for single-phone word triphones
+INFO: ngram_model_trie.c(354): Trying to read LM in trie binary format
+INFO: ngram_search_fwdtree.c(74): Initializing search tree
+INFO: ngram_search_fwdtree.c(101): 32 unique initial diphones
+INFO: ngram_search_fwdtree.c(186): Creating search channels
+INFO: ngram_search_fwdtree.c(323): Max nonroot chan increased to 179
+INFO: ngram_search_fwdtree.c(333): Created 31 root, 51 non-root channels, 7 single-phone words
+INFO: ngram_search_fwdflat.c(157): fwdflat: min_ef_width = 4, max_sf_win = 25
+INFO: continuous.c(307): pocketsphinx_continuous COMPILED ON: Aug 31 2018, AT: 22:01:41
+
+INFO: continuous.c(252): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 40.00  3.00 -1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00 >
+INFO: cmn_live.c(138): Update to   < 32.03 -1.62  5.56  1.03 -3.08  1.38 -3.27 -2.50 -6.45 -1.24 -1.60 -1.58 -1.97 >
+INFO: ngram_search_fwdtree.c(1550):      343 words recognized (5/fr)
+INFO: ngram_search_fwdtree.c(1552):    16251 senones evaluated (243/fr)
+INFO: ngram_search_fwdtree.c(1556):     7788 channels searched (116/fr), 1953 1st, 3819 last
+INFO: ngram_search_fwdtree.c(1559):      546 words for which last channels evaluated (8/fr)
+INFO: ngram_search_fwdtree.c(1561):      374 candidate words for entering last phone (5/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.09 CPU 0.131 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 0.99 wall 1.483 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 2 words
+INFO: ngram_search_fwdflat.c(948):      308 words recognized (5/fr)
+INFO: ngram_search_fwdflat.c(950):      576 senones evaluated (9/fr)
+INFO: ngram_search_fwdflat.c(952):      318 channels searched (4/fr)
+INFO: ngram_search_fwdflat.c(954):      318 words searched (4/fr)
+INFO: ngram_search_fwdflat.c(957):       67 word transitions (1/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.01 CPU 0.011 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.01 wall 0.011 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.15
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 89 nodes, 34 links
+INFO: ps_lattice.c(1374): Bestpath score: -503
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:15:65) = -45834
+INFO: ps_lattice.c(1435): Joint P(O,S) = -54250 P(S|O) = -8416
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 32.03 -1.62  5.56  1.03 -3.08  1.38 -3.27 -2.50 -6.45 -1.24 -1.60 -1.58 -1.97 >
+INFO: cmn_live.c(138): Update to   < 47.22  4.39 12.32  3.62 -5.98 -7.08 -13.92  2.95 -13.88 -5.89  1.12  1.76 -0.74 >
+INFO: ngram_search_fwdtree.c(1550):     1890 words recognized (9/fr)
+INFO: ngram_search_fwdtree.c(1552):    91605 senones evaluated (440/fr)
+INFO: ngram_search_fwdtree.c(1556):    59675 channels searched (286/fr), 6140 1st, 45966 last
+INFO: ngram_search_fwdtree.c(1559):     2900 words for which last channels evaluated (13/fr)
+INFO: ngram_search_fwdtree.c(1561):     2888 candidate words for entering last phone (13/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.27 CPU 0.131 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 4.26 wall 2.047 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 32 words
+INFO: ngram_search_fwdflat.c(948):     1788 words recognized (9/fr)
+INFO: ngram_search_fwdflat.c(950):   101808 senones evaluated (489/fr)
+INFO: ngram_search_fwdflat.c(952):    82567 channels searched (396/fr)
+INFO: ngram_search_fwdflat.c(954):     4635 words searched (22/fr)
+INFO: ngram_search_fwdflat.c(957):     2910 word transitions (13/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.08 CPU 0.038 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.08 wall 0.038 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.196
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 335 nodes, 844 links
+INFO: ps_lattice.c(1374): Bestpath score: -8438
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:196:206) = -502323
+INFO: ps_lattice.c(1435): Joint P(O,S) = -567956 P(S|O) = -65633
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.001 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.001 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 47.22  4.39 12.32  3.62 -5.98 -7.08 -13.92  2.95 -13.88 -5.89  1.12  1.76 -0.74 >
+INFO: cmn_live.c(138): Update to   < 49.78  4.67 11.66  3.43 -5.13 -8.83 -15.22  3.29 -15.33 -5.95  0.66  3.08 -0.44 >
+INFO: ngram_search_fwdtree.c(1550):     1281 words recognized (6/fr)
+INFO: ngram_search_fwdtree.c(1552):    66174 senones evaluated (311/fr)
+INFO: ngram_search_fwdtree.c(1556):    37602 channels searched (176/fr), 6295 1st, 25120 last
+INFO: ngram_search_fwdtree.c(1559):     2078 words for which last channels evaluated (9/fr)
+INFO: ngram_search_fwdtree.c(1561):     1557 candidate words for entering last phone (7/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.30 CPU 0.142 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 5.39 wall 2.532 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 22 words
+INFO: ngram_search_fwdflat.c(948):     1302 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):    52264 senones evaluated (245/fr)
+INFO: ngram_search_fwdflat.c(952):    38173 channels searched (179/fr)
+INFO: ngram_search_fwdflat.c(954):     2865 words searched (13/fr)
+INFO: ngram_search_fwdflat.c(957):     1325 word transitions (6/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.06 CPU 0.030 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.06 wall 0.030 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.177
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 335 nodes, 513 links
+INFO: ps_lattice.c(1374): Bestpath score: -7124
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:177:211) = -415303
+INFO: ps_lattice.c(1435): Joint P(O,S) = -470967 P(S|O) = -55664
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: pocketsphinx.c(152): Parsed model-specific feature parameters from en-us-baxter/feat.params
+Current configuration:
+[NAME]			[DEFLT]		[VALUE]
+-agc			none		none
+-agcthresh		2.0		2.000000e+00
+-allphone				
+-allphone_ci		yes		yes
+-alpha			0.97		9.700000e-01
+-ascale			20.0		2.000000e+01
+-aw			1		1
+-backtrace		no		no
+-beam			1e-48		1.000000e-48
+-bestpath		yes		yes
+-bestpathlw		9.5		9.500000e+00
+-ceplen			13		13
+-cmn			live		current
+-cmninit		40,3,-1		40,3,-1
+-compallsen		no		no
+-dict					baxter.dict
+-dictcase		no		no
+-dither			no		no
+-doublebw		no		no
+-ds			1		1
+-fdict					
+-feat			1s_c_d_dd	1s_c_d_dd
+-featparams				
+-fillprob		1e-8		1.000000e-08
+-frate			100		100
+-fsg					
+-fsgusealtpron		yes		yes
+-fsgusefiller		yes		yes
+-fwdflat		yes		yes
+-fwdflatbeam		1e-64		1.000000e-64
+-fwdflatefwid		4		4
+-fwdflatlw		8.5		8.500000e+00
+-fwdflatsfwin		25		25
+-fwdflatwbeam		7e-29		7.000000e-29
+-fwdtree		yes		yes
+-hmm					en-us-baxter
+-input_endian		little		little
+-jsgf					
+-keyphrase				
+-kws					
+-kws_delay		10		10
+-kws_plp		1e-1		1.000000e-01
+-kws_threshold		1e-30		1.000000e-30
+-latsize		5000		5000
+-lda					
+-ldadim			0		0
+-lifter			0		22
+-lm					baxter.lm.bin
+-lmctl					
+-lmname					
+-logbase		1.0001		1.000100e+00
+-logfn					baxter.log
+-logspec		no		no
+-lowerf			133.33334	1.300000e+02
+-lpbeam			1e-40		1.000000e-40
+-lponlybeam		7e-29		7.000000e-29
+-lw			6.5		6.500000e+00
+-maxhmmpf		30000		30000
+-maxwpf			-1		-1
+-mdef					
+-mean					
+-mfclogdir				
+-min_endfr		0		0
+-mixw					
+-mixwfloor		0.0000001	1.000000e-07
+-mllr					
+-mmap			yes		yes
+-ncep			13		13
+-nfft			512		512
+-nfilt			40		25
+-nwpen			1.0		1.000000e+00
+-pbeam			1e-48		1.000000e-48
+-pip			1.0		1.000000e+00
+-pl_beam		1e-10		1.000000e-10
+-pl_pbeam		1e-10		1.000000e-10
+-pl_pip			1.0		1.000000e+00
+-pl_weight		3.0		3.000000e+00
+-pl_window		5		5
+-rawlogdir				
+-remove_dc		no		no
+-remove_noise		yes		yes
+-remove_silence		yes		yes
+-round_filters		yes		yes
+-samprate		16000		1.600000e+04
+-seed			-1		-1
+-sendump				
+-senlogdir				
+-senmgau				
+-silprob		0.005		5.000000e-03
+-smoothspec		no		no
+-svspec					0-12/13-25/26-38
+-tmat					
+-tmatfloor		0.0001		1.000000e-04
+-topn			4		4
+-topn_beam		0		0
+-toprule				
+-transform		legacy		dct
+-unit_area		yes		yes
+-upperf			6855.4976	6.800000e+03
+-uw			1.0		1.000000e+00
+-vad_postspeech		50		50
+-vad_prespeech		20		20
+-vad_startspeech	10		10
+-vad_threshold		3.0		3.000000e+00
+-var					
+-varfloor		0.0001		1.000000e-04
+-varnorm		no		no
+-verbose		no		no
+-warp_params				
+-warp_type		inverse_linear	inverse_linear
+-wbeam			7e-29		7.000000e-29
+-wip			0.65		6.500000e-01
+-wlen			0.025625	2.562500e-02
+
+INFO: feat.c(715): Initializing feature stream to type: '1s_c_d_dd', ceplen=13, CMN='batch', VARNORM='no', AGC='none'
+INFO: acmod.c(162): Using subvector specification 0-12/13-25/26-38
+INFO: mdef.c(518): Reading model definition: en-us-baxter/mdef
+INFO: bin_mdef.c(181): Allocating 142108 * 8 bytes (1110 KiB) for CD tree
+INFO: tmat.c(149): Reading HMM transition probability matrices: en-us-baxter/transition_matrices
+INFO: acmod.c(113): Attempting to use PTM computation module
+INFO: ms_gauden.c(127): Reading mixture gaussian parameter: en-us-baxter/means
+INFO: ms_gauden.c(242): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(127): Reading mixture gaussian parameter: en-us-baxter/variances
+INFO: ms_gauden.c(242): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(244):  128x13
+INFO: ms_gauden.c(304): 222 variance values floored
+INFO: ptm_mgau.c(475): Loading senones from dump file en-us-baxter/sendump
+INFO: ptm_mgau.c(499): BEGIN FILE FORMAT DESCRIPTION
+INFO: ptm_mgau.c(562): Rows: 128, Columns: 5126
+INFO: ptm_mgau.c(594): Using memory-mapped I/O for senones
+INFO: ptm_mgau.c(837): Maximum top-N: 4
+INFO: phone_loop_search.c(114): State beam -225 Phone exit beam -225 Insertion penalty 0
+INFO: dict.c(320): Allocating 4161 * 32 bytes (130 KiB) for word entries
+INFO: dict.c(333): Reading main dictionary: baxter.dict
+INFO: dict.c(213): Dictionary size 60, allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(336): 60 words read
+INFO: dict.c(358): Reading filler dictionary: en-us-baxter/noisedict
+INFO: dict.c(213): Dictionary size 65, allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(361): 5 words read
+INFO: dict2pid.c(396): Building PID tables for dictionary
+INFO: dict2pid.c(406): Allocating 42^3 * 2 bytes (144 KiB) for word-initial triphones
+INFO: dict2pid.c(132): Allocated 42672 bytes (41 KiB) for word-final triphones
+INFO: dict2pid.c(196): Allocated 42672 bytes (41 KiB) for single-phone word triphones
+INFO: ngram_model_trie.c(354): Trying to read LM in trie binary format
+INFO: ngram_search_fwdtree.c(74): Initializing search tree
+INFO: ngram_search_fwdtree.c(101): 48 unique initial diphones
+INFO: ngram_search_fwdtree.c(186): Creating search channels
+INFO: ngram_search_fwdtree.c(323): Max nonroot chan increased to 217
+INFO: ngram_search_fwdtree.c(333): Created 48 root, 89 non-root channels, 8 single-phone words
+INFO: ngram_search_fwdflat.c(157): fwdflat: min_ef_width = 4, max_sf_win = 25
+INFO: continuous.c(307): pocketsphinx_continuous COMPILED ON: May 22 2018, AT: 14:56:09
+
+INFO: continuous.c(252): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 40.00  3.00 -1.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00 >
+INFO: cmn_live.c(138): Update to   < 53.86 16.23 -5.25 -13.59 -13.33  6.95  0.75  6.22 -6.71  5.05  4.60 -2.14  0.40 >
+INFO: ngram_search_fwdtree.c(1550):      912 words recognized (12/fr)
+INFO: ngram_search_fwdtree.c(1552):    45159 senones evaluated (579/fr)
+INFO: ngram_search_fwdtree.c(1556):    28952 channels searched (371/fr), 3552 1st, 19759 last
+INFO: ngram_search_fwdtree.c(1559):     1394 words for which last channels evaluated (17/fr)
+INFO: ngram_search_fwdtree.c(1561):     2390 candidate words for entering last phone (30/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.07 CPU 0.093 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 1.96 wall 2.508 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 13 words
+INFO: ngram_search_fwdflat.c(948):      652 words recognized (8/fr)
+INFO: ngram_search_fwdflat.c(950):    20137 senones evaluated (258/fr)
+INFO: ngram_search_fwdflat.c(952):    16470 channels searched (211/fr)
+INFO: ngram_search_fwdflat.c(954):     1187 words searched (15/fr)
+INFO: ngram_search_fwdflat.c(957):      613 word transitions (7/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.02 CPU 0.028 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.02 wall 0.028 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.69
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 196 nodes, 1114 links
+INFO: ps_lattice.c(1374): Bestpath score: -1800
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:69:76) = -104756
+INFO: ps_lattice.c(1435): Joint P(O,S) = -119479 P(S|O) = -14723
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.002 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.002 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 53.86 16.23 -5.25 -13.59 -13.33  6.95  0.75  6.22 -6.71  5.05  4.60 -2.14  0.40 >
+INFO: cmn_live.c(138): Update to   < 60.81 18.39 -4.85 -11.44 -15.88  1.46  1.59  5.53 -6.41  5.06  6.94  0.52  2.50 >
+INFO: ngram_search_fwdtree.c(1550):      968 words recognized (8/fr)
+INFO: ngram_search_fwdtree.c(1552):    58664 senones evaluated (497/fr)
+INFO: ngram_search_fwdtree.c(1556):    34612 channels searched (293/fr), 5124 1st, 22780 last
+INFO: ngram_search_fwdtree.c(1559):     1664 words for which last channels evaluated (14/fr)
+INFO: ngram_search_fwdtree.c(1561):     1789 candidate words for entering last phone (15/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.13 CPU 0.109 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 8.20 wall 6.948 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 30 words
+INFO: ngram_search_fwdflat.c(948):      753 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):    49283 senones evaluated (418/fr)
+INFO: ngram_search_fwdflat.c(952):    40502 channels searched (343/fr)
+INFO: ngram_search_fwdflat.c(954):     2558 words searched (21/fr)
+INFO: ngram_search_fwdflat.c(957):     1620 word transitions (13/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.04 CPU 0.033 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.04 wall 0.033 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.77
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 150 nodes, 146 links
+INFO: ps_lattice.c(1374): Bestpath score: -3821
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:77:116) = -257729
+INFO: ps_lattice.c(1435): Joint P(O,S) = -273286 P(S|O) = -15557
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 60.81 18.39 -4.85 -11.44 -15.88  1.46  1.59  5.53 -6.41  5.06  6.94  0.52  2.50 >
+INFO: cmn_live.c(138): Update to   < 65.84 13.44 -5.90 -7.81 -15.47 -0.94  2.19  5.02 -6.54  7.44  5.97 -0.31  2.49 >
+INFO: ngram_search_fwdtree.c(1550):     1410 words recognized (10/fr)
+INFO: ngram_search_fwdtree.c(1552):    66994 senones evaluated (485/fr)
+INFO: ngram_search_fwdtree.c(1556):    41428 channels searched (300/fr), 6012 1st, 28649 last
+INFO: ngram_search_fwdtree.c(1559):     2090 words for which last channels evaluated (15/fr)
+INFO: ngram_search_fwdtree.c(1561):     1376 candidate words for entering last phone (9/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.12 CPU 0.087 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 6.95 wall 5.039 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 32 words
+INFO: ngram_search_fwdflat.c(948):     1072 words recognized (8/fr)
+INFO: ngram_search_fwdflat.c(950):    66663 senones evaluated (483/fr)
+INFO: ngram_search_fwdflat.c(952):    56101 channels searched (406/fr)
+INFO: ngram_search_fwdflat.c(954):     3405 words searched (24/fr)
+INFO: ngram_search_fwdflat.c(957):     2397 word transitions (17/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.037 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.037 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.95
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 180 nodes, 442 links
+INFO: ps_lattice.c(1374): Bestpath score: -4877
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:95:136) = -285285
+INFO: ps_lattice.c(1435): Joint P(O,S) = -304052 P(S|O) = -18767
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 65.84 13.44 -5.90 -7.81 -15.47 -0.94  2.19  5.02 -6.54  7.44  5.97 -0.31  2.49 >
+INFO: cmn_live.c(138): Update to   < 66.60 13.09 -6.38 -7.42 -15.51 -2.16  2.08  5.45 -6.80  8.31  6.64  0.14  2.68 >
+INFO: ngram_search_fwdtree.c(1550):     1034 words recognized (8/fr)
+INFO: ngram_search_fwdtree.c(1552):    56909 senones evaluated (445/fr)
+INFO: ngram_search_fwdtree.c(1556):    32974 channels searched (257/fr), 5885 1st, 20777 last
+INFO: ngram_search_fwdtree.c(1559):     1617 words for which last channels evaluated (12/fr)
+INFO: ngram_search_fwdtree.c(1561):     1049 candidate words for entering last phone (8/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.14 CPU 0.106 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 8.39 wall 6.556 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 29 words
+INFO: ngram_search_fwdflat.c(948):     1053 words recognized (8/fr)
+INFO: ngram_search_fwdflat.c(950):    52786 senones evaluated (412/fr)
+INFO: ngram_search_fwdflat.c(952):    42070 channels searched (328/fr)
+INFO: ngram_search_fwdflat.c(954):     2609 words searched (20/fr)
+INFO: ngram_search_fwdflat.c(957):     1482 word transitions (11/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.036 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.036 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.86
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 183 nodes, 308 links
+INFO: ps_lattice.c(1374): Bestpath score: -4487
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:86:126) = -276539
+INFO: ps_lattice.c(1435): Joint P(O,S) = -305076 P(S|O) = -28537
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 66.60 13.09 -6.38 -7.42 -15.51 -2.16  2.08  5.45 -6.80  8.31  6.64  0.14  2.68 >
+INFO: cmn_live.c(138): Update to   < 66.86 13.19 -7.98 -6.01 -13.87 -2.53 -0.10  5.02 -7.10  8.37  6.68  0.39  3.12 >
+INFO: ngram_search_fwdtree.c(1550):      694 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    43402 senones evaluated (443/fr)
+INFO: ngram_search_fwdtree.c(1556):    24079 channels searched (245/fr), 4511 1st, 14535 last
+INFO: ngram_search_fwdtree.c(1559):     1232 words for which last channels evaluated (12/fr)
+INFO: ngram_search_fwdtree.c(1561):     1014 candidate words for entering last phone (10/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.10 CPU 0.103 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 6.09 wall 6.218 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 16 words
+INFO: ngram_search_fwdflat.c(948):      684 words recognized (7/fr)
+INFO: ngram_search_fwdflat.c(950):    25409 senones evaluated (259/fr)
+INFO: ngram_search_fwdflat.c(952):    21447 channels searched (218/fr)
+INFO: ngram_search_fwdflat.c(954):     1492 words searched (15/fr)
+INFO: ngram_search_fwdflat.c(957):      756 word transitions (7/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.03 CPU 0.026 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.03 wall 0.026 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.59
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 138 nodes, 165 links
+INFO: ps_lattice.c(1374): Bestpath score: -2691
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:59:96) = -184974
+INFO: ps_lattice.c(1435): Joint P(O,S) = -229953 P(S|O) = -44979
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 66.86 13.19 -7.98 -6.01 -13.87 -2.53 -0.10  5.02 -7.10  8.37  6.68  0.39  3.12 >
+INFO: cmn_live.c(138): Update to   < 66.59 13.30 -9.70 -4.60 -12.66 -3.82 -1.36  5.18 -8.22  8.06  5.91  0.44  3.26 >
+INFO: ngram_search_fwdtree.c(1550):      984 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    61837 senones evaluated (439/fr)
+INFO: ngram_search_fwdtree.c(1556):    34481 channels searched (244/fr), 6548 1st, 20480 last
+INFO: ngram_search_fwdtree.c(1559):     1762 words for which last channels evaluated (12/fr)
+INFO: ngram_search_fwdtree.c(1561):     1439 candidate words for entering last phone (10/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.15 CPU 0.106 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 6.09 wall 4.323 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 27 words
+INFO: ngram_search_fwdflat.c(948):      821 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):    44752 senones evaluated (317/fr)
+INFO: ngram_search_fwdflat.c(952):    34673 channels searched (245/fr)
+INFO: ngram_search_fwdflat.c(954):     2423 words searched (17/fr)
+INFO: ngram_search_fwdflat.c(957):     1306 word transitions (9/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.032 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.032 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.109
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 197 nodes, 560 links
+INFO: ps_lattice.c(1374): Bestpath score: -3890
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:109:139) = -218462
+INFO: ps_lattice.c(1435): Joint P(O,S) = -236679 P(S|O) = -18217
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(88): Update from < 66.59 13.30 -9.70 -4.60 -12.66 -3.82 -1.36  5.18 -8.22  8.06  5.91  0.44  3.26 >
+INFO: cmn_live.c(105): Update to   < 66.97 13.18 -9.17 -4.48 -12.17 -4.22 -2.58  4.71 -8.59  7.73  5.55  0.77  2.39 >
+INFO: cmn_live.c(120): Update from < 66.97 13.18 -9.17 -4.48 -12.17 -4.22 -2.58  4.71 -8.59  7.73  5.55  0.77  2.39 >
+INFO: cmn_live.c(138): Update to   < 66.94 13.19 -9.17 -4.49 -12.17 -4.20 -2.56  4.72 -8.61  7.72  5.56  0.77  2.38 >
+INFO: ngram_search_fwdtree.c(1550):      609 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    37625 senones evaluated (432/fr)
+INFO: ngram_search_fwdtree.c(1556):    19515 channels searched (224/fr), 3907 1st, 11467 last
+INFO: ngram_search_fwdtree.c(1559):      975 words for which last channels evaluated (11/fr)
+INFO: ngram_search_fwdtree.c(1561):      517 candidate words for entering last phone (5/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.09 CPU 0.105 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 7.33 wall 8.421 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 16 words
+INFO: ngram_search_fwdflat.c(948):      594 words recognized (7/fr)
+INFO: ngram_search_fwdflat.c(950):    25509 senones evaluated (293/fr)
+INFO: ngram_search_fwdflat.c(952):    16815 channels searched (193/fr)
+INFO: ngram_search_fwdflat.c(954):     1316 words searched (15/fr)
+INFO: ngram_search_fwdflat.c(957):      662 word transitions (7/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.03 CPU 0.034 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.03 wall 0.034 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.51
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 125 nodes, 140 links
+INFO: ps_lattice.c(1374): Bestpath score: -2541
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:51:85) = -153765
+INFO: ps_lattice.c(1435): Joint P(O,S) = -166378 P(S|O) = -12613
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 66.94 13.19 -9.17 -4.49 -12.17 -4.20 -2.56  4.72 -8.61  7.72  5.56  0.77  2.38 >
+INFO: cmn_live.c(138): Update to   < 67.50 13.24 -8.65 -3.85 -11.92 -3.97 -4.06  3.67 -8.42  6.90  5.47  1.68  1.13 >
+INFO: ngram_search_fwdtree.c(1550):     1465 words recognized (11/fr)
+INFO: ngram_search_fwdtree.c(1552):    69911 senones evaluated (534/fr)
+INFO: ngram_search_fwdtree.c(1556):    43690 channels searched (333/fr), 5894 1st, 30326 last
+INFO: ngram_search_fwdtree.c(1559):     2154 words for which last channels evaluated (16/fr)
+INFO: ngram_search_fwdtree.c(1561):     1582 candidate words for entering last phone (12/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.15 CPU 0.113 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 7.49 wall 5.718 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 39 words
+INFO: ngram_search_fwdflat.c(948):     1219 words recognized (9/fr)
+INFO: ngram_search_fwdflat.c(950):    75346 senones evaluated (575/fr)
+INFO: ngram_search_fwdflat.c(952):    67202 channels searched (512/fr)
+INFO: ngram_search_fwdflat.c(954):     3623 words searched (27/fr)
+INFO: ngram_search_fwdflat.c(957):     2125 word transitions (16/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.039 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.039 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.88
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 206 nodes, 729 links
+INFO: ps_lattice.c(1374): Bestpath score: -3995
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:88:129) = -224898
+INFO: ps_lattice.c(1435): Joint P(O,S) = -248609 P(S|O) = -23711
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.001 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.001 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 67.50 13.24 -8.65 -3.85 -11.92 -3.97 -4.06  3.67 -8.42  6.90  5.47  1.68  1.13 >
+INFO: cmn_live.c(138): Update to   < 68.02 13.14 -7.92 -4.27 -11.88 -4.22 -4.49  3.65 -9.07  7.07  4.93  1.94  0.48 >
+INFO: ngram_search_fwdtree.c(1550):      930 words recognized (7/fr)
+INFO: ngram_search_fwdtree.c(1552):    58469 senones evaluated (443/fr)
+INFO: ngram_search_fwdtree.c(1556):    32454 channels searched (245/fr), 5913 1st, 19874 last
+INFO: ngram_search_fwdtree.c(1559):     1570 words for which last channels evaluated (11/fr)
+INFO: ngram_search_fwdtree.c(1561):     1411 candidate words for entering last phone (10/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.13 CPU 0.099 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 8.38 wall 6.347 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 24 words
+INFO: ngram_search_fwdflat.c(948):      873 words recognized (7/fr)
+INFO: ngram_search_fwdflat.c(950):    46881 senones evaluated (355/fr)
+INFO: ngram_search_fwdflat.c(952):    35103 channels searched (265/fr)
+INFO: ngram_search_fwdflat.c(954):     2329 words searched (17/fr)
+INFO: ngram_search_fwdflat.c(957):     1232 word transitions (9/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.039 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.039 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.91
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 200 nodes, 170 links
+INFO: ps_lattice.c(1374): Bestpath score: -4471
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:91:130) = -275357
+INFO: ps_lattice.c(1435): Joint P(O,S) = -298328 P(S|O) = -22971
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(88): Update from < 68.02 13.14 -7.92 -4.27 -11.88 -4.22 -4.49  3.65 -9.07  7.07  4.93  1.94  0.48 >
+INFO: cmn_live.c(105): Update to   < 68.36 13.08 -7.55 -4.34 -11.81 -4.20 -4.88  3.45 -9.40  6.96  4.77  1.86  0.15 >
+INFO: cmn_live.c(120): Update from < 68.36 13.08 -7.55 -4.34 -11.81 -4.20 -4.88  3.45 -9.40  6.96  4.77  1.86  0.15 >
+INFO: cmn_live.c(138): Update to   < 67.86 13.15 -7.49 -4.72 -12.05 -3.39 -4.52  3.38 -9.49  7.18  5.32  1.81  0.06 >
+INFO: ngram_search_fwdtree.c(1550):      973 words recognized (12/fr)
+INFO: ngram_search_fwdtree.c(1552):    41794 senones evaluated (510/fr)
+INFO: ngram_search_fwdtree.c(1556):    25737 channels searched (313/fr), 3744 1st, 17673 last
+INFO: ngram_search_fwdtree.c(1559):     1334 words for which last channels evaluated (16/fr)
+INFO: ngram_search_fwdtree.c(1561):      685 candidate words for entering last phone (8/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.08 CPU 0.096 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 4.68 wall 5.707 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 31 words
+INFO: ngram_search_fwdflat.c(948):      904 words recognized (11/fr)
+INFO: ngram_search_fwdflat.c(950):    46382 senones evaluated (566/fr)
+INFO: ngram_search_fwdflat.c(952):    40875 channels searched (498/fr)
+INFO: ngram_search_fwdflat.c(954):     2295 words searched (27/fr)
+INFO: ngram_search_fwdflat.c(957):     1328 word transitions (16/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.03 CPU 0.040 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.03 wall 0.040 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.43
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 154 nodes, 554 links
+INFO: ps_lattice.c(1374): Bestpath score: -2529
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:43:80) = -129762
+INFO: ps_lattice.c(1435): Joint P(O,S) = -161924 P(S|O) = -32162
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.001 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.001 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 67.86 13.15 -7.49 -4.72 -12.05 -3.39 -4.52  3.38 -9.49  7.18  5.32  1.81  0.06 >
+INFO: cmn_live.c(138): Update to   < 67.72 13.24 -6.52 -3.73 -12.88 -3.62 -5.35  2.37 -9.75  5.48  5.01  3.29 -0.11 >
+INFO: ngram_search_fwdtree.c(1550):      648 words recognized (8/fr)
+INFO: ngram_search_fwdtree.c(1552):    34893 senones evaluated (411/fr)
+INFO: ngram_search_fwdtree.c(1556):    19238 channels searched (226/fr), 3663 1st, 11586 last
+INFO: ngram_search_fwdtree.c(1559):      984 words for which last channels evaluated (11/fr)
+INFO: ngram_search_fwdtree.c(1561):      650 candidate words for entering last phone (7/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.08 CPU 0.094 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 3.50 wall 4.120 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 22 words
+INFO: ngram_search_fwdflat.c(948):      570 words recognized (7/fr)
+INFO: ngram_search_fwdflat.c(950):    27587 senones evaluated (325/fr)
+INFO: ngram_search_fwdflat.c(952):    22467 channels searched (264/fr)
+INFO: ngram_search_fwdflat.c(954):     1623 words searched (19/fr)
+INFO: ngram_search_fwdflat.c(957):      855 word transitions (10/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.03 CPU 0.034 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.03 wall 0.034 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.54
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 117 nodes, 190 links
+INFO: ps_lattice.c(1374): Bestpath score: -2429
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:54:83) = -147352
+INFO: ps_lattice.c(1435): Joint P(O,S) = -163819 P(S|O) = -16467
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(88): Update from < 67.72 13.24 -6.52 -3.73 -12.88 -3.62 -5.35  2.37 -9.75  5.48  5.01  3.29 -0.11 >
+INFO: cmn_live.c(105): Update to   < 66.72 13.90 -5.25 -3.85 -14.47 -4.42 -5.37  1.19 -9.91  4.59  5.40  5.23 -0.31 >
+INFO: cmn_live.c(120): Update from < 66.72 13.90 -5.25 -3.85 -14.47 -4.42 -5.37  1.19 -9.91  4.59  5.40  5.23 -0.31 >
+INFO: cmn_live.c(138): Update to   < 66.72 13.90 -5.25 -3.85 -14.47 -4.42 -5.37  1.19 -9.91  4.59  5.40  5.23 -0.31 >
+INFO: ngram_search_fwdtree.c(1550):     1029 words recognized (6/fr)
+INFO: ngram_search_fwdtree.c(1552):    61219 senones evaluated (376/fr)
+INFO: ngram_search_fwdtree.c(1556):    32229 channels searched (197/fr), 7350 1st, 17717 last
+INFO: ngram_search_fwdtree.c(1559):     1573 words for which last channels evaluated (9/fr)
+INFO: ngram_search_fwdtree.c(1561):      917 candidate words for entering last phone (5/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.16 CPU 0.098 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 5.11 wall 3.132 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 23 words
+INFO: ngram_search_fwdflat.c(948):     1000 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):    49243 senones evaluated (302/fr)
+INFO: ngram_search_fwdflat.c(952):    37778 channels searched (231/fr)
+INFO: ngram_search_fwdflat.c(954):     2544 words searched (15/fr)
+INFO: ngram_search_fwdflat.c(957):     1286 word transitions (7/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.05 CPU 0.032 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.05 wall 0.032 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.121
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 251 nodes, 647 links
+INFO: ps_lattice.c(1374): Bestpath score: -5233
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:121:161) = -325560
+INFO: ps_lattice.c(1435): Joint P(O,S) = -362984 P(S|O) = -37424
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 66.72 13.90 -5.25 -3.85 -14.47 -4.42 -5.37  1.19 -9.91  4.59  5.40  5.23 -0.31 >
+INFO: cmn_live.c(138): Update to   < 67.15 12.76 -4.90 -0.47 -12.35 -5.81 -8.05  1.58 -11.70  3.69  4.69  5.74  0.35 >
+INFO: ngram_search_fwdtree.c(1550):      901 words recognized (8/fr)
+INFO: ngram_search_fwdtree.c(1552):    53528 senones evaluated (454/fr)
+INFO: ngram_search_fwdtree.c(1556):    30228 channels searched (256/fr), 5396 1st, 19172 last
+INFO: ngram_search_fwdtree.c(1559):     1512 words for which last channels evaluated (12/fr)
+INFO: ngram_search_fwdtree.c(1561):     1266 candidate words for entering last phone (10/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.11 CPU 0.093 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 6.71 wall 5.690 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 25 words
+INFO: ngram_search_fwdflat.c(948):      757 words recognized (6/fr)
+INFO: ngram_search_fwdflat.c(950):    42687 senones evaluated (362/fr)
+INFO: ngram_search_fwdflat.c(952):    32406 channels searched (274/fr)
+INFO: ngram_search_fwdflat.c(954):     2251 words searched (19/fr)
+INFO: ngram_search_fwdflat.c(957):     1369 word transitions (11/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.04 CPU 0.031 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.04 wall 0.031 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.86
+INFO: ngram_search.c(1276): Eliminated 1 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 159 nodes, 255 links
+INFO: ps_lattice.c(1374): Bestpath score: -4164
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:86:116) = -255774
+INFO: ps_lattice.c(1435): Joint P(O,S) = -274016 P(S|O) = -18242
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....
+INFO: continuous.c(261): Listening...
+INFO: cmn_live.c(120): Update from < 67.15 12.76 -4.90 -0.47 -12.35 -5.81 -8.05  1.58 -11.70  3.69  4.69  5.74  0.35 >
+INFO: cmn_live.c(138): Update to   < 67.32 12.74 -5.07  2.41 -10.75 -7.22 -8.38  2.43 -12.34  3.89  4.23  6.29  0.61 >
+INFO: ngram_search_fwdtree.c(1550):      630 words recognized (5/fr)
+INFO: ngram_search_fwdtree.c(1552):    48122 senones evaluated (367/fr)
+INFO: ngram_search_fwdtree.c(1556):    25136 channels searched (191/fr), 5873 1st, 13576 last
+INFO: ngram_search_fwdtree.c(1559):     1215 words for which last channels evaluated (9/fr)
+INFO: ngram_search_fwdtree.c(1561):     1076 candidate words for entering last phone (8/fr)
+INFO: ngram_search_fwdtree.c(1564): fwdtree 0.12 CPU 0.094 xRT
+INFO: ngram_search_fwdtree.c(1567): fwdtree 4.37 wall 3.338 xRT
+INFO: ngram_search_fwdflat.c(302): Utterance vocabulary contains 20 words
+INFO: ngram_search_fwdflat.c(948):      583 words recognized (4/fr)
+INFO: ngram_search_fwdflat.c(950):    27599 senones evaluated (211/fr)
+INFO: ngram_search_fwdflat.c(952):    20968 channels searched (160/fr)
+INFO: ngram_search_fwdflat.c(954):     1726 words searched (13/fr)
+INFO: ngram_search_fwdflat.c(957):     1029 word transitions (7/fr)
+INFO: ngram_search_fwdflat.c(960): fwdflat 0.03 CPU 0.024 xRT
+INFO: ngram_search_fwdflat.c(963): fwdflat 0.03 wall 0.024 xRT
+INFO: ngram_search.c(1250): lattice start node <s>.0 end node </s>.101
+INFO: ngram_search.c(1276): Eliminated 2 nodes before end node
+INFO: ngram_search.c(1381): Lattice has 178 nodes, 283 links
+INFO: ps_lattice.c(1374): Bestpath score: -3458
+INFO: ps_lattice.c(1378): Normalizer P(O) = alpha(</s>:101:129) = -228213
+INFO: ps_lattice.c(1435): Joint P(O,S) = -249062 P(S|O) = -20849
+INFO: ngram_search.c(872): bestpath 0.00 CPU 0.000 xRT
+INFO: ngram_search.c(875): bestpath 0.00 wall 0.000 xRT
+INFO: continuous.c(275): Ready....

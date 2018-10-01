@@ -6,15 +6,17 @@ import math
 
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import UInt32
 
 # global variables declaration
 pubDistance = rospy.Publisher('/input/lidar/distances', Float32MultiArray, queue_size=1)
 pubAngle = rospy.Publisher('/input/lidar/angles', Float32MultiArray, queue_size=1)
+numObjects = rospy.Publisher('/input/lidar/numobjects', UInt32, queue_size=1)
 
-maxNum = 10000           # used to compare distances, this number must be more than the max number the data.ranges returns
-                         # (not confirmed, but currently seems to be 1048, although there seems to be numbers missing from around 300 - 1048)
-objectCounter = 0        # variable to keep count of how many objects were found
-objectMinAngle = 5       # an object must have a minimum of this many angles to be identified
+maxNum = 10000  # used to compare distances, this number must be more than the max number the data.ranges returns
+# (not confirmed, but currently seems to be 1048, although there seems to be numbers missing from around 300 - 1048)
+objectCounter = 0  # variable to keep count of how many objects were found
+objectMinAngle = 6  # an object must have a minimum of this many angles to be identified
 # the lidar module publishes around 35 data per second
 # the "publishCounter" variable is made to control the rate in which the data gets published
 # it acts as a counter to check how many iterations the callback has done
@@ -26,34 +28,37 @@ publishRate = 70
 objectAnglesPublish = []
 objectDistancesPublish = []
 
+
 # Method to change all the negative numbers to be positive
 def modAngle(i):
-  while i<0:
-      i=i+3600;
-  #endWhile
-  
-  return i
-#endDef
+    while i < 0:
+        i = i + 3600;
+    # endWhile
+
+    return i
+
+
+# endDef
 
 def obstructed(data, min, max):
     # Declaration of global variables modified in this method
-    global objectCounter           # iterator of how many objects are found
-    global objectAnglesPublish     # array to store the angles of all objects, to be published
+    global objectCounter  # iterator of how many objects are found
+    global objectAnglesPublish  # array to store the angles of all objects, to be published
     global objectDistancesPublish  # array to store the distances of all objects, to be published
 
     # The lidar checks for obstacles every 0.1 degree
     # For this case, we don't need it to be very precise
     # So we can ignore 9 out of 10 values in 1 degree
     # We will only store the closest one out of the 10 values
-    
-    counter = 1                   # variable to store how many obstacles found consecutively (next to each other in terms of angles)
-    objectCounter = 0             # clear the object counter every time this method is called
-    objectDistances = []          # array to store the distances of one object
-    objectAngles = []             # array to store the angles of one object
-    objectAnglesPublish = []      # initialise the angles array to be published so that it gets emptied out every time this method gets called
-    objectDistancesPublish = []   # initialise the distances array to be published so that it gets emptied out every time this method gets called
-    #average = 0                   # variable to store the average angle of the objects found
-    
+
+    counter = 1  # variable to store how many obstacles found consecutively (next to each other in terms of angles)
+    objectCounter = 0  # clear the object counter every time this method is called
+    objectDistances = []  # array to store the distances of one object
+    objectAngles = []  # array to store the angles of one object
+    objectAnglesPublish = []  # initialise the angles array to be published so that it gets emptied out every time this method gets called
+    objectDistancesPublish = []  # initialise the distances array to be published so that it gets emptied out every time this method gets called
+    # average = 0                   # variable to store the average angle of the objects found
+
     i = min
 
     while i < max:
@@ -74,33 +79,33 @@ def obstructed(data, min, max):
             if data.ranges[a] < currDistance:
                 currDistance = data.ranges[a]
                 currAngle = a
-            #endIf
-        #endFor
-        
+            # endIf
+        # endFor
+
         # First obstacle found on consecutive angle iteration
         if counter == 1:
             prevDistance = currDistance
             prevAngle = currAngle
-            
+
             objectDistances.append(currDistance)
             objectAngles.append(currAngle)
-            
+
             counter += 1
             continue
-        #endIf
+        # endIf
 
         # This code onwards will run if it's not the first obstacle found consecutively
         if counter == objectMinAngle:
             # Obstacle detected
             objectCounter += 1
-        #endIf
+        # endIf
 
         if compareDistance(prevDistance, currDistance) == True:
             if currDistance < 3:
                 # ignore if distance is more than 3 meters
                 counter += 1
-            #endIf
-            
+            # endIf
+
             prevDistance = currDistance
             prevAngle = currAngle
 
@@ -111,21 +116,23 @@ def obstructed(data, min, max):
                 # object detected
                 # put the data of the object inside the arrays to be published
                 printObjectDetails(objectDistances, objectAngles)
-                
+
                 average = (objectAngles[0] + objectAngles[-1]) / 2
                 objectAnglesPublish.append(average)
 
                 average = (objectDistances[0] + objectDistances[-1]) / 2
                 objectDistancesPublish.append(average)
-            #endIf
-            
+            # endIf
+
             counter = 1
 
             objectDistances = []
             objectAngles = []
-        #endIf
-    #endWhile
-#endDef
+        # endIf
+    # endWhile
+
+
+# endDef
 
 # Check if the distances between the currently found obstacle and the previously found obstacle are similar
 # If the distance are not similar, they are considered a different object
@@ -136,12 +143,14 @@ def compareDistance(prevDistance, currDistance):
         return True
 
     return False
-#endDef
+
+
+# endDef
 
 def printObjectDetails(objectDistances, objectAngles):
     # Variables to store the edited values to be printed
-    distancesEdited = []   # from m to cm
-    anglesEdited = []      # from tenth of degree to degree
+    distancesEdited = []  # from m to cm
+    anglesEdited = []  # from tenth of degree to degree
 
     # edit the data inside the arrays
     distancesEdited = map(lambda item: item * 100, objectDistances)
@@ -154,10 +163,11 @@ def printObjectDetails(objectDistances, objectAngles):
 
     print "Distances: ",
     print str(["{0:3.1f}".format(item) for item in distancesEdited]).replace("'", "")
-    
+
     print "Angles   : ",
     print str(["{0:3.1f}".format(item) for item in anglesEdited]).replace("'", "")
-#endDef
+
+# endDef
 
 def callback(data):
     # data.ranges and data.intensities
@@ -171,10 +181,10 @@ def callback(data):
     global publishCounter
     global objectAnglesPublish
     global objectDistancesPublish
-    
+
     # Variables to store the edited values of angles and distances
-    avgAnglesEdited = []    # from tenth of degrees to a degree
-    avgDistancesEdited = [] # from m to cm
+    avgAnglesEdited = []  # from tenth of degrees to a degree
+    avgDistancesEdited = []  # from m to cm
 
     publishCounter += 1
 
@@ -192,14 +202,17 @@ def callback(data):
         print str(["{0:3.1f}".format(item) for item in avgDistancesEdited]).replace("'", "")
         print "Avg Angles   : ",
         print str(["{0:3.1f}".format(item) for item in avgAnglesEdited]).replace("'", "")
-        
+
         print "Object Found : ",
         print objectCounter
-        
-        print
+
+        # for index, item in enumerate(avgDistancesEdited) {
+        # if item
+        # }
 
         # define the type of message to send
         msgToSend = Float32MultiArray()
+        objMsg = UInt32()
 
         # publish the angles
         msgToSend.data = avgAnglesEdited
@@ -209,18 +222,25 @@ def callback(data):
         msgToSend.data = avgDistancesEdited
         pubDistance.publish(msgToSend)
 
+        # publish the number of objects
+        objMsg.data = objectCounter
+        numObjects.publish(objMsg)
+
         # restart the counter to 0
         publishCounter = 0
-    #endIf
-#endDef
+    # endIf
 
-#define the subscriber
+
+# endDef
+
+# define the subscriber
 def random_subscriber():
     rospy.init_node('guesta_lidar', anonymous=True)
-    rospy.Subscriber('/laser_birdcage_r2000/scan',LaserScan, callback)
+    rospy.Subscriber('/laser_birdcage_r2000/scan', LaserScan, callback)
     rospy.spin()
-#endDef
 
-if __name__=='__main__':
+# endDef
+
+if __name__ == '__main__':
     random_subscriber()
-#endIf
+# endIf

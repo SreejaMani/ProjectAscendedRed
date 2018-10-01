@@ -533,7 +533,7 @@ def debug(str):
 
 def speech_callback(data):
     #debug(str(data.data))
-    print data.data
+    print (data.data)
     if data.data=="wave":
 
          baxter_wave = Gesture()
@@ -545,7 +545,7 @@ def speech_callback(data):
     if data.data=="waiting":
          baxter_wave = Gesture()
          baxter_wave.sayno()
-    if data.data=="hand shake":
+    if data.data=="shake hands":
          baxter_wave = Gesture()
          baxter_wave.shakehands()
     if data.data=="come here":
