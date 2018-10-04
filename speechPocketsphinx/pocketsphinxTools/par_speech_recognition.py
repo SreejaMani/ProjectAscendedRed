@@ -86,7 +86,7 @@ def set_up_mic():
 	recognizer.energy_threshold = 4000
 	# find the mic to use
 	for index, name in enumerate(sr.Microphone.list_microphone_names()):
-		if name == "pulse":
+		if name == "alsa_input.usb-046d_HD_Pro_Webcam_C920_D02D1A9F-02.analog-stereo":
 			print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))
 			microphone = sr.Microphone(device_index=index)
 			microphone.SAMPLE_RATE = 16000
