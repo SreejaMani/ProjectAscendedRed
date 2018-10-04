@@ -85,15 +85,22 @@ def set_up_mic():
 	recognizer = sr.Recognizer()
 	recognizer.energy_threshold = 4000
 	# find the mic to use
-	for index, name in enumerate(sr.Microphone.list_microphone_names()):
-		if name == "alsa_input.usb-046d_HD_Pro_Webcam_C920_D02D1A9F-02.analog-stereo":
-			print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, name))
-			microphone = sr.Microphone(device_index=index)
-			microphone.SAMPLE_RATE = 16000
-			break
-	if microphone == None:
-		print("No working microphones found!")
-		exit()	
+
+	microphone = None
+    	for index, mic_name in enumerate(sr.Microphone.list_microphone_names()):
+        	micsplit = mic_name.split()
+        	for micname in micsplit:
+            		if micname == "Xbox":
+	    	        	print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, mic_name))
+            			microphone = sr.Microphone(device_index=index)
+               			microphone.SAMPLE_RATE = 16000
+                		break
+        	if microphone != None:
+            		break
+
+    	if microphone == None:
+        	print("No working microphones found!")
+        	exit()
 	
 	while True:
 	
