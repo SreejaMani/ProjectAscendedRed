@@ -383,9 +383,6 @@ class Gesture(object):
         limb.set_joint_torques(vel_0)
         print(cur_vel)
         
-
-
-
         limb.move_to_joint_positions(angles)
         time.sleep(1)
         limb.move_to_neutral()
@@ -510,8 +507,6 @@ class myThread (threading.Thread):
             baxter_interface.Head().set_pan(-1.2)
             
 
-
-
    def set_neutral(self):
         """
         Sets both arms back into a neutral pose.
@@ -535,17 +530,16 @@ def speech_callback(data):
     #debug(str(data.data))
     print (data.data)
     if data.data=="wave":
-
          baxter_wave = Gesture()
          baxter_wave.wave()
-    if data.data=="big wave":
+    if data.data=="big":
 	 debug("waving...")
          baxter_wave = Gesture()
          baxter_wave.bigwave()
     if data.data=="waiting":
          baxter_wave = Gesture()
          baxter_wave.sayno()
-    if data.data=="shake hands":
+    if data.data=="shake":
          baxter_wave = Gesture()
          baxter_wave.shakehands()
     if data.data=="come here":
@@ -561,28 +555,19 @@ def speech_callback(data):
          baxter_wave = Gesture()
          baxter_wave.dab()
          baxter_wave.set_neutral()
-
     if data.data=="what":
          baxter_wave = Gesture()
          baxter_wave.what()
          baxter_wave.set_neutral()
-
     if data.data=="come here":
         baxter_wave = Gesture()
         baxter_wave.comehere()
-
     if data.data=="understand":
         baxter_wave = Gesture()
         baxter_wave.nod()
-
     if data.data=="neutral":
         baxter_wave = Gesture()
         baxter_wave.set_neutral()
-
-
-
-
-
 
 
 def main():
@@ -611,7 +596,7 @@ def main():
 
     baxter_wave = Gesture()
     rospy.on_shutdown(baxter_wave.clean_shutdown)
-    rospy.Subscriber("/input/speech/commands",String,speech_callback)
+    rospy.Subscriber("/speechPocketsphinx/speech_recognition", String, speech_callback)
     rospy.spin()
 
 
@@ -629,12 +614,6 @@ def main():
     # baxter_wave.what()
    # baxter_wave.set_neutral()
     
-
-    
-
-
-
-
 
 if __name__ == '__main__':
     main()
