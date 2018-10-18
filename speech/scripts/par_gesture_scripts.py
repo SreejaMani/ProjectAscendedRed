@@ -48,37 +48,37 @@ from baxter_interface import CHECK_VERSION
 class Gesture(object):
 
 	def __init__(self):
-        
-        	self._pub_rate = rospy.Publisher('robot/joint_state_publish_rate',
+       
+		self._pub_rate = rospy.Publisher('robot/joint_state_publish_rate',
                                          UInt16, queue_size=10)
 	        self._left_arm = baxter_interface.limb.Limb("left") # getting control of the left arm
-        	self._right_arm = baxter_interface.limb.Limb("right") # getting control of the right arm
-        	self._left_joint_names = self._left_arm.joint_names() # Getting the left joint names
-        	self._right_joint_names = self._right_arm.joint_names()  # Getting the names of the right joint
+	        self._right_arm = baxter_interface.limb.Limb("right") # getting control of the right arm
+	        self._left_joint_names = self._left_arm.joint_names() # Getting the left joint names
+	        self._right_joint_names = self._right_arm.joint_names()  # Getting the names of the right joint
 
-        	# control parameters
-        	self._rate = 500.0  # Hz
-        	self._left_arm.set_joint_position_speed(0.5)
-        	self._right_arm.set_joint_position_speed(0.5)
+	        # control parameters
+	        self._rate = 500.0  # Hz
+	        self._left_arm.set_joint_position_speed(0.5)
+	        self._right_arm.set_joint_position_speed(0.5)
 
-        	print("Getting robot state... ")
-        	self._rs = baxter_interface.RobotEnable(CHECK_VERSION)
-        	self._init_state = self._rs.state().enabled
-        	print("Enabling robot... ")
-        	self._rs.enable()
-	
-	def _reset_control_modes(self):
+	        print("Getting robot state... ")
+	        self._rs = baxter_interface.RobotEnable(CHECK_VERSION)
+	        self._init_state = self._rs.state().enabled
+	        print("Enabling robot... ")
+	        self._rs.enable()
+       
+    	def _reset_control_modes(self):
         	rate = rospy.Rate(self._rate)
         	for _ in xrange(100):
-        		if rospy.is_shutdown():
-        	        	return False
-        		self._left_arm.exit_control_mode()
-        	 	self._right_arm.exit_control_mode()
-        		self._pub_rate.publish(100)  # 100Hz default joint state rate
-        	    	rate.sleep()
-        		return True
+        	    if rospy.is_shutdown():
+         	       return False
+            	self._left_arm.exit_control_mode()
+            	self._right_arm.exit_control_mode()
+            	self._pub_rate.publish(100)  # 100Hz default joint state rate
+            	rate.sleep()
+        	return True
 
-	def set_neutral(self):
+    	def set_neutral(self):
         	"""
         	Sets both arms and the head back into a neutral pose.
         	"""
@@ -86,71 +86,104 @@ class Gesture(object):
         	self._left_arm.move_to_neutral()
         	self._right_arm.move_to_neutral()
         	baxter_interface.Head().set_pan(0.0, speed=0.5, timeout=10)
-	
-	def clean_shutdown(self):
-	        print("\nExiting example...")
-	        #return to normal
-	        self._reset_control_modes()
-	        self.set_neutral()
-	        if not self._init_state:
-	            print("Disabling robot...")
-	            self._rs.disable()
-	        return True
-	
-	def wave(self):
-	        #self.set_neutral()
-	        """
-	        Performs a royal wave
-	        """
-	        limb = baxter_interface.Limb('right')
-	        limb.set_joint_position_speed(0.6)
+
+
+    	def clean_shutdown(self):
+        	print("\nExiting example...")
+        	#return to normal
+        	self._reset_control_modes()
+        	self.set_neutral()
+ 		if not self._init_state:
+ 	        	print("Disabling robot...")
+            	self._rs.disable()
+        	return True
+
+    	def wave(self):
+        	#self.set_neutral()
+        	"""
+        	Performs a royal wave
+        	"""
+        	limb = baxter_interface.Limb('right')
+        	limb.set_joint_position_speed(0.6)
 		wave_1 = {'right_s0': -0.459, 'right_s1': -0.202, 'right_e0': 1.807, 'right_e1': 1.714, 'right_w0': -0.906, 'right_w1': -1.545, 'right_w2': -0.276}
 		wave_2 = {'right_s0': -0.395, 'right_s1': -0.202, 'right_e0': 1.831, 'right_e1': 1.981, 'right_w0': -1.979, 'right_w1': -1.100, 'right_w2': -0.448}
 		
-	        for _move in range(3):
-	            limb.move_to_joint_positions(wave_1, timeout=3, threshold=0.1)
-	            limb.move_to_joint_positions(wave_2,timeout=2, threshold=0.1)
+        	for _move in range(3):
+        		limb.move_to_joint_positions(wave_1, timeout=3, threshold=0.1)
+            		limb.move_to_joint_positions(wave_2,timeout=2, threshold=0.1)
 
-	        self.set_neutral() # Set the hand back to neutral position 
+        	#self.set_neutral() # Set the hand back to neutral position 
 
-	def bigwave(self):
+    	def bigwave(self):
  
-	        """
-	        Performs an exagerrated wave using the left arm with the s0 joint
-	        """
-	        limb = baxter_interface.Limb('left')
-	        limb.set_joint_position_speed(0.5)
-	        wave_1 = {'left_s0': 0.0, 'left_s1': -1.3, 'left_e0': 0.0, 'left_e1': 0.0, 'left_w0': -1.8, 'left_w1': 1.2, 'left_w2': -1.8}
-	        wave_2 = {'left_s0': 0.0, 'left_s1': -1.3, 'left_e0': 0.0, 'left_e1': 0.0, 'left_w0': -1.8, 'left_w1':0, 'left_w2': -1.8}
+        	"""
+        	Performs an exagerrated wave using the left arm with the s0 joint
+        	"""
+		limb = baxter_interface.Limb('left')
+        	limb.set_joint_position_speed(0.5)
+        	wave_1 = {'left_s0': 0.0, 'left_s1': -1.3, 'left_e0': 0.0, 'left_e1': 0.0, 'left_w0': -1.8, 'left_w1': 1.2, 'left_w2': -1.8}
+        	wave_2 = {'left_s0': 0.0, 'left_s1': -1.3, 'left_e0': 0.0, 'left_e1': 0.0, 'left_w0': -1.8, 'left_w1':0, 'left_w2': -1.8}
 		
-	        for _move in range(3):
-	            limb.move_to_joint_positions(wave_1, timeout=1.5, threshold=0.008)
-	            limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.008)
+        	for _move in range(3):
+            		limb.move_to_joint_positions(wave_1, timeout=1.5, threshold=0.008)
+            		limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.008)
         
-	        self.set_neutral() # Set the hand back to neutral position 
+        	#self.set_neutral() # Set the hand back to neutral position 
+   
 
 	def comehere(self):
-	        
-	        """
-	        Using its arm performs a gesture callng 
-	        """
-	        limb = baxter_interface.Limb('left')
-	        limb.set_joint_position_speed(0.5)
-	        wave_1 = {'left_s0': -1, 'left_s1': 0.0, 'left_e0': -2.8, 'left_e1': 0.0, 'left_w0': 0.0, 'left_w1': 1.5, 'left_w2': 0.0}
-	        wave_2 = {'left_s0': -1, 'left_s1': 0.0, 'left_e0': -2.8, 'left_e1': 0.0, 'left_w0': 0.0, 'left_w1': 00, 'left_w2': 0.0}
-			
-	        for _move in range(3):
-	            limb.move_to_joint_positions(wave_1,timeout=1.5, threshold=0.005)
-	            limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.005)
         
-	        self.set_neutral()
+	        """
+        	Using its arm performs a gesture callng 
+        	"""
+        	limb = baxter_interface.Limb('left')
+        	limb.set_joint_position_speed(0.5)
+        	wave_1 = {'left_s0': -1, 'left_s1': 0.0, 'left_e0': -2.8, 'left_e1': 0.0, 'left_w0': 0.0, 'left_w1': 1.5, 'left_w2': 0.0}
+        	wave_2 = {'left_s0': -1, 'left_s1': 0.0, 'left_e0': -2.8, 'left_e1': 0.0, 'left_w0': 0.0, 'left_w1': 00, 'left_w2': 0.0}
+		
+        	for _move in range(3):
+            		limb.move_to_joint_positions(wave_1,timeout=1.5, threshold=0.005)
+            		limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.005)
+        
+        	#self.set_neutral()
 
-	def shakehands(self):
+
+    	def firstbump(self):
 
         	"""
         	Performs the wobbling of both arms.
         	"""
-	
+        	limb = baxter_interface.Limb('right')
+        	angles = limb.joint_angles()
+        	angles['right_s0']=1.0
+        	angles['right_s1']=-0.2
+        	angles['right_e0']=0.0
+        	angles['right_e1']=0.0
+        	angles['right_w0']=0.0
+        	angles['right_w1']=0.0
+        	angles['right_w2']=0.0
+        	print(angles)
+        	limb.move_to_joint_positions(angles)
+
+        	angles = limb.joint_angles()
+        	angles['right_s0']=1.0
+        	angles['right_s1']=-0.2
+        	angles['right_e0']=0.0
+        	angles['right_e1']=0.0
+        	angles['right_w0']=0.0
+        	angles['right_w1']=0.0
+        	angles['right_w2']=0.0
+        	print(angles)
+        	limb.move_to_joint_positions(angles)
+        	limb.move_to_neutral()
+
+
+    	def shakehands(self):
+
+        	"""
+        	Performs the wobbling of both arms.
+        	"""
+
         	limb = baxter_interface.Limb('right')
         	angles = limb.joint_angles()
         	angles['right_s0']=1.0
@@ -164,30 +197,100 @@ class Gesture(object):
         	limb.move_to_joint_positions(angles)
         	time.sleep(1)
 
-        	self.set_neutral()
+        	#self.set_neutral()
+    
+   
+	def highfive(self):
+	        self.set_neutral()
+	        """
+	        Performs a high five
+	        """
+	        limb = baxter_interface.Limb('left')
+	        angles = limb.joint_angles()
+	        angles['left_s0']=-1
+	        angles['left_s1']=-0.9
+	        angles['left_e0']=0
+	        angles['left_e1']=1.0
+	        angles['left_w0']=0.0
+	        angles['left_w1']=-1.5
+	        angles['left_w2']=0.0
+	        print(angles)
+        
+        
+	        vel_0 = {'left_s0': 1, 'left_s1': 1, 'left_e0': 1, 'left_e1': 1, 'left_w0': 1, 'left_w1': 1, 'left_w2': 1}
+	        #limb.set_joint_velocities(vel_0);
+	        cur_vel = limb.joint_velocities()
+	        limb.set_joint_torques(vel_0)
+	        print(cur_vel)
+	        
+	        limb.move_to_joint_positions(angles)
+	        time.sleep(1)
+	        limb.move_to_neutral()
+        
 
+    
+
+	def set_neutral(self):
+	        """
+	        Sets both arms back into a neutral pose.
+	        """
+	        print("Moving to neutral pose...")
+	        self._left_arm.move_to_neutral()
+	        self._right_arm.move_to_neutral()    
+"""
+def print_time(threadName, delay, counter):
+   while counter:
+      time.sleep(delay)
+      print "%s: %s" % (threadName, time.ctime(time.time()))
+      counter -= 1
+
+threadLock =0;
+"""
 def debug(str):
-    print (str)
+	print (str)
 
 def speech_callback(data):
-    #debug(str(data.data))
-    print (data.data)
-    if data.data=="wave":
-         baxter_wave = Gesture()
-         baxter_wave.wave()
-    if data.data=="big":
-	 debug("waving...")
-         baxter_wave = Gesture()
-         baxter_wave.bigwave()
-    if data.data=="shake":
-         baxter_wave = Gesture()
-         baxter_wave.shakehands()
-    if data.data=="come":
-         baxter_wave = Gesture()
-         baxter_wave.comehere()
-    if data.data=="neutral":
-        baxter_wave = Gesture()
-        baxter_wave.set_neutral()
+    	#debug(str(data.data))
+    	print (data.data)
+    	if data.data=="wave":
+        	baxter_wave = Gesture()
+        	baxter_wave.wave()
+    	if data.data=="big-wave":
+		debug("waving...")
+         	baxter_wave = Gesture()
+        	baxter_wave.bigwave()
+    	if data.data=="waiting":
+        	baxter_wave = Gesture()
+        	baxter_wave.sayno()
+    	if data.data=="shake":
+        	baxter_wave = Gesture()
+        	baxter_wave.shakehands()
+    	if data.data=="come here":
+        	baxter_wave = Gesture()
+        	baxter_wave.comehere()
+    	if data.data=="fist bump":
+        	baxter_wave = Gesture()
+        	baxter_wave.firstbump()
+    	if data.data=="high five":
+        	baxter_wave = Gesture()
+        	baxter_wave.highfive()
+    	if data.data=="dab":
+        	baxter_wave = Gesture()
+        	baxter_wave.dab()
+        	baxter_wave.set_neutral()
+    	if data.data=="what":
+        	baxter_wave = Gesture()
+        	baxter_wave.what()
+        	baxter_wave.set_neutral()
+    	if data.data=="come-here":
+        	baxter_wave = Gesture()
+        	baxter_wave.comehere()
+    	if data.data=="understand":
+        	baxter_wave = Gesture()
+        	baxter_wave.nod()
+    	if data.data=="neutral":
+        	baxter_wave = Gesture()
+        	baxter_wave.set_neutral()
 
 
 def main():
@@ -195,17 +298,22 @@ def main():
 
     	Gesture Script
     	This script contains all the gestures that baxter can perform such as
-	Wave
+    	Wave
     	Shake Hands
     	Big Wave
+    	Nod
     	Come here
+    	Dab 
+    	what
+
     
+    	"""
     	global threadLock
     	arg_fmt = argparse.RawDescriptionHelpFormatter  
     	parser = argparse.ArgumentParser(formatter_class=arg_fmt,
                                      description=main.__doc__)
     	parser.parse_args(rospy.myargv()[1:])
-	"""	
+
     	print("Initializing node... ")
     	rospy.init_node("baxter_gesture")
 
@@ -214,5 +322,6 @@ def main():
     	rospy.Subscriber("/speechPocketsphinx/speech_recognition", String, speech_callback)
     	rospy.spin()
 
+
 if __name__ == '__main__':
-    main()
+	main()
