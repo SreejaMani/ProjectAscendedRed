@@ -32,6 +32,8 @@ import math
 import random
 import time
 import threading
+import os
+from os import path
 from std_msgs.msg import String
 
 import rospy
@@ -63,9 +65,11 @@ class Gesture(object):
 
 	        print("Getting robot state... ")
 	        self._rs = baxter_interface.RobotEnable(CHECK_VERSION)
-	        self._init_state = self._rs.state().enabled
+	        #self._init_state = self._rs.state().enabled #"it takes the last state of the robot 
+		#and enabling it from that state. This may not be a good idea"
 	        print("Enabling robot... ")
 	        self._rs.enable()
+		#self.set_neutral()
        
     	def _reset_control_modes(self):
         	rate = rospy.Rate(self._rate)
@@ -92,19 +96,21 @@ class Gesture(object):
         	print("\nExiting example...")
         	#return to normal
         	self._reset_control_modes()
-        	self.set_neutral()
- 		if not self._init_state:
- 	        	print("Disabling robot...")
-            	self._rs.disable()
+		os.system("/home/edwin/ros_ws/tuck.sh")
+		#os.system("/home/par/par_ws/tuck")
+        	#self.set_neutral()
+ 		#if not self._init_state:
+ 	        #	print("Disabling robot...")           	
+		self._rs.disable()
         	return True
 
     	def wave(self):
-        	#self.set_neutral()
+        
         	"""
         	Performs a royal wave
         	"""
         	limb = baxter_interface.Limb('right')
-        	limb.set_joint_position_speed(0.6)
+        	limb.set_joint_position_speed(0.7)
 		wave_1 = {'right_s0': -0.459, 'right_s1': -0.202, 'right_e0': 1.807, 'right_e1': 1.714, 'right_w0': -0.906, 'right_w1': -1.545, 'right_w2': -0.276}
 		wave_2 = {'right_s0': -0.395, 'right_s1': -0.202, 'right_e0': 1.831, 'right_e1': 1.981, 'right_w0': -1.979, 'right_w1': -1.100, 'right_w2': -0.448}
 		
@@ -112,7 +118,7 @@ class Gesture(object):
         		limb.move_to_joint_positions(wave_1, timeout=3, threshold=0.1)
             		limb.move_to_joint_positions(wave_2,timeout=2, threshold=0.1)
 
-        	#self.set_neutral() # Set the hand back to neutral position 
+        	self.set_neutral() # Set the hand back to neutral position 
 
     	def bigwave(self):
  
@@ -128,7 +134,7 @@ class Gesture(object):
             		limb.move_to_joint_positions(wave_1, timeout=1.5, threshold=0.008)
             		limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.008)
         
-        	#self.set_neutral() # Set the hand back to neutral position 
+        	self.set_neutral() # Set the hand back to neutral position 
    
 
 	def comehere(self):
@@ -145,7 +151,7 @@ class Gesture(object):
             		limb.move_to_joint_positions(wave_1,timeout=1.5, threshold=0.005)
             		limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.005)
         
-        	#self.set_neutral()
+        	self.set_neutral()
 
 
     	def firstbump(self):
@@ -197,7 +203,7 @@ class Gesture(object):
         	limb.move_to_joint_positions(angles)
         	time.sleep(1)
 
-        	#self.set_neutral()
+        	self.set_neutral()
     
    
 	def highfive(self):
@@ -237,15 +243,7 @@ class Gesture(object):
 	        print("Moving to neutral pose...")
 	        self._left_arm.move_to_neutral()
 	        self._right_arm.move_to_neutral()    
-"""
-def print_time(threadName, delay, counter):
-   while counter:
-      time.sleep(delay)
-      print "%s: %s" % (threadName, time.ctime(time.time()))
-      counter -= 1
 
-threadLock =0;
-"""
 def debug(str):
 	print (str)
 
@@ -259,35 +257,18 @@ def speech_callback(data):
 		debug("waving...")
          	baxter_wave = Gesture()
         	baxter_wave.bigwave()
-    	if data.data=="waiting":
-        	baxter_wave = Gesture()
-        	baxter_wave.sayno()
     	if data.data=="shake":
         	baxter_wave = Gesture()
         	baxter_wave.shakehands()
-    	if data.data=="come here":
-        	baxter_wave = Gesture()
-        	baxter_wave.comehere()
-    	if data.data=="fist bump":
-        	baxter_wave = Gesture()
-        	baxter_wave.firstbump()
-    	if data.data=="high five":
-        	baxter_wave = Gesture()
-        	baxter_wave.highfive()
-    	if data.data=="dab":
-        	baxter_wave = Gesture()
-        	baxter_wave.dab()
-        	baxter_wave.set_neutral()
-    	if data.data=="what":
-        	baxter_wave = Gesture()
-        	baxter_wave.what()
-        	baxter_wave.set_neutral()
     	if data.data=="come-here":
         	baxter_wave = Gesture()
         	baxter_wave.comehere()
-    	if data.data=="understand":
+    	if data.data=="fist-bump":
         	baxter_wave = Gesture()
-        	baxter_wave.nod()
+        	baxter_wave.firstbump()
+    	if data.data=="high-five":
+        	baxter_wave = Gesture()
+        	baxter_wave.highfive()
     	if data.data=="neutral":
         	baxter_wave = Gesture()
         	baxter_wave.set_neutral()
@@ -307,16 +288,15 @@ def main():
     	what
 
     
-    	"""
+    
     	global threadLock
     	arg_fmt = argparse.RawDescriptionHelpFormatter  
     	parser = argparse.ArgumentParser(formatter_class=arg_fmt,
                                      description=main.__doc__)
     	parser.parse_args(rospy.myargv()[1:])
-
+	"""
     	print("Initializing node... ")
     	rospy.init_node("baxter_gesture")
-
     	baxter_wave = Gesture()
     	rospy.on_shutdown(baxter_wave.clean_shutdown)
     	rospy.Subscriber("/speechPocketsphinx/speech_recognition", String, speech_callback)
