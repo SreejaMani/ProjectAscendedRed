@@ -8,7 +8,8 @@ import speech_recognition as sr
 import rospy
 from std_msgs.msg import String
 
-MODELDIR = "/home/edwin/ros_ws/src/baxter_examples/RedAscended/speechPocketsphinx/pocketsphinxTools/baxter-dict"
+#MODELDIR = "/home/edwin/ros_ws/src/baxter_examples/RedAscended/speechPocketsphinx/pocketsphinxTools/baxter-dict"
+MODELDIR = "/home/par/par_ws/src/par_package/scripts/speechPocketsphinx/pocketsphinxTools/baxter-dict"
 #Config the decoder
 config = Decoder.default_config()
 config.set_string('-hmm', path.join(MODELDIR, 'en-us-baxter'))
@@ -92,8 +93,8 @@ def set_up_mic():
     	for index, mic_name in enumerate(sr.Microphone.list_microphone_names()):
         	micsplit = mic_name.split()
         	for micname in micsplit:
-            		#if micname == "Xbox":
-            		if micname == "pulse":
+            		if micname == "Xbox":
+            		#if micname == "pulse":
                 		print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, mic_name))
                 		microphone = sr.Microphone(device_index=index)
                 		microphone.SAMPLE_RATE = 16000
@@ -123,110 +124,99 @@ def set_up_mic():
         	# print the phrase to the console
         	print("You said: {}".format(phrase))
 
-            	if "hi" == phrase or "hello" in phrase or ("good" in phrase and ("morning" in phrase or "afternoon" in phrase)):
-                	debug("greeting")
-	               	pub.publish("greeting")                
-         	    	# Wait for 5 seconds before getting another input
-         	       	for _ in range(50): rospy.sleep(0.1)
-         	       	wordFound = True
-         	       	
-         	elif ("what" in phrase or "do" in phrase) and "name" in phrase:
-			debug("name")
-                	pub.publish("name")                
-                	# Wait for 5 seconds before getting another input
-                	for _ in range(50): rospy.sleep(0.1)
-                	wordFound = True
+		#check if red or baxter is in the phrase
+		if "red" in phrase or "baxter" in phrase: 
+	            	if "hi" == phrase or "hello" in phrase or ("good" in phrase and ("morning" in phrase or "afternoon" in phrase)):
+        	        	debug("greeting")
+		               	pub.publish("greeting")                
+        	 	    	# Wait for 5 seconds before getting another input
+        	 	       	for _ in range(50): rospy.sleep(0.1)
+             	       	
+        	 	elif ("what" in phrase or "do" in phrase) and "name" in phrase:
+				debug("name")
+        	        	pub.publish("name")                
+        	        	# Wait for 5 seconds before getting another input
+        	        	for _ in range(50): rospy.sleep(0.1)
                 	
-            	elif "how" in phrase and ("are" in phrase or "doing" in phrase or "going" in phrase):
-              		debug("long greeting")
-	        	pub.publish("long greeting")                        
-               		# Wait for 5 seconds before getting another input
-               		for _ in range(50): rospy.sleep(0.1)
-               		wordFound = True
+        	    	elif "how" in phrase and ("are" in phrase or "doing" in phrase or "going" in phrase):
+        	      		debug("long greeting")
+		        	pub.publish("long greeting")                        
+        	       		# Wait for 5 seconds before getting another input
+        	       		for _ in range(50): rospy.sleep(0.1)
                     			
-		elif ("what" in phrase or "things" in phrase) and "do" in phrase:
-                	debug("do")
-                	pub.publish("do")            
-			# Wait for 5 seconds before getting another input
-	      		for _ in range(50): rospy.sleep(0.1)
-		      	wordFound = True
+			elif ("what" in phrase or "things" in phrase) and "do" in phrase:
+        	        	debug("do")
+        	        	pub.publish("do")            
+				# Wait for 5 seconds before getting another input
+		      		for _ in range(50): rospy.sleep(0.1)
 			
-	   	elif "untuck" in phrase and "arms" in phrase:
-	                debug("untuck")
-               		pub.publish("untuck")                
-	                # Wait for 10 seconds before getting another input
-               		for _ in range(100): rospy.sleep(0.1)
-               		wordFound = True
+		   	elif "untuck" in phrase and "arms" in phrase:
+		                debug("untuck")
+        	       		pub.publish("untuck")                
+		                # Wait for 10 seconds before getting another input
+        	       		for _ in range(120): rospy.sleep(0.1)
+                     		
+			elif "tuck" in phrase and "arms" in phrase:
+      	         		debug("tuck")
+      	         		pub.publish("tuck")                
+      	         		# Wait for 10 seconds before getting another input
+      	         		for _ in range(120): rospy.sleep(0.1)
+      	               		
+        		elif ("mimic" in phrase or "mirror" in phrase)and "me" in phrase:
+        	       		debug("mimic")
+        	       		pub.publish("mimic")                
+        	       		# Wait for 15 seconds before getting another input
+        	       		for _ in range(150): rospy.sleep(0.1)
+                	       		
+        		elif "shake" in phrase and "hands" in phrase:
+        	       		debug("shake")
+        	      		pub.publish("shake")
+        	       		# Wait for 10 seconds before getting another input
+        	       		for _ in range(100): rospy.sleep(0.1)
+        	       		
+	       		elif "big" in phrase and "wave" in phrase:
+		                debug("big-wave")
+        	       		pub.publish("big-wave")    
+        	       		# Wait for 10 seconds before getting another input
+        	       		for _ in range(130): rospy.sleep(0.1)
+	
+			elif "wave" in phrase:
+		                debug("wave")
+        	       		pub.publish("wave")    
+        	       		# Wait for 10 seconds before getting another input
+        	       		for _ in range(130): rospy.sleep(0.1)
                		
-		elif "tuck" in phrase and "arms" in phrase:
-               		debug("tuck")
-               		pub.publish("tuck")                
-               		# Wait for 10 seconds before getting another input
-               		for _ in range(100): rospy.sleep(0.1)
-               		wordFound = True
-               		
-        	elif ("mimic" in phrase or "mirror" in phrase)and "me" in phrase:
-               		debug("mimic")
-               		pub.publish("mimic")                
-               		# Wait for 15 seconds before getting another input
-               		for _ in range(150): rospy.sleep(0.1)
-               		wordFound = True
-               		
-        	elif "shake" in phrase and "hands" in phrase:
-               		debug("shake")
-              		pub.publish("shake")
-               		# Wait for 10 seconds before getting another input
-               		for _ in range(10): rospy.sleep(0.1)
-               		wordFound = True
-               		
-       		elif "big" in phrase or "wave" in phrase:
-	                debug("big-wave")
-               		pub.publish("big-wave")    
-               		# Wait for 10 seconds before getting another input
-               		for _ in range(100): rospy.sleep(0.1)
-               		wordFound = True
-
-		elif "wave" in phrase:
-	                debug("wave")
-               		pub.publish("wave")    
-               		# Wait for 10 seconds before getting another input
-               		for _ in range(100): rospy.sleep(0.1)
-               		wordFound = True
-               		
-	        elif "fist" in phrase or "bump" in phrase:
-	                debug("fist-bump")
-               		pub.publish("fist-bump")
-	                # Wait for 10 seconds before getting another input
-               		for _ in range(100): rospy.sleep(0.1)
-               		wordFound = True
-               		
-        	elif "come" in phrase and "here" in phrase:
-	                debug("come-here")
-               		pub.publish("come-here")
-               		# Wait for 10 seconds before getting another input
-              		for _ in range(100): rospy.sleep(0.1)
-               		wordFound = True
-               		
-       		elif "high" in phrase and "five" in phrase:
-               		debug("high-five")
-               		pub.publish("high-five")
-	                # Wait for 10 seconds before getting another input
-               		for _ in range(100): rospy.sleep(0.1)
-               		wordFound = True
-               		
-	       	elif "stop" in phrase:
-	                debug(phrase)
-               		pub.publish(phrase)
-	                # Wait for 5 seconds before getting another input
-               		for _ in range(50): rospy.sleep(0.1)
-               		wordFound = True
-               		
-
-		#if not wordFound:
+		        elif "fist" in phrase or "bump" in phrase:
+		                debug("fist-bump")
+        	       		pub.publish("fist-bump")
+		                # Wait for 10 seconds before getting another input
+        	       		for _ in range(100): rospy.sleep(0.1)
+                       		
+        		elif "come" in phrase and "here" in phrase:
+		                debug("come-here")
+        	       		pub.publish("come-here")
+        	       		# Wait for 10 seconds before getting another input
+        	      		for _ in range(100): rospy.sleep(0.1)
+                       		
+       			elif "high" in phrase and "five" in phrase:
+        	       		debug("high-five")
+        	       		pub.publish("high-five")
+		                # Wait for 10 seconds before getting another input
+        	       		for _ in range(100): rospy.sleep(0.1)
+           		
+		       	elif "stop" in phrase and "mimic" in phrase:
+		                debug(phrase)
+        	       		pub.publish("stop-mimic")
+		                # Wait for 5 seconds before getting another input
+        	       		for _ in range(50): rospy.sleep(0.1)
+        	               		
+			else:
+        			debug("Speaking: word not found")
+				pub.publish("wordnotfound")
+				# Wait for 5 seconds before getting another input
+        	       		for _ in range(50): rospy.sleep(0.1)
 		else:
-        		debug("Speaking: word not found")
-			pub.publish("wordnotfound")
-
+			debug("Speaking: red or baxter is not in the phrase")
 
 if __name__ == "__main__":
 	try:
