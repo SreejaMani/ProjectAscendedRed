@@ -34,19 +34,32 @@ def speech(data):
 		debug("Speaking: untucking")
 	       	pubtts.publish("sure... I can do that")
 		os.system("/home/par/par_ws/utuck")			
+		#os.system("/home/edwin/ros_ws/utuck.sh")			
 	elif "tuck" == text:
 		debug("Speaking: tucking")
 		pubtts.publish("Tucking arms")
-		os.system("/home/par/par_ws/tuck")		
+		os.system("/home/par/par_ws/tuck")	
+		#os.system("/home/edwin/ros_ws/tuck.sh")	
 	elif "mimic" ==  text:
-       		debug("Speaking: Follow me")
-        	pubtts.publish("Sure... I'll do that")			
+       		debug("Speaking: mimicking")
+        	pubtts.publish("Sure... I'll do that")	
+		os.system("rostopic pub /red/commands std_msgs/String 'start_kinect'")		
+	elif "stop-mimic" ==  text:
+       		debug("Speaking: stop mimicking")
+        	pubtts.publish("Sure... I'll do that")	
+		os.system("rostopic pub /red/commands std_msgs/String 'stop_kinect'")
+	elif "rotate" == text:
+		debug("speaking: rotating")
+		pubtts.publish("Sure... I'll do that")
+		os.system("rosrun par_package par_lidar.py")	
+		os.system("rosrun par_package red_delay_rotate.py")
+		os.system("rosrun par_package red_head_track.py")	
     	elif "shake" == text:
         	debug("Speaking: Shake hands")
 		pubtts.publish("Sure... I'll do that")	
 	elif "big-wave" == text:
        		debug("Speaking: big waving")
-       		pubtts.publish("sure... I'll do a big waving")
+       		pubtts.publish("sure... I'll do a big wave")
 	elif "wave" == text:
        		debug("Speaking: waving")
        		pubtts.publish("ok... I am waving")					
@@ -64,7 +77,7 @@ def speech(data):
         	pubtts.publish("okay... See you next time")						  			
     	elif "wordnotfound" in text:
         	debug("Speaking: no word")
-		pubtts.publish("Oops! Didn't catch that. What did you say?")
+		pubtts.publish("sorry... I didn't get that?")
    
 try:
     rospy.init_node('par_listening', anonymous=True)
