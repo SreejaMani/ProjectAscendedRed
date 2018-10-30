@@ -13,7 +13,7 @@ def debug(str):
 	print(str)
 	pubdebug.publish(str)
 
-#the function which does the audio playing when command is receive from the subscriber /input/speech/commands
+# This function publishes a msg to text to speech topic and also executes commands when needed
 def speech(data):
     	debug("Listening: "+ str(data.data))
 	text = data.data
