@@ -1,5 +1,7 @@
 #!/usr/bin/python
+# coding: utf-8
 
+import random
 import rospy
 from std_msgs.msg import String
 import os
@@ -17,7 +19,14 @@ def debug(str):
 def speech(data):
     	debug("Listening: "+ str(data.data))
 	text = data.data
-
+	
+	longGreetAnswers = ["I am fine", "I'm very well", "not bad", "I am good thanks", 
+		"Great! Couldn’t be better!", "I can’t complain"]
+	untuckAnswers = ["sure... I can do that", "sure... I'll do that", "ok... you got it", "untucking arms"]
+	tuckAnswers = ["sure... I can do that", "sure... I'll do that", "ok... you got it", "tucking arms"]
+	generalAnswers = ["sure... I can do that", "sure... I'll do that", "ok... you got it"]
+	wordNoFoundAns = ["sorry...", "I didn't catch that", "what was that?","say it again",
+			"beg you pardon?", "sorry... come again", "sorry... I didn't get that"]
     	if "greeting" == text:
         	debug("Speaking: Welcome")
 		pubtts.publish("Welcome to the Vxlab")		
@@ -25,38 +34,52 @@ def speech(data):
 		debug("Speaking: my name")
 		pubtts.publish("my name is Baxter but you can call me Red")
 	elif "long greeting" == text:
-		debug("Speaking: I am fine")
-		pubtts.publish("I'm very well")     		                              				
+		# get a random word from the list
+	    	answer = random.choice(longGreetAnswers)
+		debug("Speaking: long greeting")
+		pubtts.publish(answer)     		                              				
   	elif "do" == text:
 		debug("Speaking: things")
         	pubtts.publish("I can rotate, tuck and untuck arms, smile, mimic and other things")		
   	elif "untuck" == text:
+		# get a random word from the list
+	    	answer = random.choice(untuckAnswers)
 		debug("Speaking: untucking")
-	       	pubtts.publish("sure... I can do that")
+	       	pubtts.publish(answer)
 		os.system("/home/par/par_ws/utuck")			
 		#os.system("/home/edwin/ros_ws/utuck.sh")			
 	elif "tuck" == text:
+		# get a random word from the list
+	    	answer = random.choice(tuckAnswers)
 		debug("Speaking: tucking")
-		pubtts.publish("Tucking arms")
+		pubtts.publish(answer)
 		os.system("/home/par/par_ws/tuck")	
 		#os.system("/home/edwin/ros_ws/tuck.sh")	
 	elif "mimic" ==  text:
+		# get a random word from the list
+	    	answer = random.choice(generalAnswers)
        		debug("Speaking: mimicking")
-        	pubtts.publish("Sure... I'll do that")	
+        	pubtts.publish(answer)	
 		os.system("rostopic pub /red/commands std_msgs/String 'start_kinect'")		
 	elif "stop-mimic" ==  text:
+		# get a random word from the list
+	    	answer = random.choice(generalAnswers)
        		debug("Speaking: stop mimicking")
-        	pubtts.publish("Sure... I'll do that")	
+        	pubtts.publish(answer)	
 		os.system("rostopic pub /red/commands std_msgs/String 'stop_kinect'")
 	elif "rotate" == text:
+		# get a random word from the list
+	    	answer = random.choice(generalAnswers)
 		debug("speaking: rotating")
-		pubtts.publish("Sure... I'll do that")
+		pubtts.publish(answer)
 		os.system("rosrun par_package par_lidar.py")	
 		os.system("rosrun par_package red_delay_rotate.py")
 		os.system("rosrun par_package red_head_track.py")	
     	elif "shake" == text:
+		# get a random word from the list
+	    	answer = random.choice(generalAnswers)
         	debug("Speaking: Shake hands")
-		pubtts.publish("Sure... I'll do that")	
+		pubtts.publish(answer)	
 	elif "big-wave" == text:
        		debug("Speaking: big waving")
        		pubtts.publish("sure... I'll do a big wave")
@@ -76,8 +99,10 @@ def speech(data):
        		debug("Speaking: See_you_next_time")
         	pubtts.publish("okay... See you next time")						  			
     	elif "wordnotfound" in text:
+		# get a random word from the list
+	    	answer = random.choice(wordNoFoundAns)
         	debug("Speaking: no word")
-		pubtts.publish("sorry... I didn't get that?")
+		pubtts.publish(answer)
    
 try:
     rospy.init_node('par_listening', anonymous=True)
