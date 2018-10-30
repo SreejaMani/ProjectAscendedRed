@@ -117,7 +117,7 @@ def set_up_mic():
         	if response["error"]:
             		print("Oops! Didn't catch that. What did you say?\n")
             		print("ERROR: {}".format(response["error"]))
-            		response["transcription"] = "Oops! Didn't catch that. What did you say?"
+            		response["transcription"] = "word not found"
             		pass
 
         	phrase = response["transcription"].lower()
@@ -209,7 +209,11 @@ def set_up_mic():
         	       		pub.publish("stop-mimic")
 		                # Wait for 5 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)
-        	               		
+			elif "rotate" in phrase:
+				debug(phrase)
+        	       		pub.publish("rotate")
+		                # Wait for 5 seconds before getting another input
+        	       		for _ in range(50): rospy.sleep(0.1)               		
 			else:
         			debug("Speaking: word not found")
 				pub.publish("wordnotfound")
