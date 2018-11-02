@@ -73,6 +73,7 @@ class Gesture(object):
 	        #self._rs.enable()#this is the problem check this out
 		#self.set_neutral()
 		#os.system("rosrun baxter_tools enable_robot.py -e")
+	
        
     	def _reset_control_modes(self):
         	rate = rospy.Rate(self._rate)
@@ -205,8 +206,21 @@ class Gesture(object):
 
     	def shakehands(self):
 
-
+		#self.set_neutral()
+		os.system("/home/par/par_ws/utuck")
+		#os.system("rosrun baxter_tools enable_robot.py -e")
+		#utuckleft = baxter_interface.Limb('left')
+		#utuckright = baxter_interface.Limb('right')
+		#utuckleft.set_joint_position_speed(0.6)
+		#utuckright.set_joint_position_speed(0.6)
+		#leftArm = {'left_s0' : -0.08, 'left_s1' : -1.0, 'left_e0' : -1.19, 'left_e1' : 1.94, 
+		#	'left_w0' : 0.67, 'left_w1' : 1.03, 'left_w2' : -0.50}
+		#rightArm = {'right_s0': 0.08, 'right_s1': -1.0, 'right_e0': 1.19, 'right_e1': 1.94,
+	         #    	'right_w0': -0.67, 'right_w1': 1.03, 'right_w2': 0.50}
+		#utuckleft.move_to_joint_positions(leftArm)
+		#utuckright.move_to_joint_positions(rightArm) 
         	limb = baxter_interface.Limb('right')
+		limb.set_joint_position_speed(0.8)
         	angles = limb.joint_angles()
 		tuck_right = {'right_s0': 1.0, 'right_s1': -2.07, 'right_e0': -3.0, 'right_e1': 2.55, 
 				'right_w0': -0.0, 'right_w1': 0.01, 'right_w2': 0.0}
@@ -220,7 +234,10 @@ class Gesture(object):
         	print(angles)    
 	        limb.move_to_joint_positions(angles)
 	        time.sleep(1)
-		limb.move_to_joint_positions(tuck_right)
+		#utuckright.move_to_joint_positions(rightArm)
+		os.system("/home/par/par_ws/utuck")
+		#self.set_neutral()
+		#limb.move_to_joint_positions(tuck_right)
         
 	
 	def highfive(self):	 

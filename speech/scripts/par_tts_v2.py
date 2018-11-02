@@ -72,9 +72,9 @@ def speech(data):
 	    	answer = random.choice(generalAnswers)
 		debug("speaking: rotating")
 		pubtts.publish(answer)
+		os.system("rosrun par_package red_head_track.py")
 		os.system("rosrun par_package par_lidar.py")	
-		os.system("rosrun par_package red_delay_rotate.py")
-		os.system("rosrun par_package red_head_track.py")	
+		os.system("rosrun par_package red_delay_rotate.py")	
     	elif "shake" == text:
 		# get a random word from the list
 	    	answer = random.choice(generalAnswers)
