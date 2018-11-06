@@ -100,19 +100,8 @@ class Gesture(object):
         	print("\nExiting example...")
         	#return to normal
         	self._reset_control_modes()
-		limb_right = baxter_interface.Limb('right')
-		limb_left = baxter_interface.Limb('left')
-        	limb_right.set_joint_position_speed(0.7)
-		limb_left.set_joint_position_speed(0.7)
-		tuck_right = {'right_s0': 1.0, 'right_s1': -2.07, 'right_e0': -3.0, 
-				'right_e1': 2.55, 'right_w0': -0.0, 'right_w1': 0.01, 'right_w2': 0.0}
-		tuck_left = {'left_s0': -1.0, 'left_s1': -2.07, 'left_e0': 3.0, 
-				'left_e1': 2.55, 'left_w0': 0.0, 'left_w1': 0.01, 'left_w2': 0.0}
-		
-		limb_left.move_to_joint_positions(tuck_left)
-		limb_right.move_to_joint_positions(tuck_right)
-		#os.system("/home/edwin/ros_ws/tuck.sh")
-		#os.system("/home/par/par_ws/tuck")
+		#os.system("/home/edwin/ros_ws/tuck")
+		os.system("/home/par/par_ws/tuck")
         	#self.set_neutral()
  		#if not self._init_state:
  	        #	print("Disabling robot...")           	
@@ -124,11 +113,12 @@ class Gesture(object):
         	"""
         	Performs a royal wave
         	"""
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
+
         	limb = baxter_interface.Limb('right')
         	limb.set_joint_position_speed(0.7)
-		tuck_right = {'right_s0': 1.0, 'right_s1': -2.07, 'right_e0': -3.0, 'right_e1': 2.55, 
-				'right_w0': -0.0, 'right_w1': 0.01, 'right_w2': 0.0}
-
+		
 		wave_1 = {'right_s0': -0.459, 'right_s1': -0.202, 'right_e0': 1.807, 'right_e1': 1.714,
 				'right_w0': -0.906, 'right_w1': -1.545, 'right_w2': -0.276}
 		wave_2 = {'right_s0': -0.395, 'right_s1': -0.202, 'right_e0': 1.831, 'right_e1': 1.981, 
@@ -138,20 +128,20 @@ class Gesture(object):
         		limb.move_to_joint_positions(wave_1, timeout=3, threshold=0.1)
             		limb.move_to_joint_positions(wave_2,timeout=2, threshold=0.1)
 		
-		limb.move_to_joint_positions(tuck_right)
-
-        	#self.set_neutral() # Set the hand back to neutral position 
-		#os.system("/home/edwin/ros_ws/tuck.sh")
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
 
     	def bigwave(self):
  
         	"""
         	Performs an exagerrated wave using the left arm with the s0 joint
         	"""
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 		
+		
 		limb = baxter_interface.Limb('left')
         	limb.set_joint_position_speed(0.7)
-		tuck_left = {'left_s0': -1.0, 'left_s1': -2.07, 'left_e0': 3.0, 'left_e1': 2.55, 
-				'left_w0': 0.0, 'left_w1': 0.01, 'left_w2': 0.0}
+		
         	wave_1 = {'left_s0': 0.0, 'left_s1': -1.3, 'left_e0': 0.0, 'left_e1': 0.0, 
 				'left_w0': -1.8, 'left_w1': 1.2, 'left_w2': -1.8}
         	wave_2 = {'left_s0': 0.0, 'left_s1': -1.3, 'left_e0': 0.0, 'left_e1': 0.0, 
@@ -161,8 +151,8 @@ class Gesture(object):
             		limb.move_to_joint_positions(wave_1, timeout=1.5, threshold=0.008)
             		limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.008)
         
-		limb.move_to_joint_positions(tuck_left)
-        	#self.set_neutral() # Set the hand back to neutral position 
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
    
 
 	def comehere(self):
@@ -170,10 +160,12 @@ class Gesture(object):
 	        """
         	Using its arm performs a gesture callng 
         	"""
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
+
         	limb = baxter_interface.Limb('left')
-        	limb.set_joint_position_speed(0.5)
-		tuck_left = {'left_s0': -1.0, 'left_s1': -2.07, 'left_e0': 3.0, 'left_e1': 2.55, 
-				'left_w0': 0.0, 'left_w1': 0.01, 'left_w2': 0.0}
+        	limb.set_joint_position_speed(0.6)
+		
         	wave_1 = {'left_s0': -1, 'left_s1': 0.0, 'left_e0': -2.8, 'left_e1': 0.0, 
 				'left_w0': 0.0, 'left_w1': 1.5, 'left_w2': 0.0}
         	wave_2 = {'left_s0': -1, 'left_s1': 0.0, 'left_e0': -2.8, 'left_e1': 0.0, 
@@ -183,15 +175,17 @@ class Gesture(object):
             		limb.move_to_joint_positions(wave_1,timeout=1.5, threshold=0.005)
             		limb.move_to_joint_positions(wave_2,timeout=1.5, threshold=0.005)
         
-		limb.move_to_joint_positions(tuck_left)
-        	#self.set_neutral()
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
 
 
     	def firstbump(self):
 
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
+
         	limb = baxter_interface.Limb('right')
-		tuck_right = {'right_s0': 1.0, 'right_s1': -2.07, 'right_e0': -3.0, 'right_e1': 2.55, 
-				'right_w0': -0.0, 'right_w1': 0.01, 'right_w2': 0.0}
+		
         	angles = limb.joint_angles()
         	angles['right_s0']=1.0
         	angles['right_s1']=-0.2
@@ -202,28 +196,19 @@ class Gesture(object):
         	angles['right_w2']=0.0
         	print(angles)
         	limb.move_to_joint_positions(angles)
-		limb.move_to_joint_positions(tuck_right)
+		time.sleep(1)
+
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
 
     	def shakehands(self):
 
-		#self.set_neutral()
-		os.system("/home/par/par_ws/utuck")
-		#os.system("rosrun baxter_tools enable_robot.py -e")
-		#utuckleft = baxter_interface.Limb('left')
-		#utuckright = baxter_interface.Limb('right')
-		#utuckleft.set_joint_position_speed(0.6)
-		#utuckright.set_joint_position_speed(0.6)
-		#leftArm = {'left_s0' : -0.08, 'left_s1' : -1.0, 'left_e0' : -1.19, 'left_e1' : 1.94, 
-		#	'left_w0' : 0.67, 'left_w1' : 1.03, 'left_w2' : -0.50}
-		#rightArm = {'right_s0': 0.08, 'right_s1': -1.0, 'right_e0': 1.19, 'right_e1': 1.94,
-	         #    	'right_w0': -0.67, 'right_w1': 1.03, 'right_w2': 0.50}
-		#utuckleft.move_to_joint_positions(leftArm)
-		#utuckright.move_to_joint_positions(rightArm) 
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
         	limb = baxter_interface.Limb('right')
-		limb.set_joint_position_speed(0.8)
+		limb.set_joint_position_speed(0.7)
         	angles = limb.joint_angles()
-		tuck_right = {'right_s0': 1.0, 'right_s1': -2.07, 'right_e0': -3.0, 'right_e1': 2.55, 
-				'right_w0': -0.0, 'right_w1': 0.01, 'right_w2': 0.0}
+
         	angles['right_s0']=1.0
         	angles['right_s1']=0.0
         	angles['right_e0']=1.6
@@ -234,19 +219,21 @@ class Gesture(object):
         	print(angles)    
 	        limb.move_to_joint_positions(angles)
 	        time.sleep(1)
-		#utuckright.move_to_joint_positions(rightArm)
+		#os.system("/home/edwin/ros_ws/utuck") 
 		os.system("/home/par/par_ws/utuck")
-		#self.set_neutral()
-		#limb.move_to_joint_positions(tuck_right)
+
         
 	
 	def highfive(self):	 
 	        """
 	        Performs a high five
 	        """
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
+
 	        limb = baxter_interface.Limb('left')
-		tuck_left = {'left_s0': -1.0, 'left_s1': -2.07, 'left_e0': 3.0, 'left_e1': 2.55, 
-				'left_w0': 0.0, 'left_w1': 0.01, 'left_w2': 0.0}
+		limb.set_joint_position_speed(0.8)
+
 	        angles = limb.joint_angles()
 	        angles['left_s0']=-1
 	        angles['left_s1']=-0.9
@@ -267,7 +254,9 @@ class Gesture(object):
 	        
 	        limb.move_to_joint_positions(angles)
 	        time.sleep(1)
-	        limb.move_to_joint_positions(tuck_left)
+	        
+		os.system("/home/par/par_ws/utuck") 
+		#os.system("/home/edwin/ros_ws/utuck") 
         
 
 	def set_neutral(self):
@@ -282,7 +271,7 @@ def debug(str):
 	print (str)
 
 def speech_callback(data):
-    	#debug(str(data.data))
+    	debug(str(data.data))
     	print (data.data)
     	if data.data=="wave":
         	baxter_wave = Gesture()
