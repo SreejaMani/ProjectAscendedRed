@@ -20,13 +20,14 @@ def speech(data):
     	debug("Listening: "+ str(data.data))
 	text = data.data
 	
-	longGreetAnswers = ["I am fine", "I'm very well", "not bad", "I am good thanks", 
-		"Great! Couldn’t be better!", "I can’t complain"]
+	#These are list of possible answers that will be randomly selected to publish on gTTS topic
+	longGreetAnswers = ["I am fine, thanks for asking", "I'm very well", "not bad", "I am good thanks", 
+		"Great! Couldn’t be better!", "I can’t complain", "I feel good"]
 	untuckAnswers = ["sure... I can do that", "sure... I'll do that", "ok... you got it", "untucking arms"]
 	tuckAnswers = ["sure... I can do that", "sure... I'll do that", "ok... you got it", "tucking arms"]
-	generalAnswers = ["sure... I can do that", "sure... I'll do that", "ok... you got it"]
+	generalAnswers = ["sure... I can do that", "sure... I'll do it", "ok... you got it", "I am able to do that"]
 	wordNoFoundAns = ["sorry...", "I didn't catch that", "what was that?","say it again",
-			"beg you pardon?", "sorry... come again", "sorry... I didn't get that"]
+			"beg you pardon?", "sorry... come again", "sorry... I didn't get that", "I did not understand"]
     	if "greeting" == text:
         	debug("Speaking: Welcome")
 		pubtts.publish("Welcome to the Vxlab")		
@@ -47,14 +48,14 @@ def speech(data):
 		debug("Speaking: untucking")
 	       	pubtts.publish(answer)
 		os.system("/home/par/par_ws/utuck")			
-		#os.system("/home/edwin/ros_ws/utuck.sh")			
+		#os.system("/home/edwin/ros_ws/utuck")			
 	elif "tuck" == text:
 		# get a random word from the list
 	    	answer = random.choice(tuckAnswers)
 		debug("Speaking: tucking")
 		pubtts.publish(answer)
 		os.system("/home/par/par_ws/tuck")	
-		#os.system("/home/edwin/ros_ws/tuck.sh")	
+		#os.system("/home/edwin/ros_ws/tuck")	
 	elif "mimic" ==  text:
 		# get a random word from the list
 	    	answer = random.choice(generalAnswers)
@@ -72,9 +73,11 @@ def speech(data):
 	    	answer = random.choice(generalAnswers)
 		debug("speaking: rotating")
 		pubtts.publish(answer)
-		os.system("rosrun par_package red_head_track.py")
-		os.system("rosrun par_package par_lidar.py")	
-		os.system("rosrun par_package red_delay_rotate.py")	
+		os.system("roslaunch par_package mobility_read.launch")	
+		for _ in range(150): rospy.sleep(0.1)
+		os.system("rosnode kill rosout look_closest_person")
+		os.system("rosnode kill rosout face_closest_person")
+		os.system("rosnode kill rosout par_lidar")
     	elif "shake" == text:
 		# get a random word from the list
 	    	answer = random.choice(generalAnswers)
