@@ -1,4 +1,4 @@
-Language model created by QuickLM on Wed Oct 17 06:47:03 EDT 2018
+Language model created by QuickLM on Tue Nov  6 04:50:56 EST 2018
 Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
 
 The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
@@ -33,7 +33,7 @@ ngram 3=119
 -1.9345 DO -0.2511
 -2.7126 DOING -0.2577
 -2.7126 EVENING -0.2577
--2.7126 FIRST -0.3002
+-2.7126 FIST -0.3002
 -2.7126 FIVE -0.2577
 -2.7126 FORWARD -0.2577
 -2.7126 GOING -0.2577
@@ -80,7 +80,7 @@ ngram 3=119
 -1.9912 <s> BIG 0.0000
 -1.9912 <s> COME 0.0000
 -1.9912 <s> DO -0.1761
--1.9912 <s> FIRST 0.0000
+-1.9912 <s> FIST 0.0000
 -1.3892 <s> GOOD 0.0000
 -1.9912 <s> GOOD'AY 0.0000
 -1.6902 <s> HELLO 0.0000
@@ -119,7 +119,7 @@ ngram 3=119
 -0.6021 DO YOU -0.1549
 -0.3010 DOING </s> -0.3010
 -0.3010 EVENING </s> -0.3010
--0.3010 FIRST BUMP 0.0000
+-0.3010 FIST BUMP 0.0000
 -0.3010 FIVE </s> -0.3010
 -0.3010 FORWARD </s> -0.3010
 -0.3010 GOING </s> -0.3010
@@ -194,7 +194,7 @@ ngram 3=119
 -0.3010 <s> BIG WAVE
 -0.3010 <s> COME HERE
 -0.3010 <s> DO YOU
--0.3010 <s> FIRST BUMP
+-0.3010 <s> FIST BUMP
 -0.9031 <s> GOOD AFTERNOON
 -0.9031 <s> GOOD EVENING
 -0.9031 <s> GOOD MORNING
@@ -239,7 +239,7 @@ ngram 3=119
 -0.3010 COME HERE </s>
 -0.4771 DO YOU DO
 -0.7782 DO YOU HAVE
--0.3010 FIRST BUMP </s>
+-0.3010 FIST BUMP </s>
 -0.3010 GOOD AFTERNOON </s>
 -0.3010 GOOD EVENING </s>
 -0.3010 GOOD MORNING </s>
