@@ -1,0 +1,6 @@
+<launch>
+	<node name="par_lidar" pkg="par_package" type="par_lidar.py" output="screen"/>
+	<node name="face_closest_person" pkg="par_package" type="red_delay_rotate.py" output="screen"/>
+	<node name="look_closest_person" pkg="par_package" type="red_head_track.py" output="screen"/>
+</launch>
+
