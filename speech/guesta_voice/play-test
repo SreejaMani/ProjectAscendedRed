@@ -1,1 +1,0 @@
-aplay -c 2 -D hw:3,0 Hello2.wav
