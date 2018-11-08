@@ -174,7 +174,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)   
 		                # Wait for 10 seconds before getting another input
-        	       		for _ in range(120): rospy.sleep(0.1)
+        	       		for _ in range(100): rospy.sleep(0.1)
                      		
 			elif "tuck" in phrase and "arms" in phrase:
       	         		debug("tuck")
@@ -183,7 +183,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)  
       	         		# Wait for 10 seconds before getting another input
-      	         		for _ in range(120): rospy.sleep(0.1)
+      	         		for _ in range(100): rospy.sleep(0.1)
       	               		
         		elif ("mimic" in phrase or "mirror" in phrase)and "me" in phrase:
         	       		debug("mimic")
@@ -201,7 +201,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
-        	       		for _ in range(100): rospy.sleep(0.1)
+        	       		for _ in range(130): rospy.sleep(0.1)
         	       		
 	       		elif "big" in phrase and "wave" in phrase:
 		                debug("big-wave")
@@ -210,7 +210,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
-        	       		for _ in range(130): rospy.sleep(0.1)
+        	       		for _ in range(160): rospy.sleep(0.1)
 	
 			elif "wave" in phrase:
 		                debug("wave")
@@ -219,7 +219,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
-        	       		for _ in range(130): rospy.sleep(0.1)
+        	       		for _ in range(180): rospy.sleep(0.1)
                		
 		        elif "fist" in phrase or "bump" in phrase:
 		                debug("fist-bump")
@@ -228,7 +228,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
 		                # Wait for 10 seconds before getting another input
-        	       		for _ in range(100): rospy.sleep(0.1)
+        	       		for _ in range(130): rospy.sleep(0.1)
                        		
         		elif "come" in phrase and "here" in phrase:
 		                debug("come-here")
@@ -237,7 +237,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
-        	      		for _ in range(100): rospy.sleep(0.1)
+        	      		for _ in range(180): rospy.sleep(0.1)
                        		
        			elif "high" in phrase and "five" in phrase:
         	       		debug("high-five")
@@ -246,7 +246,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
 		                # Wait for 10 seconds before getting another input
-        	       		for _ in range(100): rospy.sleep(0.1)
+        	       		for _ in range(150): rospy.sleep(0.1)
            		
 		       	elif "stop" in phrase and "mimic" in phrase:
 		                debug(phrase)
@@ -263,7 +263,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
 		                # Wait for 15 seconds before getting another input
-        	       		for _ in range(150): rospy.sleep(0.1) 
+        	       		for _ in range(250): rospy.sleep(0.1) 
 			elif "stop" in phrase and "rotating" in phrase:
 				debug(phrase)
         	       		pub.publish("stop-rotating")
@@ -271,7 +271,7 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
 		                # Wait for 15 seconds before getting another input
-        	       		for _ in range(150): rospy.sleep(0.1)              		
+        	       		for _ in range(50): rospy.sleep(0.1)              		
 			else:
         			debug("Speaking: word not found")
 				pub.publish("wordnotfound")
