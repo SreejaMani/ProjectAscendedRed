@@ -74,7 +74,7 @@ def speech(data):
 		debug("speaking: rotating")
 		pubtts.publish(answer)
 		os.system("roslaunch par_package mobility_read.launch")	
-	elif "stop-rotating"		
+	elif "stop-rotating" == text:		
 		os.system("rosnode kill rosout look_closest_person")
 		os.system("rosnode kill rosout face_closest_person")
 		os.system("rosnode kill rosout par_lidar")
