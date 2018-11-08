@@ -263,7 +263,15 @@ def set_up_mic():
 				red.publish(100)
 	            		green.publish(0)
 		                # Wait for 15 seconds before getting another input
-        	       		for _ in range(150): rospy.sleep(0.1)               		
+        	       		for _ in range(150): rospy.sleep(0.1) 
+			elif "stop" in phrase and "rotating" in phrase:
+				debug(phrase)
+        	       		pub.publish("stop-rotating")
+				#red led indicator      
+				red.publish(100)
+	            		green.publish(0)
+		                # Wait for 15 seconds before getting another input
+        	       		for _ in range(150): rospy.sleep(0.1)              		
 			else:
         			debug("Speaking: word not found")
 				pub.publish("wordnotfound")
