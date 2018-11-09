@@ -8,7 +8,8 @@ import speech_recognition as sr
 import rospy
 from std_msgs.msg import String
 
-MODELDIR = "/home/edwin/ros_ws/src/baxter_examples/RedAscended/speechPocketsphinx/pocketsphinxTools/baxter-dict"
+#MODELDIR = "/home/edwin/ros_ws/src/baxter_examples/RedAscended/speechPocketsphinx/pocketsphinxTools/baxter-dict"
+MODELDIR = "/home/par/par_ws/src/par_package/scripts/speechPocketsphinx/pocketsphinxTools/baxter-dict"
 #Config the decoder
 config = Decoder.default_config()
 config.set_string('-hmm', path.join(MODELDIR, 'en-us-baxter'))
@@ -92,13 +93,13 @@ def set_up_mic():
     	for index, mic_name in enumerate(sr.Microphone.list_microphone_names()):
         	micsplit = mic_name.split()
         	for micname in micsplit:
-            	#if micname == "Xbox":
-            	if micname == "pulse":
-                	print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, mic_name))
-                	microphone = sr.Microphone(device_index=index)
-                	microphone.SAMPLE_RATE = 16000
-                	break
-        	if microphone != None:
+            		if micname == "Xbox":
+            		#if micname == "pulse":
+                		print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, mic_name))
+                		microphone = sr.Microphone(device_index=index)
+                		microphone.SAMPLE_RATE = 16000
+                		break
+        		if microphone != None:
             	break
 
     	if microphone == None:

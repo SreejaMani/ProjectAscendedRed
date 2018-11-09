@@ -46,7 +46,7 @@ def recognize_speech_from_mic(recognizer, microphone):
 	# from the microphone
 	with microphone as source:
 		#Adjust the mic energy threshold for ambient noise
-		#recognizer.adjust_for_ambient_noise(source)
+		recognizer.adjust_for_ambient_noise(source)
 		#Green led indicator		
 		red.publish(0)
 		green.publish(100)
@@ -56,7 +56,7 @@ def recognize_speech_from_mic(recognizer, microphone):
         	audio = recognizer.listen(source)
         	print "Got it! Now to recognize it..."
 		#Adjust the mic energy threshold for ambient noise
-		recognizer.adjust_for_ambient_noise(source)
+		#recognizer.adjust_for_ambient_noise(source)
 
     	# set up the response object
 	response = {
@@ -97,19 +97,20 @@ def set_up_mic():
     	# find the mic to use
     	wordFound = False
     	microphone = None
+	print 'Mics',sr.Microphone.list_microphone_names()
     	for index, mic_name in enumerate(sr.Microphone.list_microphone_names()):
         	micsplit = mic_name.split()
         	for micname in micsplit:
-            		#if micname == "Xbox":
-			if micname == "Webcam":
+            		if micname == "Xbox":
+			#if micname == "Webcam":
             		#if micname == "pulse":
                 		print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, mic_name))
                 		microphone = sr.Microphone(device_index=index)
                 		microphone.SAMPLE_RATE = 16000
-                		break
+                		#break
         		
-			if microphone != None:
-        	    		break
+			#if microphone != None:
+        	    	#	break
 
     	if microphone == None:
         	print("No working microphones found!")
@@ -138,8 +139,8 @@ def set_up_mic():
         	        	debug("greeting")
 		               	pub.publish("greeting")  
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)        
+				red.publish(100)
+	            		green.publish(0)        
         	 	    	# Wait for 5 seconds before getting another input
         	 	       	for _ in range(50): rospy.sleep(0.1)
              	       	
@@ -147,8 +148,8 @@ def set_up_mic():
 				debug("name")
         	        	pub.publish("name")    
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)            
+				red.publish(100)
+	            		green.publish(0)            
         	        	# Wait for 5 seconds before getting another input
         	        	for _ in range(50): rospy.sleep(0.1)
                 	
@@ -156,8 +157,8 @@ def set_up_mic():
         	      		debug("long greeting")
 		        	pub.publish("long greeting")                        
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
         	       		# Wait for 5 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)
                     			
@@ -165,17 +166,17 @@ def set_up_mic():
         	        	debug("do")
         	        	pub.publish("do")            
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
 				# Wait for 5 seconds before getting another input
-		      		for _ in range(80): rospy.sleep(0.1)
+		      		for _ in range(50): rospy.sleep(0.1)
 			
 		   	elif "untuck" in phrase and "arms" in phrase:
 		                debug("untuck")
         	       		pub.publish("untuck")             
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)   
+				red.publish(100)
+	            		green.publish(0)   
 		                # Wait for 10 seconds before getting another input
         	       		for _ in range(100): rospy.sleep(0.1)
                      		
@@ -183,8 +184,8 @@ def set_up_mic():
       	         		debug("tuck")
       	         		pub.publish("tuck")              
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)  
+				red.publish(100)
+	            		green.publish(0)  
       	         		# Wait for 10 seconds before getting another input
       	         		for _ in range(100): rospy.sleep(0.1)
       	               		
@@ -192,8 +193,8 @@ def set_up_mic():
         	       		debug("mimic")
         	       		pub.publish("mimic")                
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
         	       		# Wait for 15 seconds before getting another input
         	       		for _ in range(150): rospy.sleep(0.1)
                 	       		
@@ -201,8 +202,8 @@ def set_up_mic():
         	       		debug("shake")
         	      		pub.publish("shake")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
         	       		for _ in range(130): rospy.sleep(0.1)
         	       		
@@ -210,8 +211,8 @@ def set_up_mic():
 		                debug("big-wave")
         	       		pub.publish("big-wave")    
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
         	       		for _ in range(160): rospy.sleep(0.1)
 	
@@ -219,17 +220,17 @@ def set_up_mic():
 		                debug("wave")
         	       		pub.publish("wave")    
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
         	       		for _ in range(180): rospy.sleep(0.1)
                		
-		        elif "fist" in phrase and "bump" in phrase:
+		        elif "fist" in phrase or "bump" in phrase:
 		                debug("fist-bump")
         	       		pub.publish("fist-bump")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
 		                # Wait for 10 seconds before getting another input
         	       		for _ in range(130): rospy.sleep(0.1)
                        		
@@ -237,8 +238,8 @@ def set_up_mic():
 		                debug("come-here")
         	       		pub.publish("come-here")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
         	       		# Wait for 10 seconds before getting another input
         	      		for _ in range(180): rospy.sleep(0.1)
                        		
@@ -246,8 +247,8 @@ def set_up_mic():
         	       		debug("high-five")
         	       		pub.publish("high-five")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
 		                # Wait for 10 seconds before getting another input
         	       		for _ in range(150): rospy.sleep(0.1)
            		
@@ -255,36 +256,32 @@ def set_up_mic():
 		                debug(phrase)
         	       		pub.publish("stop-mimic")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
 		                # Wait for 5 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)
 			elif "rotate" in phrase:
 				debug(phrase)
         	       		pub.publish("rotate")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
 		                # Wait for 15 seconds before getting another input
         	       		for _ in range(250): rospy.sleep(0.1) 
 			elif "stop" in phrase and "rotating" in phrase:
-				os.system("rosnode kill rosout look_closest_person")
- 				os.system("rosnode kill rosout face_closest_person")
-		    		os.system("rosnode kill rosout par_lidar")
-
 				debug(phrase)
         	       		pub.publish("stop-rotating")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
 		                # Wait for 15 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)              		
 			else:
         			debug("Speaking: word not found")
 				pub.publish("wordnotfound")
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+				red.publish(100)
+	            		green.publish(0)
 				# Wait for 5 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)
 		else:
