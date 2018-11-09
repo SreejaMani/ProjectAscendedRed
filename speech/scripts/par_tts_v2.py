@@ -61,24 +61,28 @@ def speech(data):
 	    	answer = random.choice(generalAnswers)
        		debug("Speaking: mimicking")
         	pubtts.publish(answer)	
-		os.system("rostopic pub /red/commands std_msgs/String 'start_kinect'")		
+		#os.system("rostopic pub /red/commands std_msgs/String 'start_kinect'")
+		os.system("rosrun par_package kinect_two_hands.py")
 	elif "stop-mimic" ==  text:
 		# get a random word from the list
 	    	answer = random.choice(generalAnswers)
        		debug("Speaking: stop mimicking")
         	pubtts.publish(answer)	
-		os.system("rostopic pub /red/commands std_msgs/String 'stop_kinect'")
+		#os.system("rostopic pub /red/commands std_msgs/String 'stop_kinect'")
+		os.system("rosnode kill rosout lift_ik_prototype")
 	elif "rotate" == text:
 		# get a random word from the list
 	    	answer = random.choice(generalAnswers)
 		debug("speaking: rotating")
 		pubtts.publish(answer)
 		os.system("roslaunch par_package mobility_read.launch")	
-	elif "stop-rotating" == text:		
-		os.system("rosnode kill rosout look_closest_person")
-		os.system("rosnode kill rosout face_closest_person")
-		os.system("rosnode kill rosout par_lidar")
-    	elif "shake" == text:
+	elif "stop-rotating" == text:
+		# get a random word from the list
+             	answer = random.choice(generalAnswers)
+               	debug("speaking: stop rotating")
+             	pubtts.publish(answer)
+		
+   	elif "shake" == text:
 		# get a random word from the list
 	    	answer = random.choice(generalAnswers)
         	debug("Speaking: Shake hands")
