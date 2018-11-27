@@ -30,7 +30,7 @@ def speech(data):
 			"beg you pardon?", "sorry... come again", "sorry... I didn't get that", "I did not understand"]
     	if "greeting" == text:
         	debug("Speaking: Welcome")
-		pubtts.publish("Welcome to the Vxlab")		
+		pubtts.publish("Welcome to the media portal")		
     	elif "name" == text:
 		debug("Speaking: my name")
 		pubtts.publish("my name is Baxter but you can call me Red")

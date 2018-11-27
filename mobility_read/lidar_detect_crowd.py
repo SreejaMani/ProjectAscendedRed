@@ -37,7 +37,6 @@ def modAngle(i):
 
     return i
 
-
 # endDef
 
 def obstructed(data, min, max):

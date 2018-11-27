@@ -53,7 +53,7 @@ publishCounter = 0 #counter to track publish rate
 def callback(data):
 	global publishCounter
 	if publishCounter == publishRate:
-		minAngle = int(scan(data, 950, 2650)/10)
+		minAngle = int(scan(data, 950 + 350, 2650 - 350)/10)
 		rospy.loginfo("Closest angle = %d", minAngle)
 		pub.publish(minAngle)
 		publishCounter = 0

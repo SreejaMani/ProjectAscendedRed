@@ -1,0 +1,5 @@
+#! /bin/bash
+
+rosrun par_package par_lidar.py
+rosrun par_package red_delay_rotate.py
+rosrun par_package red_head_track.py

@@ -11,59 +11,64 @@ from std_msgs.msg import Int32, Float32, UInt32
 
 def listener(data):
 
-    global running, emotion_listener, nearby_object_pos, current_emotion_num
+    global running, current_emotion
     # print abs(nearby_object_pos - data.data)
 
     run_cmd = DigitalIOState()
     run_cmd.state = 1
 
 
-    #sleep for random int b/w 10-30 seconds before checking for new user
-    #delay = randint(10,30)
-    #
     print 'Data:', data.data
-    print 'Current emotion number:', current_emotion_num
-    if data.data != 0 and current_emotion_num != data.data:
-        print 'Loops working?'
-        if data.data is 1:
-            print 'testing??', data.data, current_emotion_num
-            # 1 user - A friend! Happy
-            red.publish(0)
-            green.publish(100)
-            movie.publish("2b")
-            movie.publish("3b")
-            movie.publish("4b")
-        if data.data is 2:
-            # 2 users - A party! Love
-            red.publish(80)
-            green.publish(20)
-            movie.publish("2c")
-            movie.publish("3c")
-            movie.publish("4c")
-        if data.data is 4:
-            # 4 users - A crowd - Scared
-            red.publish(75)
-            green.publish(75)
-            movie.publish("2e")
-            movie.publish("3e")
-            movie.publish("4e")
+    print 'Current emotion:', current_emotion
+    if data.data != 0 and running != True:
+        running = True
+        if data.data in range(1,2):
+            # 1 user - Alone... Scared
+            # Lime
+            headColour(75, 75)
+            playEmotion("e")
+            current_emotion = "Fear"
 
-        current_emotion_num = data.data
+        if data.data in range(2,6):
+            # 2-3 users - A party! Happy
+            # Green
+            headColour(0, 100)
+            playEmotion("b")
+            current_emotion = "Happy"
+
+        if data.data in range (6,30):
+            # 4 users - A crowd! Love
+            # Orange
+            headColour(80, 20)
+            playEmotion("c")
+            current_emotion = "Love"
+
+        # sleep for random int b/w 35-60 seconds before checking for new emotion
+        rospy.sleep(randint(35, 60))
+        running = False
+
     # if abs(nearby_object_pos - data.data) > 30:
     #     happy_cmd_listener.publish(run_cmd)
     #     print 'published...\n'
     # nearby_object_pos = data.data
 
+def headColour(redLevel, greenLevel):
+    red.publish(redLevel)
+    green.publish(greenLevel)
+
+def playEmotion(emotion):
+    movie.publish("2"+emotion)
+    movie.publish("3"+emotion)
+    movie.publish("4"+emotion)
 
 def main():
-    global emotion_listener, nearby_object_pos, current_emotion_num
-    nearby_object_pos = 0
-    current_emotion_num = 0
+    global current_emotion, running
+    current_emotion = "Default"
+    running = False
 
     rospy.init_node('emotional_red_trigger')
-    print 'emotional red active...\n'
-    emotion_listener = rospy.Publisher('/robot/digital_io/torso_right_button_ok/state', DigitalIOState, latch=False, queue_size=1)
-    rospy.Subscriber("/input/lidar/numobjects",UInt32,listener)
+    print 'Emotional red active...\n'
+    rospy.Subscriber("/input/lidar/numobjects",UInt32, listener)
 
     rospy.spin()
 

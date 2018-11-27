@@ -46,7 +46,7 @@ def recognize_speech_from_mic(recognizer, microphone):
 	# from the microphone
 	with microphone as source:
 		#Adjust the mic energy threshold for ambient noise
-		#recognizer.adjust_for_ambient_noise(source)
+		recognizer.adjust_for_ambient_noise(source)
 		#Green led indicator		
 		red.publish(0)
 		green.publish(100)
@@ -56,7 +56,7 @@ def recognize_speech_from_mic(recognizer, microphone):
         	audio = recognizer.listen(source)
         	print "Got it! Now to recognize it..."
 		#Adjust the mic energy threshold for ambient noise
-		recognizer.adjust_for_ambient_noise(source)
+		#recognizer.adjust_for_ambient_noise(source)
 
     	# set up the response object
 	response = {
@@ -100,8 +100,8 @@ def set_up_mic():
     	for index, mic_name in enumerate(sr.Microphone.list_microphone_names()):
         	micsplit = mic_name.split()
         	for micname in micsplit:
-            		#if micname == "Xbox":
-			if micname == "Webcam":
+            		if micname == "Xbox":
+			#if micname == "Webcam":
             		#if micname == "pulse":
                 		print("Microphone with name \"{1}\" found for `Microphone(device_index={0})`".format(index, mic_name))
                 		microphone = sr.Microphone(device_index=index)
@@ -135,156 +135,155 @@ def set_up_mic():
 		#check if red or baxter is in the phrase
 		if "red" in phrase or "baxter" in phrase: 
 	            	if "hi" == phrase or "hello" in phrase or ("good" in phrase and ("morning" in phrase or "afternoon" in phrase)):
-        	        	debug("greeting")
-		               	pub.publish("greeting")  
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)        
+        	        	#red led indicator 
+            			red.publish(50)
+                      		green.publish(50)
+				debug("greeting")
+		               	pub.publish("greeting")          
         	 	    	# Wait for 5 seconds before getting another input
         	 	       	for _ in range(50): rospy.sleep(0.1)
              	       	
         	 	elif ("what" in phrase or "do" in phrase) and "name" in phrase:
-				debug("name")
-        	        	pub.publish("name")    
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)            
+                               	red.publish(50)
+                               	green.publish(50)
+				debug("name")
+        	        	pub.publish("name")                
         	        	# Wait for 5 seconds before getting another input
         	        	for _ in range(50): rospy.sleep(0.1)
                 	
         	    	elif "how" in phrase and ("are" in phrase or "doing" in phrase or "going" in phrase):
-        	      		debug("long greeting")
-		        	pub.publish("long greeting")                        
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
+        	      		#red led indicator      
+                               	red.publish(50)
+                               	green.publish(50)
+				debug("long greeting")
+		        	pub.publish("long greeting")                       
         	       		# Wait for 5 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)
                     			
 			elif ("what" in phrase or "things" in phrase) and "do" in phrase:
-        	        	debug("do")
+        	        	#red led indicator      
+                               	red.publish(50)
+                               	green.publish(50)
+				debug("do")
         	        	pub.publish("do")            
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
 				# Wait for 5 seconds before getting another input
 		      		for _ in range(80): rospy.sleep(0.1)
 			
 		   	elif "untuck" in phrase and "arms" in phrase:
-		                debug("untuck")
-        	       		pub.publish("untuck")             
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)   
+                               	red.publish(50)
+                               	green.publish(50)
+		                debug("untuck")
+        	       		pub.publish("untuck")                
 		                # Wait for 10 seconds before getting another input
         	       		for _ in range(100): rospy.sleep(0.1)
                      		
 			elif "tuck" in phrase and "arms" in phrase:
-      	         		debug("tuck")
-      	         		pub.publish("tuck")              
 				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)  
+                               	red.publish(50)
+                               	green.publish(50)
+      	         		debug("tuck")
+      	         		pub.publish("tuck")               
       	         		# Wait for 10 seconds before getting another input
       	         		for _ in range(100): rospy.sleep(0.1)
       	               		
         		elif ("mimic" in phrase or "mirror" in phrase)and "me" in phrase:
-        	       		debug("mimic")
+        	       		#red led indicator      
+                               	red.publish(50)
+                              	green.publish(50)
+				debug("mimic")
         	       		pub.publish("mimic")                
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
         	       		# Wait for 15 seconds before getting another input
         	       		for _ in range(150): rospy.sleep(0.1)
                 	       		
         		elif "shake" in phrase and "hands" in phrase:
-        	       		debug("shake")
+        	       		#red led indicator      
+                               	red.publish(50)
+                               	green.publish(50)
+				debug("shake")
         	      		pub.publish("shake")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
         	       		# Wait for 10 seconds before getting another input
         	       		for _ in range(130): rospy.sleep(0.1)
         	       		
 	       		elif "big" in phrase and "wave" in phrase:
-		                debug("big-wave")
+		                #red led indicator      
+                               	red.publish(50)
+                               	green.publish(50)
+				debug("big-wave")
         	       		pub.publish("big-wave")    
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
         	       		# Wait for 10 seconds before getting another input
         	       		for _ in range(160): rospy.sleep(0.1)
 	
 			elif "wave" in phrase:
+				#red led indicator      
+                               	red.publish(50)
+                                green.publish(50)
 		                debug("wave")
         	       		pub.publish("wave")    
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
         	       		# Wait for 10 seconds before getting another input
         	       		for _ in range(180): rospy.sleep(0.1)
                		
 		        elif "fist" in phrase and "bump" in phrase:
-		                debug("fist-bump")
+		                #red led indicator      
+                                red.publish(50)
+                                green.publish(50)
+				debug("fist-bump")
         	       		pub.publish("fist-bump")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
 		                # Wait for 10 seconds before getting another input
         	       		for _ in range(130): rospy.sleep(0.1)
                        		
         		elif "come" in phrase and "here" in phrase:
-		                debug("come-here")
+		               #red led indicator      
+                                red.publish(50)
+                                green.publish(50)
+				debug("come-here")
         	       		pub.publish("come-here")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
         	       		# Wait for 10 seconds before getting another input
         	      		for _ in range(180): rospy.sleep(0.1)
                        		
        			elif "high" in phrase and "five" in phrase:
-        	       		debug("high-five")
+        	       		#red led indicator      
+                                red.publish(50)
+                                green.publish(50)
+				debug("high-five")
         	       		pub.publish("high-five")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
 		                # Wait for 10 seconds before getting another input
         	       		for _ in range(150): rospy.sleep(0.1)
            		
 		       	elif "stop" in phrase and "mimic" in phrase:
-		                debug(phrase)
+		                #red led indicator      
+                                red.publish(50)
+                                green.publish(50)
+				debug(phrase)
         	       		pub.publish("stop-mimic")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
 		                # Wait for 5 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)
 			elif "rotate" in phrase:
+				#red led indicator      
+                                red.publish(50)
+                                green.publish(50)
 				debug(phrase)
         	       		pub.publish("rotate")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
 		                # Wait for 15 seconds before getting another input
         	       		for _ in range(250): rospy.sleep(0.1) 
 			elif "stop" in phrase and "rotating" in phrase:
+				#red led indicator      
+                                red.publish(50)
+                                green.publish(50)
 				os.system("rosnode kill rosout look_closest_person")
  				os.system("rosnode kill rosout face_closest_person")
 		    		os.system("rosnode kill rosout par_lidar")
-
 				debug(phrase)
         	       		pub.publish("stop-rotating")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
 		                # Wait for 15 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)              		
 			else:
+				#red led indicator      
+                                red.publish(50)
+                                green.publish(50)
         			debug("Speaking: word not found")
 				pub.publish("wordnotfound")
-				#red led indicator      
-				red.publish(50)
-	            		green.publish(50)
 				# Wait for 5 seconds before getting another input
         	       		for _ in range(50): rospy.sleep(0.1)
 		else:
